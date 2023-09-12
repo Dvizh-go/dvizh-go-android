@@ -86,4 +86,9 @@ dependencies {
     implementation 'com.github.Jay-Goo:RangeSeekBar:v3.0.0'
 
     implementation 'com.prolificinteractive:material-calendarview:1.4.3'
+
+    implementation 'com.google.zxing:core:3.3.3'
+    implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
+
+    implementation 'com.google.android.gms:play-services-vision:20.1.3'
 }
