@@ -111,7 +111,7 @@ class BottomSheetSelectListFragment : BottomSheetDialogFragment(), OnSelectListC
 				item = it
 			}
 		}
-		adapter.notifyItemChanged(list.indexOf(item))
+		adapter.notifyDataSetChanged()
 	}
 
 	fun setListener(listener: OnBottomSheetDismissListener) {
