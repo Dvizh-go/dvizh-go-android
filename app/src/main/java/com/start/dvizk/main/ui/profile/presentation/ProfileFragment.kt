@@ -17,30 +17,21 @@ import com.start.dvizk.R
 import com.start.dvizk.arch.data.SharedPreferencesRepository
 import com.start.dvizk.create.CreateActivity
 import com.start.dvizk.create.steps.data.model.RequestResponseState
-import com.start.dvizk.main.MainActivity
+import com.start.dvizk.databinding.FragmentProfilePageBinding
 import com.start.dvizk.main.ui.home.presentation.HomeFragment
 import com.start.dvizk.main.ui.profile.data.model.ProfileDataModel
-import com.start.dvizk.main.ui.profile.data.model.UserProfile
 import com.start.dvizk.scanner.QRScannerActivity
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.start.dvizk.main.ui.profile.data.manageEvents.ManageEventsFragment
 
 class ProfileFragment : Fragment() {
 
+	private val viewBinding: FragmentProfilePageBinding by viewBinding()
+
 	private val viewModel: ProfileViewModel by viewModel()
 	private val sharedPreferencesRepository: SharedPreferencesRepository by inject()
-
-	private lateinit var fragment_profile_page_profile_avatar: ImageView
-	private lateinit var fragment_profile_page_profile_name: TextView
-
-	private lateinit var fragment_profile_page_events_count: TextView
-	private lateinit var fragment_profile_page_followers_count: TextView
-	private lateinit var fragment_profile_page_subscriptions_count: TextView
-
-	private lateinit var fragment_profile_page_create_event: ConstraintLayout
-	private lateinit var fragment_profile_page_logout: ConstraintLayout
-
-	private lateinit var qr: View
 
 	override fun onCreateView(
 		inflater: LayoutInflater,
@@ -53,47 +44,25 @@ class ProfileFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
-		initView(view)
+		initView()
 		initObserver()
 
 		viewModel.getUserProfile(sharedPreferencesRepository.getUserToken())
 	}
 
-	private fun initView(view: View) {
-		fragment_profile_page_profile_avatar =
-			view.findViewById(R.id.fragment_profile_page_profile_avatar)
-
+	private fun initView() {
 		Glide.with(this)
 			.load(sharedPreferencesRepository.getUserImage())
 			.placeholder(R.drawable.logo)
 			.apply(RequestOptions.circleCropTransform())
-			.into(fragment_profile_page_profile_avatar)
+			.into(viewBinding.fragmentProfilePageProfileAvatar)
 
-
-		fragment_profile_page_profile_name =
-			view.findViewById(R.id.fragment_profile_page_profile_name)
-
-		qr =
-			view.findViewById(R.id.qr)
-
-		fragment_profile_page_events_count =
-			view.findViewById(R.id.fragment_profile_page_events_count)
-		fragment_profile_page_followers_count =
-			view.findViewById(R.id.fragment_profile_page_followers_count)
-		fragment_profile_page_subscriptions_count =
-			view.findViewById(R.id.fragment_profile_page_subscriptions_count)
-
-		fragment_profile_page_create_event =
-			view.findViewById(R.id.fragment_profile_page_create_event)
-		fragment_profile_page_create_event.setOnClickListener {
+		viewBinding.fragmentProfilePageCreateEvent.setOnClickListener {
 			val intent = Intent(requireActivity(), CreateActivity::class.java)
 			startActivity(intent)
 		}
 
-		fragment_profile_page_logout =
-			view.findViewById(R.id.fragment_profile_page_logout)
-
-		fragment_profile_page_logout.setOnClickListener {
+		viewBinding.fragmentProfilePageLogout.setOnClickListener {
 			val ft: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
 
 			sharedPreferencesRepository.clearAll()
@@ -101,10 +70,17 @@ class ProfileFragment : Fragment() {
 			ft.commit()
 		}
 
-		qr.setOnClickListener {
+		viewBinding.qr.setOnClickListener {
 			val intent = Intent(requireContext(), QRScannerActivity::class.java)
 			startActivity(intent)
+		}
 
+		viewBinding.fragmentProfilePageManagingMyEvents.setOnClickListener {
+			val ft: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+
+			sharedPreferencesRepository.clearAll()
+			ft.replace(R.id.nav_host_fragment_activity_main, ManageEventsFragment())
+			ft.commit()
 		}
 	}
 
@@ -112,7 +88,7 @@ class ProfileFragment : Fragment() {
 		viewModel.profileStateLiveData.observe(viewLifecycleOwner, ::handleState)
 	}
 
-	private fun handleState(state: RequestResponseState) {
+	private fun handleState(state: RequestResponseState) = with(viewBinding) {
 		when (state) {
 			is RequestResponseState.Failed -> {
 				Toast.makeText(requireContext(), state.message, Toast.LENGTH_LONG).show()
@@ -123,11 +99,11 @@ class ProfileFragment : Fragment() {
 			is RequestResponseState.Success -> {
 				val response = state.value as? ProfileDataModel ?: return
 
-				fragment_profile_page_profile_name.text = response.name
+				fragmentProfilePageProfileName.text = response.name
 
-				fragment_profile_page_events_count.text = response.eventsCount.toString()
-				fragment_profile_page_followers_count.text = response.subscribers.toString()
-				fragment_profile_page_subscriptions_count.text = response.subscriptions.toString()
+				fragmentProfilePageEventsCount.text = response.eventsCount.toString()
+				fragmentProfilePageFollowersCount.text = response.subscribers.toString()
+				fragmentProfilePageSubscriptionsCount.text = response.subscriptions.toString()
 			}
 		}
 	}

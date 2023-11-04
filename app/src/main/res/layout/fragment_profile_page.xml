@@ -420,7 +420,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:visibility="gone"
                 android:id="@+id/fragment_profile_page_managing_my_events"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
