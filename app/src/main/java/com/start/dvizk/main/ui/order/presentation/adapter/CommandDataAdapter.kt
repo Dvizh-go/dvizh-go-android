@@ -17,7 +17,7 @@ class CommandDataAdapter : RecyclerView.Adapter<CommandDataAdapter.ViewHolder>()
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
 		val member = LayoutInflater.from(parent.context)
-			.inflate(R.layout.item_command_member, parent, false)
+			.inflate(R.layout.item_team_member, parent, false)
 
 		return ViewHolder(member)
 	}
