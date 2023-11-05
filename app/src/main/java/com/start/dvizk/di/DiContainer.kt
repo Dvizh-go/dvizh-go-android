@@ -42,6 +42,7 @@ import com.start.dvizk.main.ui.order.data.TicketOrderRepository
 import com.start.dvizk.main.ui.order.presentation.steps.TicketOrderViewModel
 import com.start.dvizk.main.ui.profile.data.ProfileApi
 import com.start.dvizk.main.ui.profile.data.ProfileRepository
+import com.start.dvizk.main.ui.profile.data.manageEvents.ManageEventsViewModel
 import com.start.dvizk.main.ui.profile.presentation.ProfileViewModel
 import com.start.dvizk.main.ui.tickets.mytickets.data.MyTicketsApi
 import com.start.dvizk.main.ui.tickets.mytickets.data.MyTicketsRepository
@@ -62,6 +63,7 @@ import com.start.dvizk.registration.varification.presentation.VerificationViewMo
 import com.start.dvizk.search.search.presentation.SearchViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.GlobalContext.startKoin
@@ -233,6 +235,12 @@ object DiContainer {
 		viewModel {
 			OrganizationsListViewModel(
 				organizationRepository = get()
+			)
+		}
+
+		viewModel {
+			ManageEventsViewModel(
+				application = androidApplication(),
 			)
 		}
 
