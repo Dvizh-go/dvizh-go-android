@@ -7,7 +7,6 @@
     tools:context=".main.ui.profile.data.manageEvents.listOfParticipants.ListOfParticipantsFragment"
     android:background="@color/app_background">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -93,7 +93,7 @@
                 app:layout_constraintStart_toStartOf="@id/fragment_order_command_data_step_return_button"
                 app:layout_constraintTop_toBottomOf="@id/fragment_order_command_data_step_command_name_edit_text"
                 tools:itemCount="3"
-                tools:listitem="@layout/item_command_member" />
+                tools:listitem="@layout/item_team_member" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
