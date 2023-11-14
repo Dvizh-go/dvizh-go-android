@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:gravity="center"
-            android:text="Войдите"
+            android:text="@string/log_in"
             android:textColor="@color/white"
             android:textColorHint="#9D9E9E"
             android:textSize="32sp"
@@ -51,9 +51,9 @@
             android:layout_marginHorizontal="25dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/bg_gradient_dark_grey_button"
-            android:drawableLeft="@drawable/ic_login_auth"
+            android:drawableStart="@drawable/ic_login_auth"
             android:drawablePadding="16dp"
-            android:hint="Телефон, имя пользователя или эл. а"
+            android:hint="@string/log_in_phone_mail_edit"
             android:padding="20dp"
             android:textColorHint="#9D9E9E"
             android:textColor="@color/white"
@@ -67,9 +67,9 @@
             android:layout_marginHorizontal="25dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/bg_gradient_dark_grey_button"
-            android:drawableLeft="@drawable/ic_auth_password"
+            android:drawableStart="@drawable/ic_auth_password"
             android:drawablePadding="16dp"
-            android:hint="Пароль"
+            android:hint="@string/password_login"
             android:inputType="textPassword"
             android:padding="20dp"
             android:textColorHint="#9D9E9E"
@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="Запомнить меня"
+            android:text="@string/remember_me_login"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:visibility="gone"
@@ -109,7 +109,7 @@
             android:layout_marginHorizontal="25dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/bg_purple_button"
-            android:text="Войти"
+            android:text="@string/log_in"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="16sp"
@@ -154,19 +154,34 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/view1" />
 
-
-        <TextView
-            android:id="@+id/fragment_auth_registration_text"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
             android:gravity="center"
-            android:text="Don’t have an account?   Sign up"
-            android:textColor="@color/white"
-            android:textSize="16sp"
+            android:paddingTop="15dp"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text1" />
+            app:layout_constraintTop_toBottomOf="@id/text1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/do_not_have_account"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/fragment_auth_registration_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="@string/sign_up"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

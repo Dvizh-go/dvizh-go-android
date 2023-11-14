@@ -67,4 +67,8 @@
         <item name="colorControlActivated">@color/app_accent</item>
     </style>
 
+    <style name="NoUnderlineTextInputEditText" parent="Widget.MaterialComponents.TextInputEditText.FilledBox">
+        <item name="boxBackgroundMode">none</item>
+    </style>
+
 </resources>

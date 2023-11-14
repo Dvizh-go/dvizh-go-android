@@ -11,6 +11,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.google.android.material.textfield.TextInputEditText
 import com.start.dvizk.R
 import com.start.dvizk.registration.registr.presentation.model.User
 import com.start.dvizk.registration.varification.presentation.VerificationCodeFragment
@@ -28,7 +29,7 @@ class PasswordGenerationFragment :
 
 
 	private lateinit var continueRegistration: Button
-	private lateinit var fragment_password_generation_edit_text_1: EditText
+	private lateinit var fragment_password_generation_edit_text_1: TextInputEditText
 	private lateinit var fragment_password_generation_edit_text_2: EditText
 	private lateinit var fragment_registration_loader: View
 

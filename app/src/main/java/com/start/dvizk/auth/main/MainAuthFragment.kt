@@ -28,7 +28,7 @@ class MainAuthFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
-		registrationButton = view.findViewById(R.id.text2)
+		registrationButton = view.findViewById(R.id.signUpTextView)
 
 		view.findViewById<Button>(R.id.button1).setOnClickListener {
 			val ft: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
