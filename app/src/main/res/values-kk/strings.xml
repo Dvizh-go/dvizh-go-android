@@ -1,7 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">dvizh</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 
     <string-array name="gender">
         <item>Муж</item>
@@ -12,13 +13,14 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
-    <string name="continue_register_facebook">Продолжить с Facebook</string>
-    <string name="continue_register_google">Продолжить с Google</string>
+    <string name="title_search">Поиск</string>
+    <string name="title_favorites">Избранное</string>
+    <string name="title_qr">Dvizh QR</string>
     <string name="title_my_tickets">Мои билеты</string>
     <string name="title_profile">Профиль</string>
-    <string name="title_qr">Dvizh QR</string>
-    <string name="title_favorites">Favourites</string>
-    <string name="title_search">Search</string>
+
+    <string name="continue_register_facebook">Продолжить с Facebook</string>
+    <string name="continue_register_google">Продолжить с Google</string>
     <string name="sign_in_with_password">Войти с паролем</string>
     <string name="do_not_have_account">Нет аккаунта?</string>
     <string name="sign_up">Зарегистрируйся</string>

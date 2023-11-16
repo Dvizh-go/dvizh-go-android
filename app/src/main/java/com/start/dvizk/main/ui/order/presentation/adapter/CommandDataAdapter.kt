@@ -50,8 +50,8 @@ class CommandDataAdapter : RecyclerView.Adapter<CommandDataAdapter.ViewHolder>()
 
 	inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 		fun bind() {
-			val memberEditText: EditText = itemView.findViewById(R.id.item_command_member_edit_text)
-			val memberRemoveButton: ImageView = itemView.findViewById(R.id.item_command_member_remove)
+			val memberEditText: EditText = itemView.findViewById(R.id.item_team_member_edit_text)
+			val memberRemoveButton: ImageView = itemView.findViewById(R.id.item_team_member_remove)
 
 			memberEditText.addTextChangedListener(object : TextWatcher {
 				override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}

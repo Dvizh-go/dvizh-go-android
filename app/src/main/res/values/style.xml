@@ -67,4 +67,12 @@
         <item name="colorControlActivated">@color/app_accent</item>
     </style>
 
+    <style name="NoUnderlineTextInputEditText" parent="Widget.MaterialComponents.TextInputEditText.FilledBox">
+        <item name="boxBackgroundMode">none</item>
+    </style>
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">20sp</item>
+    </style>
+
 </resources>

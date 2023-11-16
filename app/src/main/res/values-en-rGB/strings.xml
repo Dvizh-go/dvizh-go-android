@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">dvizh</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+
+    <string-array name="gender">
+        <item>Муж</item>
+        <item>Жен</item>
+    </string-array>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="title_search">Поиск</string>
+    <string name="title_favorites">Избранное</string>
+    <string name="title_qr">Dvizh QR</string>
+    <string name="title_my_tickets">My tickets</string>
+    <string name="title_profile">Profile</string>
+
+    <string name="continue_register_facebook">Continue with Facebook</string>
+    <string name="continue_register_google">Continue with Google</string>
+    <string name="sign_in_with_password">Continue with password</string>
+    <string name="do_not_have_account">Don’t have an account?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="or">or</string>
+    <string name="welcome_registration">Welcome!</string>
+    <string name="log_in">Log in</string>
+    <string name="log_in_phone_mail_edit">Phone number, username, or email address</string>
+    <string name="password_login">Password</string>
+    <string name="remember_me_login">Remember me</string>
+</resources>

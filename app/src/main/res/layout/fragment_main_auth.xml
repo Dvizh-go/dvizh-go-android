@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#181a20">
@@ -27,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:gravity="center"
-            android:text="Добро пожаловать!"
+            android:text="@string/welcome_registration"
             android:textColor="@color/white"
             android:textSize="32sp"
             app:layout_constraintTop_toBottomOf="@id/image1" />
@@ -53,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:paddingVertical="18dp"
-                android:text="Continue with Facebook"
+                android:text="@string/continue_register_facebook"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -79,33 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:paddingVertical="18dp"
-                android:text="Continue with Google"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/auth_apple"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="25dp"
-            android:layout_marginTop="18dp"
-            android:background="@drawable/bg_gradient_dark_grey_button"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/auth_google">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_3" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:paddingVertical="18dp"
-                android:text="Continue with Apple"
+                android:text="@string/continue_register_google"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -121,7 +94,7 @@
             android:paddingTop="8dp"
             app:layout_constraintEnd_toStartOf="@id/text1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/auth_apple" />
+            app:layout_constraintTop_toBottomOf="@id/auth_google" />
 
         <View
             android:id="@+id/view2"
@@ -134,14 +107,14 @@
             android:paddingTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/text1"
-            app:layout_constraintTop_toBottomOf="@id/auth_apple" />
+            app:layout_constraintTop_toBottomOf="@id/auth_google" />
 
         <TextView
             android:id="@+id/text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="or"
+            android:text="@string/or"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/view1"
@@ -156,24 +129,40 @@
             android:layout_marginHorizontal="25dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/bg_purple_button"
-            android:text="Sign in with password"
+            android:text="@string/sign_in_with_password"
             android:textAllCaps="false"
-            android:textSize="16sp"
             android:textColor="@color/white"
+            android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@id/text1" />
 
-        <TextView
-            android:id="@+id/text2"
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="34dp"
             android:gravity="center"
-            android:text="Don’t have an account?   Sign up"
-            android:textColor="@color/white"
-            android:textSize="16sp"
+            android:paddingTop="15dp"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button1" />
+            app:layout_constraintTop_toBottomOf="@id/button1">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/do_not_have_account"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/signUpTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="@string/sign_up"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
