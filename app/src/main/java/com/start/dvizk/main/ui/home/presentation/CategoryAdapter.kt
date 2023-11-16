@@ -50,7 +50,7 @@ class CategoryAdapter(private val resources: Resources): RecyclerView.Adapter<Ca
 			name.text = categorie.name
 			var imageUrl = ""
 			if (categorie.name != "Все") {
-				imageUrl = "http://161.35.145.58/"+categorie.image
+				imageUrl = "http://157.230.117.5/"+categorie.image
 			}
 			Glide.with(itemView)
 				.load(imageUrl)
