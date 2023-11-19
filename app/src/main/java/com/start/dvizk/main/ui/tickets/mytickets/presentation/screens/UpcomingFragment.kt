@@ -9,10 +9,18 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.start.dvizk.R
 import com.start.dvizk.arch.data.SharedPreferencesRepository
+import com.start.dvizk.auth.main.MainAuthFragment
+import com.start.dvizk.auth.profile.ProfileAuthFragment
+import com.start.dvizk.main.MainActivity
+import com.start.dvizk.main.ui.detail.presentation.rules.CancellationRulesFragment
+import com.start.dvizk.main.ui.home.presentation.EVENT_ID
+import com.start.dvizk.main.ui.profile.presentation.ProfileFragment
 import com.start.dvizk.main.ui.tickets.mytickets.data.model.MyTicket
 import com.start.dvizk.main.ui.tickets.mytickets.data.model.state.UpcomingTicketsState
 import com.start.dvizk.main.ui.tickets.mytickets.presentation.MyTicketsViewModel
@@ -118,9 +126,16 @@ class UpcomingFragment : Fragment(), OnTicketClickListener {
 	private fun handleState(state: UpcomingTicketsState) {
 		when (state) {
 			is UpcomingTicketsState.Failed -> {
-				Toast.makeText(requireContext(), state.message, Toast.LENGTH_LONG).show()
+				Toast.makeText(requireContext(), "Для доступа к этой функции необходимо войти в свой аккаунт", Toast.LENGTH_SHORT).show()
+				val navView = activity?.findViewById(R.id.nav_view) as? BottomNavigationView
+				navView?.selectedItemId = R.id.navigation_profile
+				val ft: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+				ft.replace(R.id.nav_host_fragment_activity_main, MainAuthFragment())
+				ft.commit()
 			}
-			is UpcomingTicketsState.Loading -> {}
+			is UpcomingTicketsState.Loading -> {
+
+			}
 			is UpcomingTicketsState.Success -> {
 				totalPage = state.totalPage
 //				setupPagination(totalPage)
