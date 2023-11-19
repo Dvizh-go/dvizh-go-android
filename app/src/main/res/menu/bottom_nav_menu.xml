@@ -6,10 +6,15 @@
         android:icon="@drawable/ic_search"
         android:title="@string/title_search" />
 
+<!--    <item-->
+<!--        android:id="@+id/navigation_favorites"-->
+<!--        android:icon="@drawable/ic_favorites"-->
+<!--        android:title="@string/title_favorites" />-->
+
     <item
-        android:id="@+id/navigation_favorites"
-        android:icon="@drawable/ic_favorites"
-        android:title="@string/title_favorites" />
+        android:id="@+id/navigation_qr"
+        android:icon="@drawable/ic_qr"
+        android:title="@string/qr" />
 
     <item
         android:id="@+id/navigation_my_tickets"

@@ -14,6 +14,7 @@ import com.start.dvizk.main.ui.favorites.FavoritesFragment
 import com.start.dvizk.main.ui.home.presentation.HomeFragment
 import com.start.dvizk.main.ui.profile.presentation.ProfileFragment
 import com.start.dvizk.main.ui.tickets.mytickets.presentation.MyTicketsFragment
+import com.start.dvizk.scanner.QRScannerActivity
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
@@ -42,20 +43,20 @@ class MainActivity : AppCompatActivity() {
 
 					true
 				}
-				R.id.navigation_favorites -> {
-					val ft: FragmentTransaction = this.supportFragmentManager.beginTransaction()
-					val favoritesFragment = FavoritesFragment()
-					ft.replace(R.id.nav_host_fragment_activity_main, favoritesFragment)
-					ft.commit()
-
-					true
-				}
-//				R.id.navigation_qr -> {
-//					val intent = Intent(this, CreateActivity::class.java)
-//					startActivity(intent)
+//				R.id.navigation_favorites -> {
+//					val ft: FragmentTransaction = this.supportFragmentManager.beginTransaction()
+//					val favoritesFragment = FavoritesFragment()
+//					ft.replace(R.id.nav_host_fragment_activity_main, favoritesFragment)
+//					ft.commit()
 //
 //					true
 //				}
+				R.id.navigation_qr -> {
+					val intent = Intent(this, QRScannerActivity::class.java)
+					startActivity(intent)
+
+					true
+				}
 				R.id.navigation_my_tickets -> {
 					val ft: FragmentTransaction = this.supportFragmentManager.beginTransaction()
 					val myTicketsFragment = MyTicketsFragment()

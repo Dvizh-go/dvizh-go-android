@@ -101,6 +101,7 @@ class EventDetailsFragment : Fragment(), OnDateTimeClickListener {
 		initObserver()
 
 		viewModel.getEventDetails(requireArguments().getInt(EVENT_ID))
+		Log.i("iddddddd", "${requireArguments().getInt(EVENT_ID)}")
 	}
 
 	override fun onItemClick(dateTime: DateTime) {
@@ -271,7 +272,7 @@ class EventDetailsFragment : Fragment(), OnDateTimeClickListener {
 				response.images?.forEach {
 					images.add(SlideModel(it))
 				}
-				fragment_detail_page_carousel.setImageList(images, ScaleTypes.CENTER_CROP)
+				fragment_detail_page_carousel.setImageList(images, ScaleTypes.CENTER_INSIDE)
 
 				response.datetimes?.forEach {
 					dateTimes.add(DateTime(it.id, it.date, it.start, it.duration))
@@ -334,8 +335,6 @@ class EventDetailsFragment : Fragment(), OnDateTimeClickListener {
 					)
 				)
 
-				Log.d("detinfo", detailsInformation.toString())
-
 				detailsInfoAdapter.setData(detailsInformation)
 
 				val findingInformation = response.location?.findingInformation
@@ -380,24 +379,18 @@ class EventDetailsFragment : Fragment(), OnDateTimeClickListener {
 				fragment_detail_page_contacts_whatsapp.setOnClickListener {
 					val organizationWhatsapp = response.organization?.whatsapp
 					if (organizationWhatsapp != null) {
-						if (isAppInstalled("com.whatsapp", requireContext().packageManager)) {
-							val organizationWhatsappUri =
-								"https://wa.me/send?phone=+7${response.organization.whatsapp}&text=Здраствуйте! Пишу из приложения DvizhGO.}"
-							openLink(organizationWhatsappUri)
-						} else {
-							Snackbar.make(
-								requireView(),
-								"WhatsApp не установлен",
-								Snackbar.LENGTH_LONG
-							).show()
-						}
+						val organizationWhatsappUri =
+							"https://wa.me/send?phone=${convertWhatsappPhoneNumber(organizationWhatsapp)}&text=Здраствуйте! Пишу из приложения EventGO."
+						openLink(organizationWhatsappUri)
 					}
 				}
 
 				fragment_detail_page_contacts_instagram.setOnClickListener {
 					val organizationInstagram = response.organization?.instagram
-					val organizationInstagramUri = "https://www.instagram.com/${organizationInstagram}"
-					openLink(organizationInstagramUri)
+					if (organizationInstagram != null) {
+						val organizationInstagramUri = convertInstagramLink(organizationInstagram)
+						openLink(organizationInstagramUri)
+					}
 				}
 
 				fragment_detail_page_contacts_google.setOnClickListener {
@@ -427,12 +420,19 @@ class EventDetailsFragment : Fragment(), OnDateTimeClickListener {
 		startActivity(intent)
 	}
 
-	private fun isAppInstalled(packageName: String, pm: PackageManager): Boolean {
-		return try {
-			pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
-			true
-		} catch (ex: PackageManager.NameNotFoundException) {
-			false
+	private fun convertWhatsappPhoneNumber(phoneNumber: String): String {
+		return if (phoneNumber.startsWith("+7")) {
+			"8${phoneNumber.substring(2)}"
+		} else {
+			phoneNumber
+		}
+	}
+
+	private fun convertInstagramLink(link: String): String {
+		return if (link.startsWith("https://instagram.com/")) {
+			link
+		} else {
+			"https://instagram.com/$link"
 		}
 	}
 }
