@@ -75,4 +75,8 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="Theme.RemoveSplashScreenTheme" parent="@style/Theme.Dvizh">
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
 </resources>

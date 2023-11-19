@@ -119,7 +119,7 @@ class HomeFragment : Fragment(), OnItemClickListener, OnCategoryItemClickListene
 		}
 
 		title.text = sharedPreferencesRepository.getUserName()
-		Glide.with(this).load(sharedPreferencesRepository.getUserImage()).placeholder(R.drawable.logo).apply(RequestOptions.circleCropTransform()).into(fragment_home_user_photo)
+		Glide.with(this).load(sharedPreferencesRepository.getUserImage()).placeholder(R.mipmap.ic_launcher_round).apply(RequestOptions.circleCropTransform()).into(fragment_home_user_photo)
 	}
 
 	private fun initPopularList() {
