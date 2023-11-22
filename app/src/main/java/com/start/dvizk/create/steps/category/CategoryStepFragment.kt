@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.start.dvizk.R
 import com.start.dvizk.arch.EventCreateRouter
 import com.start.dvizk.arch.data.SharedPreferencesRepository
@@ -23,53 +24,38 @@ import com.start.dvizk.create.steps.bottomsheet.BottomSheetSelectCategoryListFra
 import com.start.dvizk.create.steps.bottomsheet.OnSelectCategoryBottomSheetDismiss
 import com.start.dvizk.create.steps.data.model.RequestResponseState
 import com.start.dvizk.create.steps.data.model.StepDataApiResponse
+import com.start.dvizk.databinding.FragmentCategoryStepBinding
 import com.start.dvizk.main.ui.home.presentation.model.Category
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CategoryStepFragment : Fragment(), OnSelectCategoryBottomSheetDismiss, OnCategoryListDeleteItem {
+class CategoryStepFragment : Fragment(R.layout.fragment_category_step), OnSelectCategoryBottomSheetDismiss, OnCategoryListDeleteItem {
 
 	private val viewModel: CategoryStepViewModel by viewModel()
+	private val binding: FragmentCategoryStepBinding by viewBinding()
 	private val sharedPreferencesRepository: SharedPreferencesRepository by inject()
-
-	private lateinit var categoriesButton: Button
-	private lateinit var categoryListRecyclerView: RecyclerView
-	private lateinit var next: Button
-	private lateinit var back: Button
 
 	private lateinit var defaultEventAdapter: CreateEventCategoryListAdapter
 	private var categoryList = mutableListOf<Category>()
 
-	override fun onCreateView(
-		inflater: LayoutInflater,
-		container: ViewGroup?,
-		savedInstanceState: Bundle?
-	): View = inflater.inflate(R.layout.fragment_category_step, container, false)
-
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
-		initView(view)
+		initView()
 		viewModel.requestSendCatResponseStateLiveData.observe(viewLifecycleOwner, ::handleState)
-
 	}
 
-	private fun initView(view: View) {
-		val headerBack: ImageView = view.findViewById(R.id.fragment_create_organization_back_image)
-		headerBack.setOnClickListener {
+	private fun initView() = with(binding) {
+		fragmentCreateOrganizationBackImage.setOnClickListener {
 			requireActivity().supportFragmentManager.popBackStack()
 		}
-		categoriesButton = view.findViewById(R.id.fragment_create_organization_button)
-		next = view.findViewById(R.id.fragment_create_organization_next)
-		back = view.findViewById(R.id.fragment_create_organization_back)
-		categoryListRecyclerView = view.findViewById(R.id.fragment_category_step_list)
 
-		categoryListRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+		fragmentCategoryStepList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 		defaultEventAdapter = CreateEventCategoryListAdapter(resources)
-		defaultEventAdapter.setListener(this)
-		categoryListRecyclerView.adapter = defaultEventAdapter
+		defaultEventAdapter.setListener(this@CategoryStepFragment)
+		fragmentCategoryStepList.adapter = defaultEventAdapter
 
-		next.setOnClickListener {
+		fragmentCreateOrganizationNext.setOnClickListener {
 			arguments?.apply {
 
 				val ids = categoryList.map { it.id.toInt() }
@@ -83,13 +69,13 @@ class CategoryStepFragment : Fragment(), OnSelectCategoryBottomSheetDismiss, OnC
 			}
 		}
 
-		back.setOnClickListener {
+		fragmentCreateOrganizationBack.setOnClickListener {
 			requireActivity().supportFragmentManager.popBackStack()
 		}
 
-		categoriesButton.setOnClickListener {
+		fragmentCreateOrganizationButton.setOnClickListener {
 			val bottomSheetFragment = BottomSheetSelectCategoryListFragment()
-			bottomSheetFragment.setListener(this)
+			bottomSheetFragment.setListener(this@CategoryStepFragment)
 			bottomSheetFragment.show(parentFragmentManager, "MyBottomSheetFragmentTag")
 		}
 	}
