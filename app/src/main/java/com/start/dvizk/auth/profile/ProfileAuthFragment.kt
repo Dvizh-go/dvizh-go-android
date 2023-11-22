@@ -20,6 +20,7 @@ import com.start.dvizk.main.MainActivity
 import com.start.dvizk.network.RetrofitClient
 import com.start.dvizk.registration.registr.presentation.RegistrationFragment
 import com.start.dvizk.registration.registr.presentation.model.User
+import com.start.dvizk.util.ActivityLauncher
 import org.koin.android.ext.android.inject
 import retrofit2.Call
 import retrofit2.Callback
@@ -119,8 +120,7 @@ class ProfileAuthFragment : Fragment(), OnClickListener {
 								it.id?.let { it1 -> sharedPreferencesRepository.setUserId(it1) }
 
 							}
-							val intent = Intent(requireContext(), MainActivity::class.java)
-							startActivity(intent)
+							ActivityLauncher().startMainActivityWithFlags(requireContext())
 
 							return
 						}

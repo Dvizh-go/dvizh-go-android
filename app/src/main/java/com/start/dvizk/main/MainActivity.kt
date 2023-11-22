@@ -15,6 +15,7 @@ import com.start.dvizk.main.ui.home.presentation.HomeFragment
 import com.start.dvizk.main.ui.profile.presentation.ProfileFragment
 import com.start.dvizk.main.ui.tickets.mytickets.presentation.MyTicketsFragment
 import com.start.dvizk.scanner.QRScannerActivity
+import com.start.dvizk.util.ActivityLauncher
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
@@ -52,8 +53,7 @@ class MainActivity : AppCompatActivity() {
 //					true
 //				}
 				R.id.navigation_qr -> {
-					val intent = Intent(this, QRScannerActivity::class.java)
-					startActivity(intent)
+					ActivityLauncher().startQrScanner(this)
 
 					true
 				}

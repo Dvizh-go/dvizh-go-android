@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment
 import com.start.dvizk.R
 import com.start.dvizk.main.MainActivity
 import com.start.dvizk.registration.customview.CodeVerificationView
+import com.start.dvizk.util.ActivityLauncher
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -88,8 +89,7 @@ class VerificationCodeFragment :
 			}
 			is VerificationState.Success -> {
 				fragment_registration_loader.visibility = View.GONE
-				val intent = Intent(requireContext(), MainActivity::class.java)
-				startActivity(intent)
+				ActivityLauncher().startMainActivity(requireContext())
 			}
 		}
 	}

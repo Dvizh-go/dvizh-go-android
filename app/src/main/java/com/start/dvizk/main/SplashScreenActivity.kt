@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import com.start.dvizk.R
+import com.start.dvizk.util.ActivityLauncher
 
 class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +21,7 @@ class SplashScreenActivity : AppCompatActivity() {
         val splashScreenDuration = getSplashScreenDuration()
         Handler(Looper.getMainLooper()).postDelayed(
             {
-                startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
+                ActivityLauncher().startMainActivity(this)
                 finish()
             },
             splashScreenDuration

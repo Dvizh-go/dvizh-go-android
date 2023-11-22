@@ -22,6 +22,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.start.dvizk.main.ui.profile.data.manageEvents.ManageEventsFragment
+import com.start.dvizk.util.ActivityLauncher
 
 class ProfileFragment : Fragment() {
 
@@ -55,8 +56,7 @@ class ProfileFragment : Fragment() {
 			.into(viewBinding.fragmentProfilePageProfileAvatar)
 
 		viewBinding.fragmentProfilePageCreateEvent.setOnClickListener {
-			val intent = Intent(requireActivity(), CreateActivity::class.java)
-			startActivity(intent)
+			ActivityLauncher().startCreateActivity(requireContext())
 		}
 
 		viewBinding.fragmentProfilePageLogout.setOnClickListener {

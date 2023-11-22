@@ -28,6 +28,7 @@ import com.start.dvizk.main.ui.home.presentation.model.PopularEventsState
 import com.start.dvizk.main.ui.home.presentation.model.UpcomingEventsState
 import com.start.dvizk.main.ui.notifications.NotificationsFragment
 import com.start.dvizk.search.SearchActivity
+import com.start.dvizk.util.ActivityLauncher
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.w3c.dom.Text
@@ -114,8 +115,7 @@ class HomeFragment : Fragment(), OnItemClickListener, OnCategoryItemClickListene
 		}
 
 		searchView.setOnClickListener {
-			val intent = Intent(requireContext(), SearchActivity::class.java)
-			startActivity(intent)
+			ActivityLauncher().startSearchActivity(requireContext())
 		}
 
 		title.text = sharedPreferencesRepository.getUserName()
