@@ -46,7 +46,7 @@ class PasswordGenerationViewModel(
 					is Response.Success -> passwordGenerationStateLiveData.value =
 						PasswordGenerationState.Success(response.result)
 					is Response.Error -> passwordGenerationStateLiveData.value =
-						PasswordGenerationState.Failed(response.error.toString())
+						PasswordGenerationState.Failed(response.error)
 				}
 			}
 		}
