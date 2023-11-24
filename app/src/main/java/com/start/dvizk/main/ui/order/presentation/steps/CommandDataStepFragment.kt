@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,7 +38,7 @@ class CommandDataStepFragment : Fragment() {
 
     private var maxCommandSize = 5
 
-    private lateinit var fragment_order_command_data_step_return_button: ImageView
+    private lateinit var fragment_order_command_data_step_return_button: Toolbar
     private lateinit var fragment_order_command_data_plus_icon: ImageView
     private lateinit var fragment_order_command_data_step_continue_button: Button
 
@@ -121,7 +122,7 @@ class CommandDataStepFragment : Fragment() {
     private fun handleState(state: RequestResponseState) {
         when (state) {
             is RequestResponseState.Failed -> {
-                Toast.makeText(requireContext(), state.message, Toast.LENGTH_LONG).show()
+//                Toast.makeText(requireContext(), state.message, Toast.LENGTH_LONG).show()
             }
             is RequestResponseState.Loading -> {
             }

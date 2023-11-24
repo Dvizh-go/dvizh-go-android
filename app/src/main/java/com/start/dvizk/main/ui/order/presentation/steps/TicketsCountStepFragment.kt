@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.start.dvizk.R
@@ -30,7 +30,7 @@ class TicketsCountStepFragment : Fragment() {
 
     private var count: Int = 1
 
-    private lateinit var fragment_order_tickets_count_step_return_button: ImageView
+    private lateinit var fragment_order_tickets_count_step_return_button: Toolbar
 
     private lateinit var fragment_order_tickets_count_step_remove_button: Button
     private lateinit var fragment_order_tickets_count_step_count: TextView

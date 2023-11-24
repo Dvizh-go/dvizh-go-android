@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.start.dvizk.R
@@ -27,7 +27,7 @@ class ContactDataStepFragment : Fragment() {
     private val viewModel: TicketOrderViewModel by sharedViewModel()
     private val sharedPreferencesRepository: SharedPreferencesRepository by inject()
 
-    private lateinit var fragment_order_contact_details_step_return_button: ImageView
+    private lateinit var fragment_order_contact_details_step_return_button: Toolbar
 
     private lateinit var fragment_order_contact_details_step_user_name_edit_text: EditText
     private lateinit var fragment_order_contact_details_step_user_surname_edit_text: EditText
@@ -60,7 +60,7 @@ class ContactDataStepFragment : Fragment() {
 
     private fun initView(view: View) {
         fragment_order_contact_details_step_return_button =
-            view.findViewById(R.id.fragment_order_contact_details_step_return_button)
+            view.findViewById(R.id.fragment_registration_return_button)
         fragment_order_contact_details_step_return_button.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }

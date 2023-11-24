@@ -39,6 +39,7 @@ import com.start.dvizk.main.ui.home.data.HomePageRepository
 import com.start.dvizk.main.ui.home.presentation.HomeViewModel
 import com.start.dvizk.main.ui.order.data.TicketOrderApi
 import com.start.dvizk.main.ui.order.data.TicketOrderRepository
+import com.start.dvizk.main.ui.order.presentation.payment.PaymentViewModel
 import com.start.dvizk.main.ui.order.presentation.steps.TicketOrderViewModel
 import com.start.dvizk.main.ui.profile.data.ProfileApi
 import com.start.dvizk.main.ui.profile.data.ProfileRepository
@@ -403,6 +404,12 @@ object DiContainer {
         viewModel {
             TicketOrderViewModel(
                 ticketOrderRepository = get()
+            )
+        }
+
+        viewModel {
+            PaymentViewModel(
+                application = androidApplication()
             )
         }
     }
