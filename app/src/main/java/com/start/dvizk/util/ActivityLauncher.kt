@@ -21,12 +21,12 @@ class ActivityLauncher {
         context.startActivity(intent)
     }
 
-    fun startQrScanner(context: Context){
+    fun startQrScanner(context: Context) {
         val intent = Intent(context, QRScannerActivity::class.java)
         context.startActivity(intent)
     }
 
-    fun startCreateActivity(context: Context){
+    fun startCreateActivity(context: Context) {
         val intent = Intent(context, CreateActivity::class.java)
         context.startActivity(intent)
     }

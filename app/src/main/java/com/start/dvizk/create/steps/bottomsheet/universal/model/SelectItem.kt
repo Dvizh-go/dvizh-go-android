@@ -8,4 +8,4 @@ data class SelectItem(
     val id: Int,
     val name: String,
     var isSelect: Boolean
-): Parcelable
+) : Parcelable

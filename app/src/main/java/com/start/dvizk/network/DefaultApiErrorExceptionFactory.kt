@@ -3,10 +3,10 @@ package com.start.dvizk.network
 /**
  * @author marshal@kolesa.kz
  */
-class DefaultApiErrorExceptionFactory(): ApiErrorExceptionFactory {
+class DefaultApiErrorExceptionFactory() : ApiErrorExceptionFactory {
 
     override fun createException(
-            httpStatusCode: Int,
-            message: String?
+        httpStatusCode: Int,
+        message: String?
     ): Exception = Exception(message)
 }

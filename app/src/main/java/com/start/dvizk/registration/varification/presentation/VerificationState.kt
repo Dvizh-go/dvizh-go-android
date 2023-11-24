@@ -11,6 +11,6 @@ sealed class VerificationState {
     ) : VerificationState()
 
     data class Success(
-            val value: JsonObject?
+        val value: JsonObject?
     ) : VerificationState()
 }

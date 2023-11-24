@@ -8,29 +8,29 @@ import com.start.dvizk.search.search.presentation.calendar.CustomDateFragment
 
 class SearchCalendarPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
-	private var listener: SelectedParams? = null
+    private var listener: SelectedParams? = null
 
-	override fun getItemCount(): Int {
-		return 2
-	}
+    override fun getItemCount(): Int {
+        return 2
+    }
 
-	override fun createFragment(position: Int): Fragment {
-		return when (position) {
-			0 -> {
-				val fragment = CalendarFragment()
-				fragment.setListener(listener)
-				return fragment
-			}
-			1 -> {
-				val fragment = CustomDateFragment()
-				fragment.setListener(listener)
-				return fragment
-			}
-			else -> CalendarFragment()
-		}
-	}
+    override fun createFragment(position: Int): Fragment {
+        return when (position) {
+            0 -> {
+                val fragment = CalendarFragment()
+                fragment.setListener(listener)
+                return fragment
+            }
+            1 -> {
+                val fragment = CustomDateFragment()
+                fragment.setListener(listener)
+                return fragment
+            }
+            else -> CalendarFragment()
+        }
+    }
 
-	fun setListener(listenerCustomDate: SelectedParams?){
-		listener = listenerCustomDate
-	}
+    fun setListener(listenerCustomDate: SelectedParams?) {
+        listener = listenerCustomDate
+    }
 }

@@ -17,55 +17,54 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EventRulesFragment : Fragment() {
 
-	private val viewModel: EventDetailViewModel by viewModel()
+    private val viewModel: EventDetailViewModel by viewModel()
 
-	private lateinit var fragment_event_rules_return_button: ImageView
-	private lateinit var fragment_event_rules_text: TextView
+    private lateinit var fragment_event_rules_return_button: ImageView
+    private lateinit var fragment_event_rules_text: TextView
 
-	override fun onCreateView(
-		inflater: LayoutInflater,
-		container: ViewGroup?,
-		savedInstanceState: Bundle?
-	): View? {
-		return inflater.inflate(R.layout.fragment_event_rules, container, false)
-	}
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_event_rules, container, false)
+    }
 
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-		initView(view)
-		initObserver()
+        initView(view)
+        initObserver()
 
-		val eventId = requireArguments().getInt(EVENT_ID)
-		viewModel.getEventRules(eventId)
-	}
+        val eventId = requireArguments().getInt(EVENT_ID)
+        viewModel.getEventRules(eventId)
+    }
 
-	private fun initView(view: View) {
-		fragment_event_rules_return_button = view.findViewById(R.id.fragment_event_rules_return_button)
-		fragment_event_rules_text = view.findViewById(R.id.fragment_event_rules_text)
+    private fun initView(view: View) {
+        fragment_event_rules_return_button = view.findViewById(R.id.fragment_event_rules_return_button)
+        fragment_event_rules_text = view.findViewById(R.id.fragment_event_rules_text)
 
-		fragment_event_rules_return_button.setOnClickListener {
-			requireActivity().supportFragmentManager.popBackStack()
-		}
-	}
+        fragment_event_rules_return_button.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
+    }
 
-	private fun initObserver() {
-		viewModel.eventRulesStateLiveData.observe(viewLifecycleOwner, ::handleState)
-	}
+    private fun initObserver() {
+        viewModel.eventRulesStateLiveData.observe(viewLifecycleOwner, ::handleState)
+    }
 
-	private fun handleState(state: RequestResponseState) {
-		when (state) {
-			is RequestResponseState.Failed -> {
-				Toast.makeText(requireContext(), state.message, Toast.LENGTH_LONG).show()
-			}
-			is RequestResponseState.Loading -> {
+    private fun handleState(state: RequestResponseState) {
+        when (state) {
+            is RequestResponseState.Failed -> {
+                Toast.makeText(requireContext(), state.message, Toast.LENGTH_LONG).show()
+            }
+            is RequestResponseState.Loading -> {
+            }
+            is RequestResponseState.Success -> {
+                val response = state.value as? EventRulesDataModel ?: return
 
-			}
-			is RequestResponseState.Success -> {
-				val response = state.value as? EventRulesDataModel ?: return
-
-				fragment_event_rules_text.text = response.rules
-			}
-		}
-	}
+                fragment_event_rules_text.text = response.rules
+            }
+        }
+    }
 }

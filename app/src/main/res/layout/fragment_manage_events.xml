@@ -14,30 +14,13 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="?actionBarSize"
+            app:navigationIcon="@drawable/ic_arrow_white_left"
+            app:title="Выберите организацию"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
+            app:titleTextColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/backButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:scaleType="center"
-                android:src="@drawable/ic_arrow_white_left" />
-
-            <TextView
-                android:id="@+id/logo_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="?attr/actionBarSize"
-                android:fontFamily="@font/app_font_bd"
-                android:gravity="start"
-                android:text="Выберите организацию"
-                android:textColor="@color/white"
-                android:textSize="24sp" />
-
-        </androidx.appcompat.widget.Toolbar>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

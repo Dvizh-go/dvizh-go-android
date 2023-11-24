@@ -1,27 +1,21 @@
 package com.start.dvizk.registration.createpassword.presentation
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.google.android.material.textfield.TextInputEditText
 import com.start.dvizk.R
 import com.start.dvizk.databinding.FragmentPasswordGenerationBinding
 import com.start.dvizk.registration.registr.presentation.model.User
 import com.start.dvizk.registration.varification.presentation.VerificationCodeFragment
+import java.io.File
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.io.File
 
 class PasswordGenerationFragment :
     Fragment(R.layout.fragment_password_generation),
@@ -45,7 +39,7 @@ class PasswordGenerationFragment :
 
     override fun onClick(view: View?): Unit = with(binding) {
         when (view?.id) {
-			fragmentPasswordGenerationContinueButton.id -> {
+            fragmentPasswordGenerationContinueButton.id -> {
                 arguments?.apply {
                     val user: User? = getParcelable("user_regis")
 

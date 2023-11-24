@@ -12,47 +12,47 @@ import com.start.dvizk.main.ui.home.presentation.model.Category
 
 class CategoryAdapter(private val list: List<Category>) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
-	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-		val category = LayoutInflater.from(parent.context)
-			.inflate(R.layout.item_category, parent, false)
+        val category = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_category, parent, false)
 
-		return ViewHolder(category)
-	}
+        return ViewHolder(category)
+    }
 
-	override fun getItemCount(): Int {
-		return list.size
-	}
+    override fun getItemCount(): Int {
+        return list.size
+    }
 
-	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-		val category = list[position]
+        val category = list[position]
 
-		holder.name.text = category.name
+        holder.name.text = category.name
 
-		val itemView = holder.icon.rootView
+        val itemView = holder.icon.rootView
 
-		if (category.isSelected) {
-			holder.itemView.background = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.bg_purple_rounded_corners_fill, itemView.context.theme)
-			holder.name.setTextColor(holder.itemView.resources.getColor(R.color.white))
-		} else {
-			holder.itemView.background = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.bg_purple_rounded_corners, itemView.context.theme)
-			holder.name.setTextColor(holder.itemView.resources.getColor(R.color.nav_focus_color))
-		}
+        if (category.isSelected) {
+            holder.itemView.background = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.bg_purple_rounded_corners_fill, itemView.context.theme)
+            holder.name.setTextColor(holder.itemView.resources.getColor(R.color.white))
+        } else {
+            holder.itemView.background = ResourcesCompat.getDrawable(holder.itemView.resources, R.drawable.bg_purple_rounded_corners, itemView.context.theme)
+            holder.name.setTextColor(holder.itemView.resources.getColor(R.color.nav_focus_color))
+        }
 
-		itemView.setOnClickListener {
-			list.forEach{
-				it.isSelected = false
-				if(it.name == category.name) {
-					it.isSelected = true
-				}
-			}
-			notifyDataSetChanged()
-		}
-	}
+        itemView.setOnClickListener {
+            list.forEach {
+                it.isSelected = false
+                if (it.name == category.name) {
+                    it.isSelected = true
+                }
+            }
+            notifyDataSetChanged()
+        }
+    }
 
-	inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-		val icon: ImageView = view.findViewById(R.id.item_category_icon)
-		val name: TextView = view.findViewById(R.id.item_category_title)
-	}
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val icon: ImageView = view.findViewById(R.id.item_category_icon)
+        val name: TextView = view.findViewById(R.id.item_category_title)
+    }
 }

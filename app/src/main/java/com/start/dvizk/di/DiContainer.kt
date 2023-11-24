@@ -30,9 +30,9 @@ import com.start.dvizk.create.steps.price.PriceStepViewModel
 import com.start.dvizk.create.steps.service.AdditionalServiceStepViewModel
 import com.start.dvizk.create.steps.teamcount.TeamCountStepViewModel
 import com.start.dvizk.create.steps.type.presentation.TypeStepViewModel
+import com.start.dvizk.create.steps.visitperson.AllowedGuestStepViewModel
 import com.start.dvizk.main.ui.detail.data.EventDetailApi
 import com.start.dvizk.main.ui.detail.data.EventDetailRepository
-import com.start.dvizk.create.steps.visitperson.AllowedGuestStepViewModel
 import com.start.dvizk.main.ui.detail.presentation.EventDetailViewModel
 import com.start.dvizk.main.ui.home.data.HomePageApi
 import com.start.dvizk.main.ui.home.data.HomePageRepository
@@ -52,15 +52,16 @@ import com.start.dvizk.main.ui.tickets.ticket.data.TicketRepository
 import com.start.dvizk.main.ui.tickets.ticket.presentation.TicketViewModel
 import com.start.dvizk.network.ApiErrorExceptionFactory
 import com.start.dvizk.network.DefaultApiErrorExceptionFactory
-import com.start.dvizk.registration.createpassword.presentation.PasswordGenerationViewModel
 import com.start.dvizk.registration.createpassword.domain.PasswordGenerationRepository
+import com.start.dvizk.registration.createpassword.presentation.PasswordGenerationViewModel
 import com.start.dvizk.registration.registr.data.RegistrationApi
-import com.start.dvizk.registration.varification.data.VerificationApi
 import com.start.dvizk.registration.registr.data.RegistrationRepository
 import com.start.dvizk.registration.registr.domain.VerificationRepository
 import com.start.dvizk.registration.registr.presentation.RegistrationViewModel
+import com.start.dvizk.registration.varification.data.VerificationApi
 import com.start.dvizk.registration.varification.presentation.VerificationViewModel
 import com.start.dvizk.search.search.presentation.SearchViewModel
+import java.util.concurrent.TimeUnit
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
@@ -73,355 +74,354 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
-import java.util.concurrent.TimeUnit
 
 internal const val APP_RETROFIT = "app_retrofit"
 internal const val APP_RETROFIT_HTTP_CLIENT = "app_retrofit_http_client"
 
 object DiContainer {
 
-	private val networkModule = module {
+    private val networkModule = module {
 
-		single { getOkHttpClient(androidContext()) }
+        single { getOkHttpClient(androidContext()) }
 
-		single(named(APP_RETROFIT)) { getRetrofit(get()) }
+        single(named(APP_RETROFIT)) { getRetrofit(get()) }
 
-		factory {
-			val appRetrofit: Retrofit = get(named(APP_RETROFIT))
-			RegistrationRepository(
-				registrationApi = appRetrofit.create(RegistrationApi::class.java),
-				apiErrorExceptionFactory = get()
-			)
-		}
+        factory {
+            val appRetrofit: Retrofit = get(named(APP_RETROFIT))
+            RegistrationRepository(
+                registrationApi = appRetrofit.create(RegistrationApi::class.java),
+                apiErrorExceptionFactory = get()
+            )
+        }
 
-		factory {
-			val appRetrofit: Retrofit = get(named(APP_RETROFIT))
-			HomePageRepository(
-				homePageApi = appRetrofit.create(HomePageApi::class.java),
-				apiErrorExceptionFactory = get()
-			)
-		}
+        factory {
+            val appRetrofit: Retrofit = get(named(APP_RETROFIT))
+            HomePageRepository(
+                homePageApi = appRetrofit.create(HomePageApi::class.java),
+                apiErrorExceptionFactory = get()
+            )
+        }
 
-		factory {
-			val appRetrofit: Retrofit = get(named(APP_RETROFIT))
-			TicketOrderRepository(
-				ticketOrderApi = appRetrofit.create(TicketOrderApi::class.java),
-				apiErrorExceptionFactory = get()
-			)
-		}
+        factory {
+            val appRetrofit: Retrofit = get(named(APP_RETROFIT))
+            TicketOrderRepository(
+                ticketOrderApi = appRetrofit.create(TicketOrderApi::class.java),
+                apiErrorExceptionFactory = get()
+            )
+        }
 
-		factory {
-			val appRetrofit: Retrofit = get(named(APP_RETROFIT))
-			VerificationRepository(
-				verificationApi = appRetrofit.create(VerificationApi::class.java),
-				apiErrorExceptionFactory = get()
-			)
-		}
+        factory {
+            val appRetrofit: Retrofit = get(named(APP_RETROFIT))
+            VerificationRepository(
+                verificationApi = appRetrofit.create(VerificationApi::class.java),
+                apiErrorExceptionFactory = get()
+            )
+        }
 
-		factory {
-			val appRetrofit: Retrofit = get(named(APP_RETROFIT))
-			PasswordGenerationRepository(
-				registrationApi = appRetrofit.create(RegistrationApi::class.java),
-				apiErrorExceptionFactory = get()
-			)
-		}
+        factory {
+            val appRetrofit: Retrofit = get(named(APP_RETROFIT))
+            PasswordGenerationRepository(
+                registrationApi = appRetrofit.create(RegistrationApi::class.java),
+                apiErrorExceptionFactory = get()
+            )
+        }
 
-		factory {
-			val appRetrofit: Retrofit = get(named(APP_RETROFIT))
-			OrganizationRepository(
-				organizationApi = appRetrofit.create(OrganizationApi::class.java),
-			)
-		}
+        factory {
+            val appRetrofit: Retrofit = get(named(APP_RETROFIT))
+            OrganizationRepository(
+                organizationApi = appRetrofit.create(OrganizationApi::class.java),
+            )
+        }
 
-		factory {
-			val appRetrofit: Retrofit = get(named(APP_RETROFIT))
-			CreateOrganizationRepository(
-				createOrganizationApi = appRetrofit.create(CreateOrganizationApi::class.java),
-			)
-		}
+        factory {
+            val appRetrofit: Retrofit = get(named(APP_RETROFIT))
+            CreateOrganizationRepository(
+                createOrganizationApi = appRetrofit.create(CreateOrganizationApi::class.java),
+            )
+        }
 
-		factory {
-			val appRetrofit: Retrofit = get(named(APP_RETROFIT))
-			EventCreateRepository(
-				eventCreateApi = appRetrofit.create(EventCreateApi::class.java),
-			)
-		}
+        factory {
+            val appRetrofit: Retrofit = get(named(APP_RETROFIT))
+            EventCreateRepository(
+                eventCreateApi = appRetrofit.create(EventCreateApi::class.java),
+            )
+        }
 
-		factory<ApiErrorExceptionFactory> {
-			DefaultApiErrorExceptionFactory() as ApiErrorExceptionFactory
-		}
+        factory<ApiErrorExceptionFactory> {
+            DefaultApiErrorExceptionFactory() as ApiErrorExceptionFactory
+        }
 
-		factory {
-			val appRetrofit: Retrofit = get(named(APP_RETROFIT))
-			EventDetailRepository(
-				eventDetailApi = appRetrofit.create(EventDetailApi::class.java)
-			)
-		}
+        factory {
+            val appRetrofit: Retrofit = get(named(APP_RETROFIT))
+            EventDetailRepository(
+                eventDetailApi = appRetrofit.create(EventDetailApi::class.java)
+            )
+        }
 
-		factory {
-			val appRetrofit: Retrofit = get(named(APP_RETROFIT))
-			ProfileRepository(
-				profileApi = appRetrofit.create(ProfileApi::class.java)
-			)
-		}
+        factory {
+            val appRetrofit: Retrofit = get(named(APP_RETROFIT))
+            ProfileRepository(
+                profileApi = appRetrofit.create(ProfileApi::class.java)
+            )
+        }
 
-		factory {
-			val appRetrofit: Retrofit = get(named(APP_RETROFIT))
-			MyTicketsRepository(
-				myTicketsApi = appRetrofit.create(MyTicketsApi::class.java)
-			)
-		}
+        factory {
+            val appRetrofit: Retrofit = get(named(APP_RETROFIT))
+            MyTicketsRepository(
+                myTicketsApi = appRetrofit.create(MyTicketsApi::class.java)
+            )
+        }
 
-		factory {
-			val appRetrofit: Retrofit = get(named(APP_RETROFIT))
-			TicketRepository(
-				ticketApi = appRetrofit.create(TicketApi::class.java)
-			)
-		}
-	}
+        factory {
+            val appRetrofit: Retrofit = get(named(APP_RETROFIT))
+            TicketRepository(
+                ticketApi = appRetrofit.create(TicketApi::class.java)
+            )
+        }
+    }
 
-	fun getRetrofit(okHttpClient: OkHttpClient): Retrofit {
-		return Retrofit.Builder()
-			.baseUrl("http://157.230.117.5")
-			.addConverterFactory(GsonConverterFactory.create())
-			.client(okHttpClient)
-			.build()
-	}
+    fun getRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("http://157.230.117.5")
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
+            .build()
+    }
 
-	fun getOkHttpClient(context: Context): OkHttpClient {
-//		val localStore = SharedPreferencesRepository(context)
-		val interceptor = HttpLoggingInterceptor()
-		interceptor.level = HttpLoggingInterceptor.Level.BODY
-		return OkHttpClient.Builder()
-			.retryOnConnectionFailure(true)
-			.addInterceptor(interceptor)
-			.connectTimeout(30, TimeUnit.SECONDS) // Увеличьте значение таймаута
-			.readTimeout(30, TimeUnit.SECONDS) // Увеличьте значение таймаута
-//			.addInterceptor {
-//				val requestBuilder = it.request().newBuilder()
-//					.addHeader("Authorization", "Bearer ${localStore.getUserToken()}")
-//				it.proceed(requestBuilder.build())
-//			}
-			.build()
-	}
+    fun getOkHttpClient(context: Context): OkHttpClient {
+// 		val localStore = SharedPreferencesRepository(context)
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
+        return OkHttpClient.Builder()
+            .retryOnConnectionFailure(true)
+            .addInterceptor(interceptor)
+            .connectTimeout(30, TimeUnit.SECONDS) // Увеличьте значение таймаута
+            .readTimeout(30, TimeUnit.SECONDS) // Увеличьте значение таймаута
+// 			.addInterceptor {
+// 				val requestBuilder = it.request().newBuilder()
+// 					.addHeader("Authorization", "Bearer ${localStore.getUserToken()}")
+// 				it.proceed(requestBuilder.build())
+// 			}
+            .build()
+    }
 
-	val viewModelModule: Module = module {
+    val viewModelModule: Module = module {
 
-		viewModel {
-			RegistrationViewModel(
-				registrationRepository = get()
-			)
-		}
+        viewModel {
+            RegistrationViewModel(
+                registrationRepository = get()
+            )
+        }
 
-		viewModel {
-			HomeViewModel(
-				homePageRepository = get()
-			)
-		}
+        viewModel {
+            HomeViewModel(
+                homePageRepository = get()
+            )
+        }
 
-		viewModel {
-			VerificationViewModel(
-				verificationRepo = get(),
-				sharedPreferencesRepository = get()
-			)
-		}
+        viewModel {
+            VerificationViewModel(
+                verificationRepo = get(),
+                sharedPreferencesRepository = get()
+            )
+        }
 
-		viewModel {
-			PasswordGenerationViewModel(
-				passwordGenerationRepository = get()
-			)
-		}
+        viewModel {
+            PasswordGenerationViewModel(
+                passwordGenerationRepository = get()
+            )
+        }
 
-		viewModel {
-			OrganizationsListViewModel(
-				organizationRepository = get()
-			)
-		}
+        viewModel {
+            OrganizationsListViewModel(
+                organizationRepository = get()
+            )
+        }
 
-		viewModel {
-			ManageEventsViewModel(
-				application = androidApplication(),
-			)
-		}
+        viewModel {
+            ManageEventsViewModel(
+                application = androidApplication(),
+            )
+        }
 
-		viewModel {
-			CreateOrganizationViewModel(
-				createOrganizationRepository = get()
-			)
-		}
+        viewModel {
+            CreateOrganizationViewModel(
+                createOrganizationRepository = get()
+            )
+        }
 
-		viewModel {
-			BottomSheetSelectCategoryListViewModel(
-				homePageRepository = get()
-			)
-		}
+        viewModel {
+            BottomSheetSelectCategoryListViewModel(
+                homePageRepository = get()
+            )
+        }
 
-		viewModel {
-			LanguageStepViewModel(
-				eventCreateRepository = get(),
-			)
-		}
+        viewModel {
+            LanguageStepViewModel(
+                eventCreateRepository = get(),
+            )
+        }
 
-		viewModel {
-			TypeStepViewModel(
-				eventCreateRepository = get()
-			)
-		}
+        viewModel {
+            TypeStepViewModel(
+                eventCreateRepository = get()
+            )
+        }
 
-		viewModel {
-			CategoryStepViewModel(
-				eventCreateRepository = get()
-			)
-		}
+        viewModel {
+            CategoryStepViewModel(
+                eventCreateRepository = get()
+            )
+        }
 
-		viewModel {
-			AboutStepViewModel(
-				eventCreateRepository = get()
-			)
-		}
+        viewModel {
+            AboutStepViewModel(
+                eventCreateRepository = get()
+            )
+        }
 
-		viewModel {
-			LocationStepViewModel(
-				eventCreateRepository = get()
-			)
-		}
+        viewModel {
+            LocationStepViewModel(
+                eventCreateRepository = get()
+            )
+        }
 
-		viewModel {
-			TimeIntervalStepViewModel(
-				eventCreateRepository = get()
-			)
-		}
+        viewModel {
+            TimeIntervalStepViewModel(
+                eventCreateRepository = get()
+            )
+        }
 
-		viewModel {
-			BookingStepViewModel(
-				eventCreateRepository = get()
-			)
-		}
+        viewModel {
+            BookingStepViewModel(
+                eventCreateRepository = get()
+            )
+        }
 
-		viewModel {
-			AdditionalServiceStepViewModel(
-				eventCreateRepository = get()
-			)
-		}
+        viewModel {
+            AdditionalServiceStepViewModel(
+                eventCreateRepository = get()
+            )
+        }
 
-		viewModel {
-			NeededItemsStepViewModel(
-				eventCreateRepository = get()
-			)
-		}
+        viewModel {
+            NeededItemsStepViewModel(
+                eventCreateRepository = get()
+            )
+        }
 
-		viewModel {
-			AllowedGuestStepViewModel(
-				eventCreateRepository = get()
-			)
-		}
+        viewModel {
+            AllowedGuestStepViewModel(
+                eventCreateRepository = get()
+            )
+        }
 
-		viewModel {
-			NameStepViewModel(
-				eventCreateRepository = get()
-			)
-		}
+        viewModel {
+            NameStepViewModel(
+                eventCreateRepository = get()
+            )
+        }
 
-		viewModel {
-			PhotoStepViewModel(
-				eventCreateRepository = get()
-			)
-		}
+        viewModel {
+            PhotoStepViewModel(
+                eventCreateRepository = get()
+            )
+        }
 
-		viewModel {
-			ClassificationStepViewModel(
-				eventCreateRepository = get()
-			)
-		}
+        viewModel {
+            ClassificationStepViewModel(
+                eventCreateRepository = get()
+            )
+        }
 
-		viewModel {
-			GuestCountStepViewModel(
-				eventCreateRepository = get()
-			)
-		}
+        viewModel {
+            GuestCountStepViewModel(
+                eventCreateRepository = get()
+            )
+        }
 
-		viewModel {
-			TeamCountStepViewModel(
-				eventCreateRepository = get()
-			)
-		}
+        viewModel {
+            TeamCountStepViewModel(
+                eventCreateRepository = get()
+            )
+        }
 
-		viewModel {
-			EntryConditionStepViewModel(
-				eventCreateRepository = get()
-			)
-		}
+        viewModel {
+            EntryConditionStepViewModel(
+                eventCreateRepository = get()
+            )
+        }
 
-		viewModel {
-			PriceStepViewModel(
-				eventCreateRepository = get()
-			)
-		}
+        viewModel {
+            PriceStepViewModel(
+                eventCreateRepository = get()
+            )
+        }
 
-		viewModel {
-			CancelRuleStepViewModel(
-				eventCreateRepository = get()
-			)
-		}
+        viewModel {
+            CancelRuleStepViewModel(
+                eventCreateRepository = get()
+            )
+        }
 
-		viewModel {
-			EventRuleStepViewModel(
-				eventCreateRepository = get()
-			)
-		}
+        viewModel {
+            EventRuleStepViewModel(
+                eventCreateRepository = get()
+            )
+        }
 
-		viewModel {
-			EventDetailViewModel(
-				eventDetailRepository = get()
-			)
-		}
+        viewModel {
+            EventDetailViewModel(
+                eventDetailRepository = get()
+            )
+        }
 
-		viewModel {
-			ProfileViewModel(
-				profileRepository = get()
-			)
-		}
+        viewModel {
+            ProfileViewModel(
+                profileRepository = get()
+            )
+        }
 
-		viewModel {
-			MyTicketsViewModel(
-				myTicketsRepository = get()
-			)
-		}
+        viewModel {
+            MyTicketsViewModel(
+                myTicketsRepository = get()
+            )
+        }
 
-		viewModel {
-			TicketViewModel(
-				ticketRepository = get()
-			)
-		}
+        viewModel {
+            TicketViewModel(
+                ticketRepository = get()
+            )
+        }
 
-		viewModel {
-			SearchViewModel(
-				homePageRepository = get()
-			)
-		}
+        viewModel {
+            SearchViewModel(
+                homePageRepository = get()
+            )
+        }
 
-		viewModel {
-			TicketOrderViewModel(
-				ticketOrderRepository = get()
-			)
-		}
-	}
+        viewModel {
+            TicketOrderViewModel(
+                ticketOrderRepository = get()
+            )
+        }
+    }
 
-	private val mainModule: Module = module {
+    private val mainModule: Module = module {
 
-		factory {
-			SharedPreferencesRepository(androidContext())
-		}
-	}
+        factory {
+            SharedPreferencesRepository(androidContext())
+        }
+    }
 
-	fun startKoinDi(application: Application) {
-		startKoin {
-			androidContext(application)
-			modules(
-				viewModelModule,
-				networkModule,
-				mainModule
-			)
-		}
-	}
+    fun startKoinDi(application: Application) {
+        startKoin {
+            androidContext(application)
+            modules(
+                viewModelModule,
+                networkModule,
+                mainModule
+            )
+        }
+    }
 }

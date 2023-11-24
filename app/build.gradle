@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
+    id("org.jlleitschuh.gradle.ktlint") version "11.1.0"
 }
 
 apply plugin: 'kotlin-kapt'
@@ -39,6 +40,19 @@ android {
     }
     buildFeatures {
         viewBinding true
+    }
+}
+
+tasks.getByPath("preBuild").dependsOn("ktlintFormat")
+
+ktlint {
+    version = "0.42.1"
+    android = true
+    ignoreFailures = false
+    disabledRules = ["max-line-length"]
+    reporters {
+        reporter "plain"
+        reporter "checkstyle"
     }
 }
 
@@ -97,4 +111,12 @@ dependencies {
 
     // reflection-free flavor
     implementation 'com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.9'
+
+    //preference
+    implementation 'androidx.preference:preference:1.2.1'
+}
+
+ktlint {
+    version = "0.42.1" // Specify the version of KtLint you want to use
+    // Add other KtLint configurations if needed
 }

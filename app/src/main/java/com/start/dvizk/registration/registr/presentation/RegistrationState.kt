@@ -11,6 +11,6 @@ sealed class RegistrationState {
     ) : RegistrationState()
 
     data class Success(
-            val value: JsonObject
+        val value: JsonObject
     ) : RegistrationState()
 }

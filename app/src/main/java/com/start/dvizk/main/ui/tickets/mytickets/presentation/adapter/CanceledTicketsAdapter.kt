@@ -13,52 +13,52 @@ import com.start.dvizk.R
 import com.start.dvizk.main.ui.tickets.mytickets.data.model.MyTicket
 
 class CanceledTicketsAdapter(
-	private val resources: Resources
+    private val resources: Resources
 ) : RecyclerView.Adapter<CanceledTicketsAdapter.ViewHolder>() {
 
-	private var canceledTickets = mutableListOf<MyTicket>()
+    private var canceledTickets = mutableListOf<MyTicket>()
 
-	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-		val canceledTicket = LayoutInflater.from(parent.context)
-			.inflate(R.layout.item_my_canceled_ticket, parent, false)
+        val canceledTicket = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_my_canceled_ticket, parent, false)
 
-		return ViewHolder(canceledTicket)
-	}
+        return ViewHolder(canceledTicket)
+    }
 
-	override fun getItemCount(): Int = canceledTickets.size
+    override fun getItemCount(): Int = canceledTickets.size
 
-	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-		val canceledTicket = canceledTickets[position]
-		holder.bind(canceledTicket)
-	}
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val canceledTicket = canceledTickets[position]
+        holder.bind(canceledTicket)
+    }
 
-	fun setData(canceledTickets: MutableList<MyTicket>) {
-		this.canceledTickets.clear()
-		this.canceledTickets = canceledTickets
-		notifyDataSetChanged()
-	}
+    fun setData(canceledTickets: MutableList<MyTicket>) {
+        this.canceledTickets.clear()
+        this.canceledTickets = canceledTickets
+        notifyDataSetChanged()
+    }
 
-	inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)  {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-		val image: ImageView = itemView.findViewById(R.id.item_my_canceled_ticket_image)
-		val title: TextView = itemView.findViewById(R.id.item_my_canceled_ticket_title)
-		val date: TextView = itemView.findViewById(R.id.item_my_canceled_ticket_date)
-		val location: TextView = itemView.findViewById(R.id.item_my_canceled_ticket_location)
+        val image: ImageView = itemView.findViewById(R.id.item_my_canceled_ticket_image)
+        val title: TextView = itemView.findViewById(R.id.item_my_canceled_ticket_title)
+        val date: TextView = itemView.findViewById(R.id.item_my_canceled_ticket_date)
+        val location: TextView = itemView.findViewById(R.id.item_my_canceled_ticket_location)
 
-		fun bind(myCanceledTicket: MyTicket) {
+        fun bind(myCanceledTicket: MyTicket) {
 
-			Glide.with(itemView)
-				.load(image)
-				.centerCrop()
-				.transform(RoundedCorners(resources.getDimensionPixelSize(R.dimen.my_ticket_image_radius)))
-				.error(R.drawable.ic_logo)
-				.into(image)
+            Glide.with(itemView)
+                .load(image)
+                .centerCrop()
+                .transform(RoundedCorners(resources.getDimensionPixelSize(R.dimen.my_ticket_image_radius)))
+                .error(R.drawable.ic_logo)
+                .into(image)
 
-			title.text = myCanceledTicket.name
-			val fullDate = "${myCanceledTicket.datetime.date} · ${myCanceledTicket.datetime.startTime} - ${myCanceledTicket.datetime.endTime}"
-			date.text = fullDate
-			location.text = myCanceledTicket.address
-		}
-	}
+            title.text = myCanceledTicket.name
+            val fullDate = "${myCanceledTicket.datetime.date} · ${myCanceledTicket.datetime.startTime} - ${myCanceledTicket.datetime.endTime}"
+            date.text = fullDate
+            location.text = myCanceledTicket.address
+        }
+    }
 }

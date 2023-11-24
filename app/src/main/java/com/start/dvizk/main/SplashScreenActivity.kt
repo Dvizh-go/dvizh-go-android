@@ -1,11 +1,10 @@
 package com.start.dvizk.main
 
 import android.content.Context
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.appcompat.app.AppCompatActivity
 import com.start.dvizk.R
 import com.start.dvizk.util.ActivityLauncher
 
@@ -32,7 +31,7 @@ class SplashScreenActivity : AppCompatActivity() {
         val sp = getPreferences(Context.MODE_PRIVATE)
         val prefKeyFirstLaunch = "pref_first_launch"
 
-        return when(sp.getBoolean(prefKeyFirstLaunch, true)) {
+        return when (sp.getBoolean(prefKeyFirstLaunch, true)) {
             true -> {
                 sp.edit().putBoolean(prefKeyFirstLaunch, false).apply()
                 3000

@@ -3,11 +3,11 @@ package com.start.dvizk.network
 sealed class Response<out Result, out Error> {
 
     data class Success<Result>(
-            val result: Result
+        val result: Result
     ) : Response<Result, Nothing>()
 
     data class Error<Error>(
-            val error: Error
+        val error: Error
     ) : Response<Nothing, Error>()
 
     companion object {
@@ -34,7 +34,7 @@ fun <Result> Response<Result, Any>.getOrThrow(): Result = when (this) {
 }
 
 inline fun <Result> Response<Result, Any>.getOrElse(
-        elseFun: () -> Result
+    elseFun: () -> Result
 ): Result = when (this) {
     is Response.Success -> this.result
     is Response.Error -> elseFun.invoke()
@@ -43,7 +43,7 @@ inline fun <Result> Response<Result, Any>.getOrElse(
 /**
  * Возвращает результат в случае успеха, либо пустой список в случае ошибки
  */
-fun <Result: List<E>, E> Response<Result, Any>.getOrEmpty(): Result {
+fun <Result : List<E>, E> Response<Result, Any>.getOrEmpty(): Result {
     return when (this) {
         is Response.Success -> this.result
         is Response.Error -> emptyList<E>() as Result
@@ -51,14 +51,14 @@ fun <Result: List<E>, E> Response<Result, Any>.getOrEmpty(): Result {
 }
 
 inline fun <Result1, Result2, Error> Response<Result1, Error>.mapIfSuccess(
-        mapFunc: (Result1) -> Result2
+    mapFunc: (Result1) -> Result2
 ): Response<Result2, Error> = when (this) {
     is Response.Success -> Response.Success(mapFunc(this.result))
     is Response.Error -> this
 }
 
-inline fun <Result1, Result2, Error: Exception> Response<Result1, Error>.mapIfSuccessSafely(
-        mapFunc: (Result1) -> Result2
+inline fun <Result1, Result2, Error : Exception> Response<Result1, Error>.mapIfSuccessSafely(
+    mapFunc: (Result1) -> Result2
 ): Response<Result2, Error> = when (this) {
     is Response.Success -> {
         try {
@@ -77,20 +77,20 @@ fun <Result> Response<Result, Nothing>.get(): Result = when (this) {
 }
 
 inline fun <Result> runSafely(
-        funBody: () -> Result
+    funBody: () -> Result
 ): Response<Result, Exception> = try {
     Response.Success(
-            result = funBody.invoke()
+        result = funBody.invoke()
     )
 } catch (exception: Exception) {
     Response.Error(
-            error = exception
+        error = exception
     )
 }
 
 inline fun <Result, Error> Response<Result, Error>.unpack(
-        doOnSuccess: (Result) -> Unit,
-        doOnError: (Error) -> Unit
+    doOnSuccess: (Result) -> Unit,
+    doOnError: (Error) -> Unit
 ) {
     when (this) {
         is Response.Success -> doOnSuccess.invoke(result)
@@ -99,8 +99,8 @@ inline fun <Result, Error> Response<Result, Error>.unpack(
 }
 
 inline fun <Result, Error, Return> Response<Result, Error>.unpackResult(
-        doOnSuccess: (Result) -> Return,
-        doOnError: (Error) -> Return
+    doOnSuccess: (Result) -> Return,
+    doOnError: (Error) -> Return
 ): Return = when (this) {
     is Response.Success -> doOnSuccess.invoke(result)
     is Response.Error -> doOnError.invoke(error)

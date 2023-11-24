@@ -1,7 +1,5 @@
 package com.start.dvizk.create.organization.create.presentation.model
 
-import com.google.gson.JsonObject
-
 sealed class OrganizationCreatingState {
 
     object Loading : OrganizationCreatingState()
@@ -11,6 +9,6 @@ sealed class OrganizationCreatingState {
     ) : OrganizationCreatingState()
 
     data class Success(
-            val message: String
+        val message: String
     ) : OrganizationCreatingState()
 }

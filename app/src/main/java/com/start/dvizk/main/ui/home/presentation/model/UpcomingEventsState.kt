@@ -9,7 +9,7 @@ sealed class UpcomingEventsState {
     ) : UpcomingEventsState()
 
     data class Success(
-            val events: List<Event>,
-            val total: Int,
+        val events: List<Event>,
+        val total: Int,
     ) : UpcomingEventsState()
 }
