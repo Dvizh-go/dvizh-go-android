@@ -22,21 +22,21 @@ class GenderSelectionDialog : DialogFragment() {
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
 
         return inflater.inflate(
-                R.layout.dialog_gender_selection,
-                container,
-                false
+            R.layout.dialog_gender_selection,
+            container,
+            false
         )
     }
 
     override fun onViewCreated(
-            view: View,
-            savedInstanceState: Bundle?,
+        view: View,
+        savedInstanceState: Bundle?,
     ) {
         super.onViewCreated(view, savedInstanceState)
 

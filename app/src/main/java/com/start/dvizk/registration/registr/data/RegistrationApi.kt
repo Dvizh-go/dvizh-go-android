@@ -10,16 +10,16 @@ import retrofit2.http.Part
 
 interface RegistrationApi {
 
-	@Multipart
-	@POST("/api/v2/user/register")
-	fun registr(
-		@Part("email") email: RequestBody,
-		@Part("password") password: RequestBody,
-		@Part("name") name: RequestBody,
-		@Part("nickname") nickname: RequestBody,
-		@Part("phone_number") phone_number: RequestBody,
-		@Part("gender") gender: RequestBody,
-		@Part("birthday") birthday: RequestBody,
-		@Part image: MultipartBody.Part?,
-	): Call<JsonObject>
+    @Multipart
+    @POST("/api/v2/user/register")
+    fun registr(
+        @Part("email") email: RequestBody,
+        @Part("password") password: RequestBody,
+        @Part("name") name: RequestBody,
+        @Part("nickname") nickname: RequestBody,
+        @Part("phone_number") phone_number: RequestBody,
+        @Part("gender") gender: RequestBody,
+        @Part("birthday") birthday: RequestBody,
+        @Part image: MultipartBody.Part?,
+    ): Call<JsonObject>
 }

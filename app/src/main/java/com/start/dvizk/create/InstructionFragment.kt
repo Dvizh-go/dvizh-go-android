@@ -12,27 +12,27 @@ import com.start.dvizk.create.organization.list.presentation.OrganizationListFra
 
 class InstructionFragment : Fragment() {
 
-	override fun onCreateView(
-		inflater: LayoutInflater,
-		container: ViewGroup?,
-		savedInstanceState: Bundle?
-	): View = inflater.inflate(R.layout.fragment_instruction, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View = inflater.inflate(R.layout.fragment_instruction, container, false)
 
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-		initView(view)
-	}
+        initView(view)
+    }
 
-	private fun initView(view: View) {
-		val image = view.findViewById<ImageView>(R.id.bottom_image)
+    private fun initView(view: View) {
+        val image = view.findViewById<ImageView>(R.id.bottom_image)
 
-		image.setOnClickListener {
-			val ft: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
-			val homeFragment = OrganizationListFragment()
-			ft.add(R.id.fragment_container,homeFragment)
-			ft.addToBackStack(null)
-			ft.commit()
-		}
-	}
+        image.setOnClickListener {
+            val ft: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+            val homeFragment = OrganizationListFragment()
+            ft.add(R.id.fragment_container, homeFragment)
+            ft.addToBackStack(null)
+            ft.commit()
+        }
+    }
 }

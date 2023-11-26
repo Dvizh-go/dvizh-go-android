@@ -13,55 +13,55 @@ import com.start.dvizk.R
 import com.start.dvizk.main.ui.tickets.mytickets.data.model.MyTicket
 
 class FinishedTicketsAdapter(
-	private val resources: Resources
+    private val resources: Resources
 ) : RecyclerView.Adapter<FinishedTicketsAdapter.ViewHolder>() {
 
-	private var finishedTickets = mutableListOf<MyTicket>()
+    private var finishedTickets = mutableListOf<MyTicket>()
 
-	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-		
-		val finishedTicket = LayoutInflater.from(parent.context)
-			.inflate(R.layout.item_my_finished_ticket, parent, false)
-		
-		return ViewHolder(finishedTicket)
-	}
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-	override fun getItemCount(): Int = finishedTickets.size
+        val finishedTicket = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_my_finished_ticket, parent, false)
 
-	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-		val finishedTicket = finishedTickets[position]
-		holder.bind(finishedTicket)
-	}
+        return ViewHolder(finishedTicket)
+    }
 
-	fun setData(finishedTickets: MutableList<MyTicket>) {
-		this.finishedTickets.clear()
-		this.finishedTickets = finishedTickets
-		notifyDataSetChanged()
-	}
+    override fun getItemCount(): Int = finishedTickets.size
 
-	fun viewTicket() {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val finishedTicket = finishedTickets[position]
+        holder.bind(finishedTicket)
+    }
 
-	}
+    fun setData(finishedTickets: MutableList<MyTicket>) {
+        this.finishedTickets.clear()
+        this.finishedTickets = finishedTickets
+        notifyDataSetChanged()
+    }
 
-	inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    fun viewTicket() {
+    }
 
-		val image: ImageView = itemView.findViewById(R.id.item_my_finished_ticket_image)
-		val title: TextView = itemView.findViewById(R.id.item_my_finished_ticket_title)
-		val date: TextView = itemView.findViewById(R.id.item_my_finished_ticket_date)
-		val location: TextView = itemView.findViewById(R.id.item_my_finished_ticket_location)
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-		fun bind(myFinishedTicket: MyTicket) {
-			Glide.with(itemView)
-				.load(image)
-				.centerCrop()
-				.transform(RoundedCorners(resources.getDimensionPixelSize(R.dimen.my_ticket_image_radius)))
-				.error(R.drawable.ic_logo)
-				.into(image)
+        val image: ImageView = itemView.findViewById(R.id.item_my_finished_ticket_image)
+        val title: TextView = itemView.findViewById(R.id.item_my_finished_ticket_title)
+        val date: TextView = itemView.findViewById(R.id.item_my_finished_ticket_date)
+        val location: TextView = itemView.findViewById(R.id.item_my_finished_ticket_location)
 
-			title.text = myFinishedTicket.name
-			val fullDate = "${myFinishedTicket.datetime.date} · ${myFinishedTicket.datetime.startTime} - ${myFinishedTicket.datetime.endTime}"
-			date.text = fullDate
-			location.text = myFinishedTicket.address
-		}
-	}
+        fun bind(myFinishedTicket: MyTicket) {
+            Glide.with(itemView)
+                .load(image)
+                .centerCrop()
+                .transform(RoundedCorners(resources.getDimensionPixelSize(R.dimen.my_ticket_image_radius)))
+                .error(R.drawable.ic_logo)
+                .into(image)
+
+            title.text = myFinishedTicket.name
+            val fullDate =
+                "${myFinishedTicket.datetime.date} · ${myFinishedTicket.datetime.startTime} - ${myFinishedTicket.datetime.endTime}"
+            date.text = fullDate
+            location.text = myFinishedTicket.address
+        }
+    }
 }

@@ -11,6 +11,6 @@ sealed class PasswordGenerationState {
     ) : PasswordGenerationState()
 
     data class Success(
-            val value: JsonObject
+        val value: JsonObject
     ) : PasswordGenerationState()
 }

@@ -7,18 +7,18 @@ import com.start.dvizk.main.ui.order.presentation.steps.TicketsCountStepFragment
 
 object OrderTicketScreenRouter {
 
-	fun getTicketOrderStepFragment(stepName: String?): Fragment = when (stepName) {
-		"userData" -> {
-			ContactDataStepFragment()
-		}
-		"teamData" -> {
-			CommandDataStepFragment()
-		}
-		"choiceTickets" -> {
-			TicketsCountStepFragment()
-		}
-		else -> {
-			TicketsCountStepFragment()
-		}
-	}
+    fun getTicketOrderStepFragment(stepName: String?): Fragment = when (stepName) {
+        "userData" -> {
+            ContactDataStepFragment()
+        }
+        "teamData" -> {
+            CommandDataStepFragment()
+        }
+        "choiceTickets" -> {
+            TicketsCountStepFragment()
+        }
+        else -> {
+            TicketsCountStepFragment()
+        }
+    }
 }

@@ -1,17 +1,17 @@
 package com.start.dvizk.arch
 
 import android.annotation.SuppressLint
+import androidx.annotation.MainThread
 import androidx.lifecycle.GenericLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.annotation.MainThread
 import java.util.Collections
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicBoolean
 
-class CustomMutableLiveData<T>: MutableLiveData<T>() {
+class CustomMutableLiveData<T> : MutableLiveData<T>() {
 
     private val observers = ConcurrentHashMap<LifecycleOwner, MutableSet<SingleObserverWrapper>>()
 
@@ -80,9 +80,9 @@ class CustomMutableLiveData<T>: MutableLiveData<T>() {
 
     @SuppressLint("RestrictedApi")
     private inner class SingleObserverWrapper(
-            private var owner: LifecycleOwner,
-            private val observer: Observer<in T>
-    ): Observer<T>, GenericLifecycleObserver {
+        private var owner: LifecycleOwner,
+        private val observer: Observer<in T>
+    ) : Observer<T>, GenericLifecycleObserver {
 
         private val pending = AtomicBoolean(false)
 
@@ -100,8 +100,8 @@ class CustomMutableLiveData<T>: MutableLiveData<T>() {
             dispatchValueIfActive(this)
         }
 
-        fun shouldBeActive(): Boolean
-                = owner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)
+        fun shouldBeActive(): Boolean =
+            owner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)
 
         fun resetPending() {
             pending.set(true)

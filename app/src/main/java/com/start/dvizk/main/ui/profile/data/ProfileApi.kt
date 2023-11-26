@@ -7,9 +7,8 @@ import retrofit2.http.Header
 
 interface ProfileApi {
 
-	@GET("/api/v2/user_profile")
-	fun getUserProfile(
-		@Header("Authorization") token: String
-	): Call<UserProfile>
-
+    @GET("/api/v2/user_profile")
+    fun getUserProfile(
+        @Header("Authorization") token: String
+    ): Call<UserProfile>
 }

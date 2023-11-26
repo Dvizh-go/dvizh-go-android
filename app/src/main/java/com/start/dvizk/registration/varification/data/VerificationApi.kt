@@ -8,10 +8,10 @@ import retrofit2.http.POST
 
 interface VerificationApi {
 
-	@FormUrlEncoded
-	@POST("/api/v2/user/verification")
-	fun verify(
-		@Field("email") email: String,
-		@Field("verification_code") verificationCode: String
-	): Call<User>
+    @FormUrlEncoded
+    @POST("/api/v2/user/verification")
+    fun verify(
+        @Field("email") email: String,
+        @Field("verification_code") verificationCode: String
+    ): Call<User>
 }

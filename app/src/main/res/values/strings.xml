@@ -28,9 +28,7 @@
     <string name="log_in_phone_mail_edit">Телефон, имя пользователя или эл. а</string>
     <string name="password_login">Пароль</string>
     <string name="remember_me_login">Запомнить меня</string>
-    <string
-        name="qr"
-        translatable="false">
+    <string name="qr" translatable="false">
         QR
     </string>
 </resources>

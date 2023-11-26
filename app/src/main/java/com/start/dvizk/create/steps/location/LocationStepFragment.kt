@@ -33,236 +33,230 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LocationStepFragment : Fragment(), OnBottomSheetDismissListener {
 
-	private val viewModel: LocationStepViewModel by viewModel()
-	private val sharedPreferencesRepository: SharedPreferencesRepository by inject()
+    private val viewModel: LocationStepViewModel by viewModel()
+    private val sharedPreferencesRepository: SharedPreferencesRepository by inject()
 
-	private lateinit var next: Button
-	private lateinit var back: Button
-	private lateinit var countryText: TextView
-	private lateinit var cityText: TextView
-	private lateinit var streetText: EditText
-	private lateinit var apartmentText: EditText
-	private lateinit var descriptionText: EditText
+    private lateinit var next: Button
+    private lateinit var back: Button
+    private lateinit var countryText: TextView
+    private lateinit var cityText: TextView
+    private lateinit var streetText: EditText
+    private lateinit var apartmentText: EditText
+    private lateinit var descriptionText: EditText
 
-	var countryList = listOf<EventParameter>()
-	var cityList = listOf<EventParameter>()
+    var countryList = listOf<EventParameter>()
+    var cityList = listOf<EventParameter>()
 
-	override fun onCreateView(
-		inflater: LayoutInflater,
-		container: ViewGroup?,
-		savedInstanceState: Bundle?
-	): View = inflater.inflate(R.layout.fragment_location_step, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View = inflater.inflate(R.layout.fragment_location_step, container, false)
 
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-		initView(view)
+        initView(view)
 
-		viewModel.requestCountryResponseStateLiveData.observe(
-			viewLifecycleOwner,
-			::handleCountryState
-		)
-		viewModel.requestCityResponseStateLiveData.observe(viewLifecycleOwner, ::handleCityState)
-		viewModel.requestSendLocationResponseStateLiveData.observe(viewLifecycleOwner, ::handleState)
+        viewModel.requestCountryResponseStateLiveData.observe(
+            viewLifecycleOwner,
+            ::handleCountryState
+        )
+        viewModel.requestCityResponseStateLiveData.observe(viewLifecycleOwner, ::handleCityState)
+        viewModel.requestSendLocationResponseStateLiveData.observe(viewLifecycleOwner, ::handleState)
+    }
 
-	}
+    private fun initView(view: View) {
+        val headerBack: ImageView = view.findViewById(R.id.fragment_create_organization_back_image)
+        headerBack.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
+        next = view.findViewById(R.id.fragment_create_organization_next)
+        back = view.findViewById(R.id.fragment_create_organization_back)
+        countryText = view.findViewById(R.id.fragment_registration_user_gender_spinner)
+        cityText = view.findViewById(R.id.fragment_location_step_city)
+        streetText = view.findViewById(R.id.fragment_location_step_street)
+        apartmentText = view.findViewById(R.id.fragment_location_step_flat)
+        descriptionText = view.findViewById(R.id.fragment_create_organization_edit_text_1)
 
-	private fun initView(view: View) {
-		val headerBack: ImageView = view.findViewById(R.id.fragment_create_organization_back_image)
-		headerBack.setOnClickListener {
-			requireActivity().supportFragmentManager.popBackStack()
-		}
-		next = view.findViewById(R.id.fragment_create_organization_next)
-		back = view.findViewById(R.id.fragment_create_organization_back)
-		countryText = view.findViewById(R.id.fragment_registration_user_gender_spinner)
-		cityText = view.findViewById(R.id.fragment_location_step_city)
-		streetText = view.findViewById(R.id.fragment_location_step_street)
-		apartmentText = view.findViewById(R.id.fragment_location_step_flat)
-		descriptionText = view.findViewById(R.id.fragment_create_organization_edit_text_1)
+        next.setOnClickListener {
+            if (countryList.isEmpty() || cityList.isEmpty()) {
+                Toast.makeText(requireContext(), "Не все данные заполнены", Toast.LENGTH_LONG)
+                    .show()
 
-		next.setOnClickListener {
-			if (countryList.isEmpty() || cityList.isEmpty()) {
-				Toast.makeText(requireContext(), "Не все данные заполнены", Toast.LENGTH_LONG)
-					.show()
+                return@setOnClickListener
+            }
+            arguments?.apply {
+                viewModel.sendEventDescription(
+                    country_id = countryList.first().id,
+                    city_id = cityList.first().id,
+                    apartment = if (apartmentText.text.toString().isEmpty()) null else apartmentText.text.toString().toInt(),
+                    street = streetText.text.toString(),
+                    authorization = sharedPreferencesRepository.getUserToken(),
+                    numberStep = getInt(STEP_NUMBER_KEY),
+                    eventId = getInt(EVENT_ID_KEY),
+                    description = descriptionText.text.toString()
+                )
+            }
+        }
 
-				return@setOnClickListener
-			}
-			arguments?.apply {
-				viewModel.sendEventDescription(
-					country_id = countryList.first().id,
-					city_id = cityList.first().id,
-					apartment = if (apartmentText.text.toString().isEmpty()) null else apartmentText.text.toString().toInt(),
-					street = streetText.text.toString(),
-					authorization = sharedPreferencesRepository.getUserToken(),
-					numberStep = getInt(STEP_NUMBER_KEY),
-					eventId = getInt(EVENT_ID_KEY),
-					description = descriptionText.text.toString()
-				)
-			}
-		}
+        back.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
 
-		back.setOnClickListener {
-			requireActivity().supportFragmentManager.popBackStack()
-		}
+        countryText.setOnClickListener {
 
-		countryText.setOnClickListener {
+            viewModel.getCountry()
+        }
 
-				viewModel.getCountry()
+        cityText.setOnClickListener {
 
-		}
+            viewModel.getCity()
+        }
+    }
 
-		cityText.setOnClickListener {
+    private fun handleCountryState(state: RequestResponseState) {
+        when (state) {
+            is RequestResponseState.Failed -> {
+                Toast.makeText(requireContext(), state.message, Toast.LENGTH_LONG).show()
+            }
+            is RequestResponseState.Loading -> {
+            }
+            is RequestResponseState.Success -> {
+                countryList = state.value as? List<EventParameter> ?: return responseFailed()
+                var selectListCurrent = listOf<SelectItem>()
+                countryList.forEach {
+                    selectListCurrent =
+                        selectListCurrent.plus(mapToSelectListItem(it.id, it.name, it.isSelected))
+                }
+                val bottomSheetFragment = BottomSheetSelectListFragment()
+                bottomSheetFragment.setListener(this)
+                val args = Bundle()
+                args.putParcelableArrayList(SELECT_LIST_KEY, ArrayList(selectListCurrent))
+                args.putString(PARAMETER_NAME_KEY, "country")
+                args.putString("TITLE", "Выберите страну")
+                args.putBoolean(IS_MULTI_SELECT_KEY, false)
+                bottomSheetFragment.arguments = args
+                bottomSheetFragment.show(parentFragmentManager, "MyBottomSheetFragmentTag")
+            }
+        }
+    }
 
-				viewModel.getCity()
+    private fun handleCityState(state: RequestResponseState) {
+        when (state) {
+            is RequestResponseState.Failed -> {
+                Toast.makeText(requireContext(), state.message, Toast.LENGTH_LONG).show()
+            }
+            is RequestResponseState.Loading -> {
+            }
+            is RequestResponseState.Success -> {
+                cityList = state.value as? List<EventParameter> ?: return responseFailed()
+                var selectListCurrent = listOf<SelectItem>()
+                cityList.forEach {
+                    selectListCurrent =
+                        selectListCurrent.plus(mapToSelectListItem(it.id, it.name, it.isSelected))
+                }
+                val bottomSheetFragment = BottomSheetSelectListFragment()
+                bottomSheetFragment.setListener(this)
+                val args = Bundle()
+                args.putParcelableArrayList(SELECT_LIST_KEY, ArrayList(selectListCurrent))
+                args.putString(PARAMETER_NAME_KEY, "city")
+                args.putString("TITLE", "Выберите город")
+                args.putBoolean(IS_MULTI_SELECT_KEY, false)
+                bottomSheetFragment.arguments = args
+                bottomSheetFragment.show(parentFragmentManager, "MyBottomSheetFragmentTag")
+            }
+        }
+    }
 
-		}
-	}
+    fun mapToSelectListItem(id: Int, name: String, isSelected: Boolean): SelectItem {
+        return SelectItem(id = id, name = name, isSelect = isSelected)
+    }
 
-	private fun handleCountryState(state: RequestResponseState) {
-		when (state) {
-			is RequestResponseState.Failed -> {
-				Toast.makeText(requireContext(), state.message, Toast.LENGTH_LONG).show()
-			}
-			is RequestResponseState.Loading -> {
+    private fun responseFailed() {
+        Toast.makeText(requireContext(), "Ошибка сервера попробуйте позже", Toast.LENGTH_LONG)
+            .show()
+    }
 
-			}
-			is RequestResponseState.Success -> {
-				countryList = state.value as? List<EventParameter> ?: return responseFailed()
-				var selectListCurrent = listOf<SelectItem>()
-				countryList.forEach {
-					selectListCurrent =
-						selectListCurrent.plus(mapToSelectListItem(it.id, it.name, it.isSelected))
-				}
-				val bottomSheetFragment = BottomSheetSelectListFragment()
-				bottomSheetFragment.setListener(this)
-				val args = Bundle()
-				args.putParcelableArrayList(SELECT_LIST_KEY, ArrayList(selectListCurrent))
-				args.putString(PARAMETER_NAME_KEY, "country")
-				args.putString("TITLE", "Выберите страну")
-				args.putBoolean(IS_MULTI_SELECT_KEY, false)
-				bottomSheetFragment.arguments = args
-				bottomSheetFragment.show(parentFragmentManager, "MyBottomSheetFragmentTag")
-			}
-		}
-	}
+    override fun onBottomSheetDismiss(
+        ids: List<Int>,
+        parameterName: String,
+        list: MutableList<SelectItem>
+    ) {
+        when (parameterName) {
+            "country" -> {
+                var languagesNames = ""
+                var secondLang = false
+                countryList.forEach { lang ->
+                    lang.isSelected = false
+                    ids.forEach {
+                        if (lang.id == it) {
 
-	private fun handleCityState(state: RequestResponseState) {
-		when (state) {
-			is RequestResponseState.Failed -> {
-				Toast.makeText(requireContext(), state.message, Toast.LENGTH_LONG).show()
-			}
-			is RequestResponseState.Loading -> {
+                            lang.isSelected = true
+                            if (secondLang) {
+                                languagesNames += ", " + lang.name
+                            } else {
+                                languagesNames += lang.name
+                            }
 
-			}
-			is RequestResponseState.Success -> {
-				cityList = state.value as? List<EventParameter> ?: return responseFailed()
-				var selectListCurrent = listOf<SelectItem>()
-				cityList.forEach {
-					selectListCurrent =
-						selectListCurrent.plus(mapToSelectListItem(it.id, it.name, it.isSelected))
-				}
-				val bottomSheetFragment = BottomSheetSelectListFragment()
-				bottomSheetFragment.setListener(this)
-				val args = Bundle()
-				args.putParcelableArrayList(SELECT_LIST_KEY, ArrayList(selectListCurrent))
-				args.putString(PARAMETER_NAME_KEY, "city")
-				args.putString("TITLE", "Выберите город")
-				args.putBoolean(IS_MULTI_SELECT_KEY, false)
-				bottomSheetFragment.arguments = args
-				bottomSheetFragment.show(parentFragmentManager, "MyBottomSheetFragmentTag")
-			}
-		}
-	}
+                            secondLang = true
+                        }
+                    }
+                }
+                countryText.text = languagesNames
+            }
+            "city" -> {
+                var languagesNames = ""
+                var secondLang = false
+                cityList.forEach { lang ->
+                    lang.isSelected = false
+                    ids.forEach {
+                        if (lang.id == it) {
 
-	fun mapToSelectListItem(id: Int, name: String, isSelected: Boolean): SelectItem {
-		return SelectItem(id = id, name = name, isSelect = isSelected)
-	}
+                            lang.isSelected = true
+                            if (secondLang) {
+                                languagesNames += ", " + lang.name
+                            } else {
+                                languagesNames += lang.name
+                            }
 
-	private fun responseFailed() {
-		Toast.makeText(requireContext(), "Ошибка сервера попробуйте позже", Toast.LENGTH_LONG)
-			.show()
-	}
+                            secondLang = true
+                        }
+                    }
+                }
+                cityText.text = languagesNames
+            }
+            else -> {
+                print("Ошибка, попробуйте еще раз позже")
+            }
+        }
+    }
 
-	override fun onBottomSheetDismiss(
-		ids: List<Int>,
-		parameterName: String,
-		list: MutableList<SelectItem>
-	) {
-		when (parameterName) {
-			"country" -> {
-				var languagesNames = ""
-				var secondLang = false
-				countryList.forEach { lang ->
-					lang.isSelected = false
-					ids.forEach {
-						if (lang.id == it) {
+    private fun handleState(state: RequestResponseState) {
+        when (state) {
+            is RequestResponseState.Failed -> {
+                Toast.makeText(requireContext(), state.message, Toast.LENGTH_LONG).show()
+            }
+            is RequestResponseState.Loading -> {
+            }
+            is RequestResponseState.Success -> {
+                val response = state.value as? StepDataApiResponse ?: return responseFailed()
 
-							lang.isSelected = true
-							if (secondLang) {
-								languagesNames += ", " + lang.name
-							} else {
-								languagesNames += lang.name
-							}
+                val imm: InputMethodManager =
+                    context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(view?.windowToken, 0)
 
-							secondLang = true
-						}
-					}
-				}
-				countryText.text = languagesNames
-			}
-			"city" -> {
-				var languagesNames = ""
-				var secondLang = false
-				cityList.forEach { lang ->
-					lang.isSelected = false
-					ids.forEach {
-						if (lang.id == it) {
-
-							lang.isSelected = true
-							if (secondLang) {
-								languagesNames += ", " + lang.name
-							} else {
-								languagesNames += lang.name
-							}
-
-							secondLang = true
-						}
-					}
-				}
-				cityText.text = languagesNames
-			}
-			else -> {
-				print("Ошибка, попробуйте еще раз позже")
-			}
-		}
-	}
-
-	private fun handleState(state: RequestResponseState) {
-		when (state) {
-			is RequestResponseState.Failed -> {
-				Toast.makeText(requireContext(), state.message, Toast.LENGTH_LONG).show()
-			}
-			is RequestResponseState.Loading -> {
-
-			}
-			is RequestResponseState.Success -> {
-				val response = state.value as? StepDataApiResponse ?: return responseFailed()
-
-				val imm: InputMethodManager =
-					context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-				imm.hideSoftInputFromWindow(view?.windowToken, 0)
-
-				val ft: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
-				val fragment = EventCreateRouter.getCreateStepFragment(response.data.nextStep.name)
-				fragment.arguments = Bundle().apply {
-					putInt(STEP_NUMBER_KEY, response.data.nextStep.numberStep)
-					putString(STEP_NAME, response.data.nextStep.name)
-					putInt(EVENT_ID_KEY, response.data.eventId)
-				}
-				ft.add(R.id.fragment_container,fragment)
-				ft.addToBackStack(null)
-				ft.commit()
-			}
-		}
-	}
+                val ft: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+                val fragment = EventCreateRouter.getCreateStepFragment(response.data.nextStep.name)
+                fragment.arguments = Bundle().apply {
+                    putInt(STEP_NUMBER_KEY, response.data.nextStep.numberStep)
+                    putString(STEP_NAME, response.data.nextStep.name)
+                    putInt(EVENT_ID_KEY, response.data.eventId)
+                }
+                ft.add(R.id.fragment_container, fragment)
+                ft.addToBackStack(null)
+                ft.commit()
+            }
+        }
+    }
 }

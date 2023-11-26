@@ -22,30 +22,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-<!--        <ImageView-->
-<!--            android:id="@+id/fragment_registration_return_button"-->
-<!--            android:layout_width="30dp"-->
-<!--            android:layout_height="30dp"-->
-<!--            android:layout_marginStart="15dp"-->
-<!--            android:layout_marginTop="15dp"-->
-<!--            android:scaleType="center"-->
-<!--            android:src="@drawable/ic_arrow_white_left" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/fragment_registration_title"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Заполните ваши данные"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textColorHint="#9D9E9E"-->
-<!--            android:textSize="20sp"-->
-<!--            android:layout_marginStart="17dp"-->
-<!--            app:layout_constraintStart_toEndOf="@id/fragment_registration_return_button"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="@id/fragment_registration_return_button"-->
-<!--            app:layout_constraintBottom_toBottomOf="@id/fragment_registration_return_button"-->
-<!--            />-->
-
         <ImageView
             android:id="@+id/fragment_registration_user_image"
             android:layout_width="160dp"
