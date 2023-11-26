@@ -67,8 +67,8 @@ class ProfileFragment : Fragment() {
         viewBinding.fragmentProfilePageManagingMyEvents.setOnClickListener {
             val ft: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
 
-            sharedPreferencesRepository.clearAll()
             ft.replace(R.id.nav_host_fragment_activity_main, ManageEventsFragment())
+            ft.addToBackStack(null)
             ft.commit()
         }
     }

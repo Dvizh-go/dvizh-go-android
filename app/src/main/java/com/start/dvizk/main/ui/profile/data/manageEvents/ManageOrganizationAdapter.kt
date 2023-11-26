@@ -3,6 +3,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.start.dvizk.create.organization.list.presentation.model.Organization
+import com.start.dvizk.create.organization.list.presentation.model.OrganizationList
 import com.start.dvizk.databinding.ItemManageOrganizationBinding
 
 class ManageOrganizationAdapter() : RecyclerView.Adapter<ManageOrganizationAdapter.ManageOrganizationHolder>() {
@@ -28,8 +29,8 @@ class ManageOrganizationAdapter() : RecyclerView.Adapter<ManageOrganizationAdapt
         }
     }
 
-    fun setData(list: List<Organization>) {
-        organizationList = list
+    fun setData(list: OrganizationList) {
+        organizationList = list.data
         notifyDataSetChanged()
     }
 }

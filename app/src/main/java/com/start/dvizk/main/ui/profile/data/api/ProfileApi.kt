@@ -1,4 +1,4 @@
-package com.start.dvizk.main.ui.profile.data
+package com.start.dvizk.main.ui.profile.data.api
 
 import com.start.dvizk.main.ui.profile.data.model.UserProfile
 import retrofit2.Call

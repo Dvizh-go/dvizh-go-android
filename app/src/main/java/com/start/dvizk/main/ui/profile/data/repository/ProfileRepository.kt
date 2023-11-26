@@ -1,5 +1,6 @@
-package com.start.dvizk.main.ui.profile.data
+package com.start.dvizk.main.ui.profile.data.repository
 
+import com.start.dvizk.main.ui.profile.data.api.ProfileApi
 import com.start.dvizk.main.ui.profile.data.model.ProfileDataModel
 import com.start.dvizk.network.Response
 import java.lang.Exception

@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.start.dvizk.arch.CustomMutableLiveData
 import com.start.dvizk.create.steps.data.model.RequestResponseState
-import com.start.dvizk.main.ui.profile.data.ProfileRepository
+import com.start.dvizk.main.ui.profile.data.repository.ProfileRepository
 import com.start.dvizk.network.Response
 import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope

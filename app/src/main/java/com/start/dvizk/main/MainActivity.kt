@@ -11,7 +11,6 @@ import com.start.dvizk.auth.main.MainAuthFragment
 import com.start.dvizk.main.ui.home.presentation.HomeFragment
 import com.start.dvizk.main.ui.profile.presentation.ProfileFragment
 import com.start.dvizk.main.ui.tickets.mytickets.presentation.MyTicketsFragment
-import com.start.dvizk.util.ActivityLauncher
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
@@ -48,11 +47,11 @@ class MainActivity : AppCompatActivity() {
 //
 // 					true
 // 				}
-                R.id.navigation_qr -> {
-                    ActivityLauncher().startQrScanner(this)
-
-                    true
-                }
+//                R.id.navigation_qr -> {
+//                    ActivityLauncher().startQrScanner(this)
+//
+//                    true
+//                }
                 R.id.navigation_my_tickets -> {
                     val ft: FragmentTransaction = this.supportFragmentManager.beginTransaction()
                     val myTicketsFragment = MyTicketsFragment()

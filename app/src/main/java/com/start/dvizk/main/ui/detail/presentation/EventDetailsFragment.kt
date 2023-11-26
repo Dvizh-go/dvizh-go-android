@@ -20,10 +20,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
-import com.google.android.material.snackbar.Snackbar
 import com.start.dvizk.R
 import com.start.dvizk.arch.data.SharedPreferencesRepository
-import com.start.dvizk.auth.profile.ProfileAuthFragment
 import com.start.dvizk.create.steps.data.model.RequestResponseState
 import com.start.dvizk.main.ui.detail.data.model.CheckListDataModel
 import com.start.dvizk.main.ui.detail.data.model.DateTime
@@ -36,8 +34,6 @@ import com.start.dvizk.main.ui.detail.presentation.rules.CancellationRulesFragme
 import com.start.dvizk.main.ui.detail.presentation.rules.EventRulesFragment
 import com.start.dvizk.main.ui.home.presentation.EVENT_ID
 import com.start.dvizk.main.ui.order.presentation.router.OrderTicketScreenRouter
-import com.start.dvizk.util.CacheUtil
-import com.start.dvizk.util.Constant
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -191,24 +187,24 @@ class EventDetailsFragment : Fragment(), OnDateTimeClickListener {
 
         fragment_detail_page_book_event_button =
             view.findViewById(R.id.fragment_detail_page_book_event_button)
-        fragment_detail_page_book_event_button.setOnClickListener {
-            if (sharedPreferencesRepository.getUserToken().isEmpty()) {
-                val ft: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
-                CacheUtil().saveBooleanValue(requireContext(), Constant().RETURN_EVENT_DETAILS, true)
-                CacheUtil().saveIntegerValue(requireContext(), Constant().EVENT_DATA_VALUE, requireArguments().getInt(EVENT_ID))
-                ft.add(R.id.nav_host_fragment_activity_main, ProfileAuthFragment())
-                ft.addToBackStack(null)
-                ft.commit()
-            } else if (!areAnyItemsSelected(dateTimes)) {
-                Snackbar.make(
-                    fragment_detail_page_book_event_button,
-                    "Ни одна дата не выбрана",
-                    Snackbar.LENGTH_SHORT
-                ).show()
-            } else {
-                viewModel.orderFirstStep(sharedPreferencesRepository.getUserToken(), dateTimeId)
-            }
-        }
+//        fragment_detail_page_book_event_button.setOnClickListener {
+// //            if (sharedPreferencesRepository.getUserToken().isEmpty()) {
+// //                val ft: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+// //                CacheUtil().saveBooleanValue(requireContext(), Constant().RETURN_EVENT_DETAILS, true)
+// //                CacheUtil().saveIntegerValue(requireContext(), Constant().EVENT_DATA_VALUE, requireArguments().getInt(EVENT_ID))
+// //                ft.add(R.id.nav_host_fragment_activity_main, ProfileAuthFragment())
+// //                ft.addToBackStack(null)
+// //                ft.commit()
+// //            } else if (!areAnyItemsSelected(dateTimes)) {
+// //                Snackbar.make(
+// //                    fragment_detail_page_book_event_button,
+// //                    "Ни одна дата не выбрана",
+// //                    Snackbar.LENGTH_SHORT
+// //                ).show()
+// //            } else {
+// //                viewModel.orderFirstStep(sharedPreferencesRepository.getUserToken(), dateTimeId)
+// //            }
+//        }
     }
 
     private fun initLists() {
@@ -404,6 +400,15 @@ class EventDetailsFragment : Fragment(), OnDateTimeClickListener {
                     googleIntent.setDataAndType(Uri.parse("mailto:$organizationGmail"), "message/rfc822")
                     googleIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(organizationGmail))
                     startActivity(Intent.createChooser(googleIntent, "Choose email client:"))
+                }
+                // Временное решение
+                fragment_detail_page_book_event_button.setOnClickListener {
+                    val organizationWhatsapp = response.organization?.whatsapp
+                    if (organizationWhatsapp != null) {
+                        val organizationWhatsappUri =
+                            "https://wa.me/send?phone=${convertWhatsappPhoneNumber(organizationWhatsapp)}&text=Здраствуйте! Пишу из приложения EventGO."
+                        openLink(organizationWhatsappUri)
+                    }
                 }
             }
         }

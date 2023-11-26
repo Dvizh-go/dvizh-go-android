@@ -41,9 +41,11 @@ import com.start.dvizk.main.ui.order.data.TicketOrderApi
 import com.start.dvizk.main.ui.order.data.TicketOrderRepository
 import com.start.dvizk.main.ui.order.presentation.payment.PaymentViewModel
 import com.start.dvizk.main.ui.order.presentation.steps.TicketOrderViewModel
-import com.start.dvizk.main.ui.profile.data.ProfileApi
-import com.start.dvizk.main.ui.profile.data.ProfileRepository
+import com.start.dvizk.main.ui.profile.data.api.ManageEventsApi
+import com.start.dvizk.main.ui.profile.data.api.ProfileApi
 import com.start.dvizk.main.ui.profile.data.manageEvents.ManageEventsViewModel
+import com.start.dvizk.main.ui.profile.data.repository.ManageEventsRepository
+import com.start.dvizk.main.ui.profile.data.repository.ProfileRepository
 import com.start.dvizk.main.ui.profile.presentation.ProfileViewModel
 import com.start.dvizk.main.ui.tickets.mytickets.data.MyTicketsApi
 import com.start.dvizk.main.ui.tickets.mytickets.data.MyTicketsRepository
@@ -74,7 +76,6 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 internal const val APP_RETROFIT = "app_retrofit"
 internal const val APP_RETROFIT_HTTP_CLIENT = "app_retrofit_http_client"
@@ -179,6 +180,13 @@ object DiContainer {
                 ticketApi = appRetrofit.create(TicketApi::class.java)
             )
         }
+
+        factory {
+            val appRetrofit: Retrofit = get(named(APP_RETROFIT))
+            ManageEventsRepository(
+                manageEventsApi = appRetrofit.create(ManageEventsApi::class.java)
+            )
+        }
     }
 
     fun getRetrofit(okHttpClient: OkHttpClient): Retrofit {
@@ -242,6 +250,7 @@ object DiContainer {
         viewModel {
             ManageEventsViewModel(
                 application = androidApplication(),
+                manageEventsRepository = get(),
             )
         }
 

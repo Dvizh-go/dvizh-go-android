@@ -6,8 +6,11 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.google.android.material.snackbar.Snackbar
 import com.start.dvizk.R
-import com.start.dvizk.create.organization.list.presentation.model.Organization
+import com.start.dvizk.arch.data.SharedPreferencesRepository
+import com.start.dvizk.create.organization.list.presentation.model.OrganizationList
+import com.start.dvizk.create.steps.data.model.RequestResponseState
 import com.start.dvizk.databinding.FragmentManageEventsBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -20,8 +23,33 @@ class ManageEventsFragment : Fragment(R.layout.fragment_manage_events) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.getAvailableOrganizations(
+            SharedPreferencesRepository(requireContext()).getUserId().toInt()
+        )
         initViews()
-        initList()
+        bindViewModel()
+    }
+
+    private fun bindViewModel() {
+        viewModel.availableOrganizationsLiveData.observe(viewLifecycleOwner, ::handleList)
+    }
+
+    private fun handleList(requestResponseState: RequestResponseState) {
+        when (requestResponseState) {
+            is RequestResponseState.Failed -> {
+                Snackbar.make(
+                    viewBinding.toolbar,
+                    requestResponseState.message,
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
+            is RequestResponseState.Loading -> {
+            }
+            is RequestResponseState.Success -> {
+                val response = requestResponseState.value
+                initList(response)
+            }
+        }
     }
 
     private fun initViews() = with(viewBinding) {
@@ -30,12 +58,11 @@ class ManageEventsFragment : Fragment(R.layout.fragment_manage_events) {
         }
     }
 
-    private fun initList() = with(viewBinding) {
-        organizationRecylcer.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+    private fun initList(listValue: Any) = with(viewBinding) {
+        organizationRecylcer.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         adapter = ManageOrganizationAdapter()
-        val organization1 = Organization(1, "123", "kali", "1234", "124124", "dvsd", "", "", false)
-        val organization2 = Organization(1, "123", "kali", "1234", "124124", "dvsd", "", "", false)
-        adapter.setData(listOf(organization1, organization2))
+        adapter.setData(listValue as OrganizationList)
         organizationRecylcer.adapter = adapter
     }
 }
