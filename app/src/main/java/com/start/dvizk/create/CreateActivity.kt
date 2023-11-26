@@ -10,27 +10,26 @@ import org.koin.android.ext.android.inject
 
 class CreateActivity : AppCompatActivity() {
 
-	private val sharedPreferencesRepository: SharedPreferencesRepository by inject()
+    private val sharedPreferencesRepository: SharedPreferencesRepository by inject()
 
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-		setContentView(layoutInflater.inflate(R.layout.activity_auth, null, false))
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(layoutInflater.inflate(R.layout.activity_auth, null, false))
 
-		if (sharedPreferencesRepository.getFirstLaunchInstructio()) {
-			sharedPreferencesRepository.setFirstLaunchInstructio(false)
+        if (sharedPreferencesRepository.getFirstLaunchInstructio()) {
+            sharedPreferencesRepository.setFirstLaunchInstructio(false)
 
-			val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
+            val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
 
-			ft.replace(R.id.fragment_container, InstructionFragment())
+            ft.replace(R.id.fragment_container, InstructionFragment())
 
-			ft.commit()
-		} else {
-			val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
+            ft.commit()
+        } else {
+            val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
 
-			ft.replace(R.id.fragment_container, OrganizationListFragment())
+            ft.replace(R.id.fragment_container, OrganizationListFragment())
 
-			ft.commit()
-		}
-
-	}
+            ft.commit()
+        }
+    }
 }

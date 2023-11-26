@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.start.dvizk.R
-import com.start.dvizk.registration.dialog.GenderSelectionListener
 
 const val SUCCESS_DIALOG_TITLE: String = "success_dialog_title"
 const val SUCCESS_DIALOG_SUBTITLE: String = "success_dialog_subtitle"

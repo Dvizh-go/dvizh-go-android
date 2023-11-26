@@ -30,173 +30,171 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LanguageStepFragment : Fragment(), OnBottomSheetDismissListener {
 
-	private val viewModel: LanguageStepViewModel by viewModel()
-	private val sharedPreferencesRepository: SharedPreferencesRepository by inject()
+    private val viewModel: LanguageStepViewModel by viewModel()
+    private val sharedPreferencesRepository: SharedPreferencesRepository by inject()
 
-	var languages = listOf<EventParameter>()
+    var languages = listOf<EventParameter>()
 
-	private lateinit var next: Button
-	private lateinit var back: Button
-	private lateinit var languagesText: TextView
+    private lateinit var next: Button
+    private lateinit var back: Button
+    private lateinit var languagesText: TextView
 
-	override fun onCreateView(
-		inflater: LayoutInflater,
-		container: ViewGroup?,
-		savedInstanceState: Bundle?
-	): View = inflater.inflate(R.layout.fragment_language_step, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View = inflater.inflate(R.layout.fragment_language_step, container, false)
 
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-		initView(view)
-		viewModel.requestResponseStateLiveData.observe(viewLifecycleOwner, ::handleLanguageState)
-		viewModel.requestSendLangResponseStateLiveData.observe(viewLifecycleOwner, ::handleState)
-	}
+        initView(view)
+        viewModel.requestResponseStateLiveData.observe(viewLifecycleOwner, ::handleLanguageState)
+        viewModel.requestSendLangResponseStateLiveData.observe(viewLifecycleOwner, ::handleState)
+    }
 
-	private fun initView(view: View) {
-		val headerBack: ImageView = view.findViewById(R.id.fragment_create_organization_back_image)
-		headerBack.setOnClickListener {
-			requireActivity().supportFragmentManager.popBackStack()
-		}
-		next = view.findViewById(R.id.fragment_create_organization_next)
-		back = view.findViewById(R.id.fragment_create_organization_back)
-		languagesText = view.findViewById(R.id.fragment_language_step_languages_text)
+    private fun initView(view: View) {
+        val headerBack: ImageView = view.findViewById(R.id.fragment_create_organization_back_image)
+        headerBack.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
+        next = view.findViewById(R.id.fragment_create_organization_next)
+        back = view.findViewById(R.id.fragment_create_organization_back)
+        languagesText = view.findViewById(R.id.fragment_language_step_languages_text)
 
-		next.setOnClickListener {
-			var ids = mutableListOf<Int>()
-			languages.forEach { lang ->
-				if (lang.isSelected) {
-					ids.add(lang.id)
-				}
-			}
-			arguments?.apply {
-				viewModel.sendEventLanguages(
-					token = sharedPreferencesRepository.getUserToken(),
-					numberStep = getInt(STEP_NUMBER_KEY),
-					eventId = getInt(EVENT_ID_KEY),
-					languages = ids
-				)
-			}
-		}
+        next.setOnClickListener {
+            var ids = mutableListOf<Int>()
+            languages.forEach { lang ->
+                if (lang.isSelected) {
+                    ids.add(lang.id)
+                }
+            }
+            arguments?.apply {
+                viewModel.sendEventLanguages(
+                    token = sharedPreferencesRepository.getUserToken(),
+                    numberStep = getInt(STEP_NUMBER_KEY),
+                    eventId = getInt(EVENT_ID_KEY),
+                    languages = ids
+                )
+            }
+        }
 
-		back.setOnClickListener {
-			requireActivity().supportFragmentManager.popBackStack()
-		}
+        back.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
 
-		languagesText.setOnClickListener {
-			if (languages.isEmpty()) {
-				viewModel.getLanguages()
-			} else {
-				var selectListCurrent = listOf<SelectItem>()
-				languages.forEach {
-					selectListCurrent =
-						selectListCurrent.plus(mapToSelectListItem(it.id, it.name, it.isSelected))
-				}
-				val bottomSheetFragment = BottomSheetSelectListFragment()
-				bottomSheetFragment.setListener(this)
-				val args = Bundle()
-				args.putParcelableArrayList(SELECT_LIST_KEY, ArrayList(selectListCurrent))
-				args.putBoolean(IS_MULTI_SELECT_KEY, true)
-				args.putString("TITLE", "Выберите языки")
-				bottomSheetFragment.arguments = args
-				bottomSheetFragment.show(parentFragmentManager, "MyBottomSheetFragmentTag")
-			}
-		}
-	}
+        languagesText.setOnClickListener {
+            if (languages.isEmpty()) {
+                viewModel.getLanguages()
+            } else {
+                var selectListCurrent = listOf<SelectItem>()
+                languages.forEach {
+                    selectListCurrent =
+                        selectListCurrent.plus(mapToSelectListItem(it.id, it.name, it.isSelected))
+                }
+                val bottomSheetFragment = BottomSheetSelectListFragment()
+                bottomSheetFragment.setListener(this)
+                val args = Bundle()
+                args.putParcelableArrayList(SELECT_LIST_KEY, ArrayList(selectListCurrent))
+                args.putBoolean(IS_MULTI_SELECT_KEY, true)
+                args.putString("TITLE", "Выберите языки")
+                bottomSheetFragment.arguments = args
+                bottomSheetFragment.show(parentFragmentManager, "MyBottomSheetFragmentTag")
+            }
+        }
+    }
 
-	private fun handleState(state: RequestResponseState) {
-		when (state) {
-			is RequestResponseState.Failed -> {
-				Toast.makeText(requireContext(), state.message, Toast.LENGTH_LONG).show()
-			}
+    private fun handleState(state: RequestResponseState) {
+        when (state) {
+            is RequestResponseState.Failed -> {
+                Toast.makeText(requireContext(), state.message, Toast.LENGTH_LONG).show()
+            }
 
-			is RequestResponseState.Loading -> {
+            is RequestResponseState.Loading -> {
+            }
 
-			}
+            is RequestResponseState.Success -> {
+                val response = state.value as? StepDataApiResponse ?: return responseFailed()
+                val imm: InputMethodManager =
+                    context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(view?.windowToken, 0)
+                val ft: FragmentTransaction =
+                    requireActivity().supportFragmentManager.beginTransaction()
+                val fragment = EventCreateRouter.getCreateStepFragment(response.data.nextStep.name)
 
-			is RequestResponseState.Success -> {
-				val response = state.value as? StepDataApiResponse ?: return responseFailed()
-				val imm: InputMethodManager =
-					context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-				imm.hideSoftInputFromWindow(view?.windowToken, 0)
-				val ft: FragmentTransaction =
-					requireActivity().supportFragmentManager.beginTransaction()
-				val fragment = EventCreateRouter.getCreateStepFragment(response.data.nextStep.name)
+                fragment.arguments = Bundle().apply {
+                    putInt(STEP_NUMBER_KEY, response.data.nextStep.numberStep)
+                    putInt(EVENT_ID_KEY, response.data.eventId)
+                }
+                ft.add(R.id.fragment_container, fragment)
+                ft.addToBackStack(null)
+                ft.commit()
+            }
+        }
+    }
 
-				fragment.arguments = Bundle().apply {
-					putInt(STEP_NUMBER_KEY, response.data.nextStep.numberStep)
-					putInt(EVENT_ID_KEY, response.data.eventId)
-				}
-				ft.add(R.id.fragment_container, fragment)
-				ft.addToBackStack(null)
-				ft.commit()
-			}
-		}
-	}
+    private fun handleLanguageState(state: RequestResponseState) {
+        when (state) {
+            is RequestResponseState.Failed -> {
+                Toast.makeText(requireContext(), state.message, Toast.LENGTH_LONG).show()
+            }
 
-	private fun handleLanguageState(state: RequestResponseState) {
-		when (state) {
-			is RequestResponseState.Failed -> {
-				Toast.makeText(requireContext(), state.message, Toast.LENGTH_LONG).show()
-			}
+            is RequestResponseState.Loading -> {
+            }
 
-			is RequestResponseState.Loading -> {
+            is RequestResponseState.Success -> {
+                languages = state.value as? List<EventParameter> ?: return responseFailed()
+                var selectListCurrent = listOf<SelectItem>()
+                languages.forEach {
+                    selectListCurrent =
+                        selectListCurrent.plus(mapToSelectListItem(it.id, it.name, it.isSelected))
+                }
+                val bottomSheetFragment = BottomSheetSelectListFragment()
+                bottomSheetFragment.setListener(this)
 
-			}
+                val args = Bundle()
+                args.putParcelableArrayList(SELECT_LIST_KEY, ArrayList(selectListCurrent))
+                args.putBoolean(IS_MULTI_SELECT_KEY, true)
+                args.putString("TITLE", "Выберите языки")
+                bottomSheetFragment.arguments = args
+                bottomSheetFragment.show(parentFragmentManager, "MyBottomSheetFragmentTag")
+            }
+        }
+    }
 
-			is RequestResponseState.Success -> {
-				languages = state.value as? List<EventParameter> ?: return responseFailed()
-				var selectListCurrent = listOf<SelectItem>()
-				languages.forEach {
-					selectListCurrent =
-						selectListCurrent.plus(mapToSelectListItem(it.id, it.name, it.isSelected))
-				}
-				val bottomSheetFragment = BottomSheetSelectListFragment()
-				bottomSheetFragment.setListener(this)
+    fun mapToSelectListItem(id: Int, name: String, isSelected: Boolean): SelectItem {
+        return SelectItem(id = id, name = name, isSelect = isSelected)
+    }
 
-				val args = Bundle()
-				args.putParcelableArrayList(SELECT_LIST_KEY, ArrayList(selectListCurrent))
-				args.putBoolean(IS_MULTI_SELECT_KEY, true)
-				args.putString("TITLE", "Выберите языки")
-				bottomSheetFragment.arguments = args
-				bottomSheetFragment.show(parentFragmentManager, "MyBottomSheetFragmentTag")
-			}
-		}
-	}
+    private fun responseFailed() {
+        Toast.makeText(requireContext(), "Ошибка сервера попробуйте позже", Toast.LENGTH_LONG)
+            .show()
+    }
 
-	fun mapToSelectListItem(id: Int, name: String, isSelected: Boolean): SelectItem {
-		return SelectItem(id = id, name = name, isSelect = isSelected)
-	}
+    override fun onBottomSheetDismiss(
+        ids: List<Int>,
+        parameterName: String,
+        list: MutableList<SelectItem>
+    ) {
+        var languagesNames = ""
+        var secondLang = false
+        languages.forEach { lang ->
+            lang.isSelected = false
+            ids.forEach {
+                if (lang.id == it) {
 
-	private fun responseFailed() {
-		Toast.makeText(requireContext(), "Ошибка сервера попробуйте позже", Toast.LENGTH_LONG)
-			.show()
-	}
+                    lang.isSelected = true
+                    if (secondLang) {
+                        languagesNames += ", " + lang.name
+                    } else {
+                        languagesNames += lang.name
+                    }
 
-	override fun onBottomSheetDismiss(
-		ids: List<Int>,
-		parameterName: String,
-		list: MutableList<SelectItem>
-	) {
-		var languagesNames = ""
-		var secondLang = false
-		languages.forEach { lang ->
-			lang.isSelected = false
-			ids.forEach {
-				if(lang.id == it) {
+                    secondLang = true
+                }
+            }
+        }
 
-					lang.isSelected = true
-					if (secondLang) {
-						languagesNames += ", " + lang.name
-					} else {
-						languagesNames += lang.name
-					}
-
-					secondLang = true
-				}
-			}
-		}
-
-		languagesText.text = languagesNames
-	}
+        languagesText.text = languagesNames
+    }
 }

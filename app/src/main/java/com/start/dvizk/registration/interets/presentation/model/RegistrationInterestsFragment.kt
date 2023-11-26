@@ -11,20 +11,20 @@ import com.start.dvizk.main.ui.home.presentation.CategoryAdapter
 
 class RegistrationInterestsFragment : Fragment() {
 
-	private lateinit var fragment_registration_interests_category_recycler_view: RecyclerView
+    private lateinit var fragment_registration_interests_category_recycler_view: RecyclerView
 
-	override fun onCreateView(
-		inflater: LayoutInflater,
-		container: ViewGroup?,
-		savedInstanceState: Bundle?
-	): View? {
-		return inflater.inflate(R.layout.fragment_registration_interests, container, false)
-	}
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_registration_interests, container, false)
+    }
 
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-		fragment_registration_interests_category_recycler_view = view.findViewById(R.id.fragment_registration_interests_category_recycler_view)
-		fragment_registration_interests_category_recycler_view.adapter = CategoryAdapter(resources)
-	}
+        fragment_registration_interests_category_recycler_view = view.findViewById(R.id.fragment_registration_interests_category_recycler_view)
+        fragment_registration_interests_category_recycler_view.adapter = CategoryAdapter(resources)
+    }
 }

@@ -8,15 +8,14 @@ import com.start.dvizk.main.ui.tickets.mytickets.presentation.screens.UpcomingFr
 
 class MyTicketsPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
-	override fun getItemCount(): Int = 3
+    override fun getItemCount(): Int = 3
 
-	override fun createFragment(position: Int): Fragment {
-		return when (position) {
-			0 -> UpcomingFragment()
-			1 -> FinishedFragment()
-			2 -> CanceledFragment()
-			else -> UpcomingFragment()
-		}
-	}
-
+    override fun createFragment(position: Int): Fragment {
+        return when (position) {
+            0 -> UpcomingFragment()
+            1 -> FinishedFragment()
+            2 -> CanceledFragment()
+            else -> UpcomingFragment()
+        }
+    }
 }

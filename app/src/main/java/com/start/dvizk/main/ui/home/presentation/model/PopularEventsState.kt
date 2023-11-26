@@ -9,6 +9,6 @@ sealed class PopularEventsState {
     ) : PopularEventsState()
 
     data class Success(
-            val events: List<Event>
+        val events: List<Event>
     ) : PopularEventsState()
 }

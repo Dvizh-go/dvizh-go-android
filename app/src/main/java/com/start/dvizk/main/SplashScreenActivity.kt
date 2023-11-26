@@ -1,12 +1,12 @@
 package com.start.dvizk.main
 
 import android.content.Context
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.appcompat.app.AppCompatActivity
 import com.start.dvizk.R
+import com.start.dvizk.util.ActivityLauncher
 
 class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +20,7 @@ class SplashScreenActivity : AppCompatActivity() {
         val splashScreenDuration = getSplashScreenDuration()
         Handler(Looper.getMainLooper()).postDelayed(
             {
-                startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
+                ActivityLauncher().startMainActivity(this)
                 finish()
             },
             splashScreenDuration
@@ -31,7 +31,7 @@ class SplashScreenActivity : AppCompatActivity() {
         val sp = getPreferences(Context.MODE_PRIVATE)
         val prefKeyFirstLaunch = "pref_first_launch"
 
-        return when(sp.getBoolean(prefKeyFirstLaunch, true)) {
+        return when (sp.getBoolean(prefKeyFirstLaunch, true)) {
             true -> {
                 sp.edit().putBoolean(prefKeyFirstLaunch, false).apply()
                 3000

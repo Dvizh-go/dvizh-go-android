@@ -12,58 +12,58 @@ import com.start.dvizk.R
 
 class CommandDataAdapter : RecyclerView.Adapter<CommandDataAdapter.ViewHolder>() {
 
-	private var members = mutableListOf<String>()
+    private var members = mutableListOf<String>()
 
-	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-		val member = LayoutInflater.from(parent.context)
-			.inflate(R.layout.item_team_member, parent, false)
+        val member = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_team_member, parent, false)
 
-		return ViewHolder(member)
-	}
+        return ViewHolder(member)
+    }
 
-	override fun getItemCount(): Int = members.size
+    override fun getItemCount(): Int = members.size
 
-	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-		holder.bind()
-	}
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind()
+    }
 
-	fun addItem() {
-		val newMembers = ArrayList(members)
-		newMembers.add("")
-		members.clear()
-		members.addAll(newMembers)
-		notifyDataSetChanged()
-	}
+    fun addItem() {
+        val newMembers = ArrayList(members)
+        newMembers.add("")
+        members.clear()
+        members.addAll(newMembers)
+        notifyDataSetChanged()
+    }
 
-	fun removeItem(position: Int) {
-		val newMembers = ArrayList(members)
-		newMembers.removeAt(position)
-		members.clear()
-		members.addAll(newMembers)
-		notifyDataSetChanged()
-	}
+    fun removeItem(position: Int) {
+        val newMembers = ArrayList(members)
+        newMembers.removeAt(position)
+        members.clear()
+        members.addAll(newMembers)
+        notifyDataSetChanged()
+    }
 
-	fun getData(): List<String> {
-		return members
-	}
+    fun getData(): List<String> {
+        return members
+    }
 
-	inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-		fun bind() {
-			val memberEditText: EditText = itemView.findViewById(R.id.item_team_member_edit_text)
-			val memberRemoveButton: ImageView = itemView.findViewById(R.id.item_team_member_remove)
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bind() {
+            val memberEditText: EditText = itemView.findViewById(R.id.item_team_member_edit_text)
+            val memberRemoveButton: ImageView = itemView.findViewById(R.id.item_team_member_remove)
 
-			memberEditText.addTextChangedListener(object : TextWatcher {
-				override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-				override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-				override fun afterTextChanged(s: Editable?) {
-					members[adapterPosition] = memberEditText.text.toString()
-				}
-			})
+            memberEditText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                override fun afterTextChanged(s: Editable?) {
+                    members[adapterPosition] = memberEditText.text.toString()
+                }
+            })
 
-			memberRemoveButton.setOnClickListener {
-				removeItem(adapterPosition)
-			}
-		}
-	}
+            memberRemoveButton.setOnClickListener {
+                removeItem(adapterPosition)
+            }
+        }
+    }
 }

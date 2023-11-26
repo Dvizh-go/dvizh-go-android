@@ -13,7 +13,5 @@ class DetailedEventFragment : Fragment(R.layout.fragment_detailed_event) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
     }
 }

@@ -28,7 +28,7 @@ class ManageOrganizationAdapter() : RecyclerView.Adapter<ManageOrganizationAdapt
         }
     }
 
-    fun setData(list: List<Organization>){
+    fun setData(list: List<Organization>) {
         organizationList = list
         notifyDataSetChanged()
     }

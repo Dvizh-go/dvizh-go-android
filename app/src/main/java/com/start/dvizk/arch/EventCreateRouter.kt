@@ -12,7 +12,6 @@ import com.start.dvizk.create.steps.eventrule.EventRuleStepFragment
 import com.start.dvizk.create.steps.freeorpay.FreeOrPayStepFragment
 import com.start.dvizk.create.steps.guestcount.GusetCountStepFragment
 import com.start.dvizk.create.steps.language.LanguageStepFragment
-import com.start.dvizk.create.steps.language.LanguageStepViewModel
 import com.start.dvizk.create.steps.location.LocationStepFragment
 import com.start.dvizk.create.steps.name.NameStepFragment
 import com.start.dvizk.create.steps.needings.NeededItemsStepFragment
@@ -25,72 +24,72 @@ import com.start.dvizk.create.steps.visitperson.AllowedGuestStepFragment
 
 object EventCreateRouter {
 
-	fun getCreateStepFragment(stepName: String?): Fragment = when (stepName) {
-		"type" -> {
-			TypeStepFragment()
-		}
-		"language" -> {
-			LanguageStepFragment()
-		}
-		"category" -> {
-			CategoryStepFragment()
-		}
-		"description" -> {
-			AboutStepFragment()
-		}
-		"regionAndLocation" -> {
-			LocationStepFragment()
-		}
-		"datetime" -> {
-			CalendarStepFragment()
-		}
-		"purchaseDeadline" -> {
-			BookingStepFragment()
-		}
-		"additionalServices" -> {
-			AdditionalServiceStepFragment()
-		}
-		"necessaryItems" -> {
-			NeededItemsStepFragment()
-		}
-		"requirement" -> {
-			AllowedGuestStepFragment()
-		}
-		"images" -> {
-			PhotoStepFragment()
-		}
-		"name" -> {
-			NameStepFragment()
-		}
-		"classification" -> {
-			ClassificationStepFragment()
-		}
-		"maximumGroupSize" -> {
-			GusetCountStepFragment()
-		}
-		"entryCondition" -> {
-			FreeOrPayStepFragment()
-		}
-		"price" -> {
-			PriceStepFragment()
-		}
-		"cancellationRules" -> {
-			CancelRuleStepFragment()
-		}
-		"rules" -> {
-			EventRuleStepFragment()
-		}
-		"numberOfTeams" -> {
-			TeamCountStepFragment()
-		}
-		"datetimeSingle", "datetimeGroup" -> {
-			CalendarStepFragment()
-		}
-		"success" -> {
-			SuccessDialog()
-		}
-		else -> {
-			TypeStepFragment()
-		}
-	}
+    fun getCreateStepFragment(stepName: String?): Fragment = when (stepName) {
+        "type" -> {
+            TypeStepFragment()
+        }
+        "language" -> {
+            LanguageStepFragment()
+        }
+        "category" -> {
+            CategoryStepFragment()
+        }
+        "description" -> {
+            AboutStepFragment()
+        }
+        "regionAndLocation" -> {
+            LocationStepFragment()
+        }
+        "datetime" -> {
+            CalendarStepFragment()
+        }
+        "purchaseDeadline" -> {
+            BookingStepFragment()
+        }
+        "additionalServices" -> {
+            AdditionalServiceStepFragment()
+        }
+        "necessaryItems" -> {
+            NeededItemsStepFragment()
+        }
+        "requirement" -> {
+            AllowedGuestStepFragment()
+        }
+        "images" -> {
+            PhotoStepFragment()
+        }
+        "name" -> {
+            NameStepFragment()
+        }
+        "classification" -> {
+            ClassificationStepFragment()
+        }
+        "maximumGroupSize" -> {
+            GusetCountStepFragment()
+        }
+        "entryCondition" -> {
+            FreeOrPayStepFragment()
+        }
+        "price" -> {
+            PriceStepFragment()
+        }
+        "cancellationRules" -> {
+            CancelRuleStepFragment()
+        }
+        "rules" -> {
+            EventRuleStepFragment()
+        }
+        "numberOfTeams" -> {
+            TeamCountStepFragment()
+        }
+        "datetimeSingle", "datetimeGroup" -> {
+            CalendarStepFragment()
+        }
+        "success" -> {
+            SuccessDialog()
+        }
+        else -> {
+            TypeStepFragment()
+        }
+    }
 }

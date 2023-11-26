@@ -10,22 +10,21 @@ import retrofit2.http.Query
 
 interface MyTicketsApi {
 
-	@GET("/api/v2/ticket/upcoming")
-	fun getUserUpcomingTickets(
-		@Query("page") page: Int,
-		@Header("Authorization") token: String
-	): Call<UpcomingTicketsResponse>
+    @GET("/api/v2/ticket/upcoming")
+    fun getUserUpcomingTickets(
+        @Query("page") page: Int,
+        @Header("Authorization") token: String
+    ): Call<UpcomingTicketsResponse>
 
-	@GET("/api/v2/ticket/past")
-	fun getUserFinishedTickets(
-		@Query("page") page: Int,
-		@Header("Authorization") token: String
-	): Call<FinishedTicketsResponse>
+    @GET("/api/v2/ticket/past")
+    fun getUserFinishedTickets(
+        @Query("page") page: Int,
+        @Header("Authorization") token: String
+    ): Call<FinishedTicketsResponse>
 
-	@GET("/api/v2/ticket/rejected")
-	fun getUserCanceledTickets(
-		@Query("page") page: Int,
-		@Header("Authorization") token: String
-	): Call<CanceledTicketsResponse>
-
+    @GET("/api/v2/ticket/rejected")
+    fun getUserCanceledTickets(
+        @Query("page") page: Int,
+        @Header("Authorization") token: String
+    ): Call<CanceledTicketsResponse>
 }

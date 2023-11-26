@@ -20,80 +20,79 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FinishedFragment : Fragment() {
 
-	private val viewModel: MyTicketsViewModel by viewModel()
-	private val sharedPreferencesRepository: SharedPreferencesRepository by inject()
+    private val viewModel: MyTicketsViewModel by viewModel()
+    private val sharedPreferencesRepository: SharedPreferencesRepository by inject()
 
-	private lateinit var fragment_my_tickets_finished_recycler: RecyclerView
-	private lateinit var fragment_my_tickets_finished_empty: ConstraintLayout
+    private lateinit var fragment_my_tickets_finished_recycler: RecyclerView
+    private lateinit var fragment_my_tickets_finished_empty: ConstraintLayout
 
-	private lateinit var fragment_my_tickets_finished_progressbar: ProgressBar
+    private lateinit var fragment_my_tickets_finished_progressbar: ProgressBar
 
-	private lateinit var finishedTicketsAdapter: FinishedTicketsAdapter
+    private lateinit var finishedTicketsAdapter: FinishedTicketsAdapter
 
-	override fun onCreateView(
-		inflater: LayoutInflater,
-		container: ViewGroup?,
-		savedInstanceState: Bundle?
-	): View {
-		return inflater.inflate(R.layout.fragment_my_tickets_finished, container, false)
-	}
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return inflater.inflate(R.layout.fragment_my_tickets_finished, container, false)
+    }
 
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-		initView(view)
-		initObserver()
+        initView(view)
+        initObserver()
 
-		viewModel.getUserFinishedTickets(1, sharedPreferencesRepository.getUserToken())
-	}
+        viewModel.getUserFinishedTickets(1, sharedPreferencesRepository.getUserToken())
+    }
 
-	private fun initView(view: View) {
-		fragment_my_tickets_finished_recycler =
-			view.findViewById(R.id.fragment_my_tickets_finished_recycler)
-		fragment_my_tickets_finished_empty =
-			view.findViewById(R.id.fragment_my_tickets_finished_empty)
-		fragment_my_tickets_finished_progressbar =
-			view.findViewById(R.id.fragment_my_tickets_finished_progressbar)
-	}
+    private fun initView(view: View) {
+        fragment_my_tickets_finished_recycler =
+            view.findViewById(R.id.fragment_my_tickets_finished_recycler)
+        fragment_my_tickets_finished_empty =
+            view.findViewById(R.id.fragment_my_tickets_finished_empty)
+        fragment_my_tickets_finished_progressbar =
+            view.findViewById(R.id.fragment_my_tickets_finished_progressbar)
+    }
 
-	private fun initObserver() {
-		viewModel.userFinishedTicketsStateLiveData.observe(viewLifecycleOwner, ::initList)
-	}
+    private fun initObserver() {
+        viewModel.userFinishedTicketsStateLiveData.observe(viewLifecycleOwner, ::initList)
+    }
 
-	private fun initList(state: FinishedTicketsState) {
-		when (state) {
-			is FinishedTicketsState.Failed -> {
-				fragment_my_tickets_finished_progressbar.visibility = View.GONE
-				Toast.makeText(requireContext(), state.message, Toast.LENGTH_LONG).show()
-			}
-			is FinishedTicketsState.Loading -> {
-				fragment_my_tickets_finished_progressbar.visibility = View.VISIBLE
-			}
-			is FinishedTicketsState.Success -> {
-				val myFinishedTickets = state.finishedTickets
+    private fun initList(state: FinishedTicketsState) {
+        when (state) {
+            is FinishedTicketsState.Failed -> {
+                fragment_my_tickets_finished_progressbar.visibility = View.GONE
+                Toast.makeText(requireContext(), state.message, Toast.LENGTH_LONG).show()
+            }
+            is FinishedTicketsState.Loading -> {
+                fragment_my_tickets_finished_progressbar.visibility = View.VISIBLE
+            }
+            is FinishedTicketsState.Success -> {
+                val myFinishedTickets = state.finishedTickets
 
-				if (myFinishedTickets.isNotEmpty()) {
-					fragment_my_tickets_finished_empty.visibility = View.GONE
-					fragment_my_tickets_finished_progressbar.visibility = View.GONE
+                if (myFinishedTickets.isNotEmpty()) {
+                    fragment_my_tickets_finished_empty.visibility = View.GONE
+                    fragment_my_tickets_finished_progressbar.visibility = View.GONE
 
-					finishedTicketsAdapter = FinishedTicketsAdapter(resources)
-					finishedTicketsAdapter.setData(myFinishedTickets)
+                    finishedTicketsAdapter = FinishedTicketsAdapter(resources)
+                    finishedTicketsAdapter.setData(myFinishedTickets)
 
-					fragment_my_tickets_finished_recycler.apply {
-						visibility = View.VISIBLE
-						layoutManager = LinearLayoutManager(
-							requireContext(),
-							LinearLayoutManager.VERTICAL,
-							false
-						)
-						adapter = finishedTicketsAdapter
-					}
-
-				} else {
-					fragment_my_tickets_finished_recycler.visibility = View.GONE
-					fragment_my_tickets_finished_empty.visibility = View.VISIBLE
-				}
-			}
-		}
-	}
+                    fragment_my_tickets_finished_recycler.apply {
+                        visibility = View.VISIBLE
+                        layoutManager = LinearLayoutManager(
+                            requireContext(),
+                            LinearLayoutManager.VERTICAL,
+                            false
+                        )
+                        adapter = finishedTicketsAdapter
+                    }
+                } else {
+                    fragment_my_tickets_finished_recycler.visibility = View.GONE
+                    fragment_my_tickets_finished_empty.visibility = View.VISIBLE
+                }
+            }
+        }
+    }
 }

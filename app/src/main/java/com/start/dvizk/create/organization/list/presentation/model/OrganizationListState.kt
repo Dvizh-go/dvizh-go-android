@@ -1,7 +1,5 @@
 package com.start.dvizk.create.organization.list.presentation.model
 
-import com.google.gson.JsonObject
-
 sealed class OrganizationListState {
 
     object Loading : OrganizationListState()
@@ -11,6 +9,6 @@ sealed class OrganizationListState {
     ) : OrganizationListState()
 
     data class Success(
-            val organizations: MutableList<Organization>
+        val organizations: MutableList<Organization>
     ) : OrganizationListState()
 }

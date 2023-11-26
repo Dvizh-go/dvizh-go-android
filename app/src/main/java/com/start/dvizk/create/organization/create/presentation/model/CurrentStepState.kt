@@ -1,6 +1,5 @@
 package com.start.dvizk.create.organization.create.presentation.model
 
-import com.google.gson.JsonObject
 import com.start.dvizk.create.organization.list.presentation.model.CurrentStep
 
 sealed class CurrentStepState {
@@ -12,6 +11,6 @@ sealed class CurrentStepState {
     ) : CurrentStepState()
 
     data class Success(
-            val step: CurrentStep
+        val step: CurrentStep
     ) : CurrentStepState()
 }

@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface LanguagesListApi {
 
-	@GET("/api/v2/language")
-	fun getLanguages(): Call<MutableList<EventParameter>>
+    @GET("/api/v2/language")
+    fun getLanguages(): Call<MutableList<EventParameter>>
 }

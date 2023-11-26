@@ -9,17 +9,17 @@ import com.start.dvizk.search.search.presentation.SearchFragment
 
 class SearchActivity : AppCompatActivity() {
 
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-		window.navigationBarColor = ContextCompat.getColor(this, R.color.nav_bg)
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.nav_bg)
 
-		setContentView(layoutInflater.inflate(R.layout.activity_auth, null, false))
+        setContentView(layoutInflater.inflate(R.layout.activity_auth, null, false))
 
-		val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
+        val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
 
-		ft.replace(R.id.fragment_container, SearchFragment())
+        ft.replace(R.id.fragment_container, SearchFragment())
 
-		ft.commit()
-	}
+        ft.commit()
+    }
 }
