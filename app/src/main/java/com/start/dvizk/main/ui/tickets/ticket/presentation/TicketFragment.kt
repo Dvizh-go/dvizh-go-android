@@ -2,6 +2,7 @@ package com.start.dvizk.main.ui.tickets.ticket.presentation
 
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -97,13 +98,11 @@ class TicketFragment : Fragment() {
 
 				fragment_ticket_date.text = ticket.date
 				fragment_ticket_time.text = ticket.time
-				fragment_ticket_price.text = ticket.price
+				fragment_ticket_price.text = ticket.price.toString()
 				fragment_ticket_id.text = ticket.id.toString()
 				fragment_ticket_title.text = ticket.title
 				fragment_ticket_progressbar.visibility = View.GONE
 				fragment_ticket_layout.visibility = View.VISIBLE
-
-
 
 				val textToEncode = "{\"datetime_id\":${ticket.datetime_id},\"ticket_id\":${ticket.id},\"email\":\"${ticket.email}\"}"
 				val bitmap = generateQRCode(textToEncode, 500, 500)

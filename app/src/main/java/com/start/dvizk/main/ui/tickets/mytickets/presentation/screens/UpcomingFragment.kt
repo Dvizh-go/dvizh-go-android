@@ -1,6 +1,7 @@
 package com.start.dvizk.main.ui.tickets.mytickets.presentation.screens
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,7 +49,6 @@ class UpcomingFragment : Fragment(), OnTicketClickListener {
 	private lateinit var upcomingTicketsAdapter: UpcomingTicketsAdapter
 
 	private var page = 1
-	private var totalPage: Int = 1
 	private var loading = true
 	private var pastVisibleItems = 0
 	private var visibleItemCount = 0
@@ -108,7 +108,8 @@ class UpcomingFragment : Fragment(), OnTicketClickListener {
 		upcomingTicketsLayoutManager = LinearLayoutManager(
 			requireContext(),
 			LinearLayoutManager.VERTICAL,
-			false)
+			false
+		)
 
 		upcomingTicketsAdapter = UpcomingTicketsAdapter(resources)
 		upcomingTicketsAdapter.setListener(this)
@@ -137,8 +138,8 @@ class UpcomingFragment : Fragment(), OnTicketClickListener {
 
 			}
 			is UpcomingTicketsState.Success -> {
-				totalPage = state.totalPage
-//				setupPagination(totalPage)
+				val totalPage = state.totalPage
+				setupPagination(totalPage)
 				val myUpcomingTickets = state.upcomingTickets
 				list.addAll(myUpcomingTickets)
 
@@ -167,7 +168,7 @@ class UpcomingFragment : Fragment(), OnTicketClickListener {
 						if (visibleItemCount + pastVisibleItems >= totalItemCount) {
 							loading = false
 							if (page != totalPage) {
-								viewModel.getUserUpcomingTickets(++page, sharedPreferencesRepository.getUserToken())
+								viewModel.getUserUpcomingTickets(page++, sharedPreferencesRepository.getUserToken())
 							}
 						}
 					}
