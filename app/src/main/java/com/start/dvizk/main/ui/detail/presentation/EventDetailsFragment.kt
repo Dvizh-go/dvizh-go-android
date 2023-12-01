@@ -379,11 +379,7 @@ class EventDetailsFragment : Fragment(), OnDateTimeClickListener {
 
                 fragment_detail_page_contacts_whatsapp.setOnClickListener {
                     val organizationWhatsapp = response.organization?.whatsapp
-                    if (organizationWhatsapp != null) {
-                        val organizationWhatsappUri =
-                            "https://wa.me/send?phone=${convertWhatsappPhoneNumber(organizationWhatsapp)}&text=Здраствуйте! Пишу из приложения EventGO."
-                        openLink(organizationWhatsappUri)
-                    }
+                    whatsappOpenLink(organizationWhatsapp)
                 }
 
                 fragment_detail_page_contacts_instagram.setOnClickListener {
@@ -404,13 +400,17 @@ class EventDetailsFragment : Fragment(), OnDateTimeClickListener {
                 // Временное решение
                 fragment_detail_page_book_event_button.setOnClickListener {
                     val organizationWhatsapp = response.organization?.whatsapp
-                    if (organizationWhatsapp != null) {
-                        val organizationWhatsappUri =
-                            "https://wa.me/send?phone=${convertWhatsappPhoneNumber(organizationWhatsapp)}&text=Здраствуйте! Пишу из приложения EventGO."
-                        openLink(organizationWhatsappUri)
-                    }
+                    whatsappOpenLink(organizationWhatsapp)
                 }
             }
+        }
+    }
+
+    private fun whatsappOpenLink(organizationWhatsapp: String?) {
+        if (organizationWhatsapp != null) {
+            val organizationWhatsappUri =
+                "https://wa.me/send?phone=${convertWhatsappPhoneNumber(organizationWhatsapp)}&text=Здраствуйте! Пишу из приложения EventGO."
+            openLink(organizationWhatsappUri)
         }
     }
 
@@ -432,7 +432,9 @@ class EventDetailsFragment : Fragment(), OnDateTimeClickListener {
 
     private fun convertWhatsappPhoneNumber(phoneNumber: String): String {
         return if (phoneNumber.startsWith("+7")) {
-            "8${phoneNumber.substring(2)}"
+            "7${phoneNumber.substring(2)}"
+        } else if (phoneNumber.startsWith("8")) {
+            "7${phoneNumber.substring(1)}"
         } else {
             phoneNumber
         }
