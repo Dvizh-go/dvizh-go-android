@@ -224,7 +224,7 @@ class TimeIntervalStepFragment : Fragment(), OnSelectTimeListener, OnBottomSheet
         var formattedTime = ""
         val timePickerDialog = TimePickerDialog(
             context,
-            TimePickerDialog.OnTimeSetListener { _: TimePicker, selectedHour: Int, selectedMinute: Int ->
+            { _: TimePicker, selectedHour: Int, selectedMinute: Int ->
                 selectedTime.set(Calendar.HOUR_OF_DAY, selectedHour)
                 selectedTime.set(Calendar.MINUTE, selectedMinute)
 

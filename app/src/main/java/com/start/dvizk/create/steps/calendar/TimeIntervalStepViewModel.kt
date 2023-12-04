@@ -41,7 +41,7 @@ class TimeIntervalStepViewModel(
                             RequestResponseState.Success(response.result)
                     is Response.Error ->
                         requestResponseStateLiveData.value =
-                            RequestResponseState.Failed(response.error.toString())
+                            RequestResponseState.Failed(response.error)
                 }
             }
         }

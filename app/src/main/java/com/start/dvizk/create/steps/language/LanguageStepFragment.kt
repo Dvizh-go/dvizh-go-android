@@ -120,7 +120,7 @@ class LanguageStepFragment : Fragment(), OnBottomSheetDismissListener {
                 imm.hideSoftInputFromWindow(view?.windowToken, 0)
                 val ft: FragmentTransaction =
                     requireActivity().supportFragmentManager.beginTransaction()
-                val fragment = EventCreateRouter.getCreateStepFragment(response.data.nextStep.name)
+                val fragment = EventCreateRouter.getCreateStepFragment("images")
 
                 fragment.arguments = Bundle().apply {
                     putInt(STEP_NUMBER_KEY, response.data.nextStep.numberStep)

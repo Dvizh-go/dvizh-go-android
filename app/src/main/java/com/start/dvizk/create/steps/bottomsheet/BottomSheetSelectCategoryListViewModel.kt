@@ -20,7 +20,7 @@ class BottomSheetSelectCategoryListViewModel(
     OnCategoryCheckItemClickListener {
 
     val categoriesListState: MutableLiveData<CategoriesListState> = CustomMutableLiveData()
-    val navigation: MutableLiveData<Navigation> = CustomMutableLiveData()
+    val navigationValueLiveData: MutableLiveData<Navigation> = CustomMutableLiveData()
 
     private var isSubCategoryList = false
     val categoryList = mutableListOf<Category>()
@@ -46,12 +46,12 @@ class BottomSheetSelectCategoryListViewModel(
 
     override fun onItemClick(data: Category) {
 
-        if (data.is_sub) {
-            getCategories(data.id.toInt())
-            isSubCategoryList = true
-
-            return
-        }
+//        if (data.is_sub) {
+//            getCategories(data.id.toInt())
+//            isSubCategoryList = true
+//
+//            return
+//        }
 
         if (categoryList.contains(data)) {
             categoryList.remove(data)
@@ -61,11 +61,11 @@ class BottomSheetSelectCategoryListViewModel(
     }
 
     fun navigateBack() {
-        if (isSubCategoryList) {
-            isSubCategoryList = false
-            navigation.value = Navigation.OnSubCategoryBack
-        } else {
-            navigation.value = Navigation.OnCategoryBack
-        }
+//        if (isSubCategoryList) {
+//            isSubCategoryList = false
+//            navigation.value = Navigation.OnSubCategoryBack
+//        } else {
+        navigationValueLiveData.value = Navigation.OnCategoryBack
+//        }
     }
 }

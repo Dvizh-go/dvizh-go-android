@@ -20,7 +20,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
-import com.google.android.material.snackbar.Snackbar
 import com.start.dvizk.R
 import com.start.dvizk.arch.data.SharedPreferencesRepository
 import com.start.dvizk.create.steps.data.model.RequestResponseState
@@ -351,7 +350,7 @@ class EventDetailsFragment : Fragment(), OnDateTimeClickListener {
                 }
 
                 val requirements = "Минимальный возраст: ${response.requirements?.age}" +
-                        "\nДополнительные требования: ${response.requirements?.additional_requirements}"
+                    "\nДополнительные требования: ${response.requirements?.additional_requirements}"
                 fragment_detail_page_who_can_participate_requirements.text = requirements
 
                 val description = response.description.toString()

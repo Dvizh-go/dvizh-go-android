@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
@@ -232,30 +233,41 @@ class PhotoStepFragment : Fragment() {
     }
 
     private fun requestPermissions() {
-        val permissions = arrayOf(
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val permissions = arrayOf(
+                Manifest.permission.READ_MEDIA_IMAGES,
+            )
 
-        if (isPermissionGranted()) {
-            Toast.makeText(requireContext(), "Попробуйте еще раз", Toast.LENGTH_LONG).show()
+            if (isPermissionGranted()) {
+                Toast.makeText(requireContext(), "Попробуйте еще раз", Toast.LENGTH_LONG).show()
 
-            return
+                return
+            }
+
+            ActivityCompat.requestPermissions(requireActivity(), permissions, REQUEST_PERMISSION_CODE)
+        } else {
+            val permissions = arrayOf(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            )
+
+            if (isPermissionGranted()) {
+                Toast.makeText(requireContext(), "Попробуйте еще раз", Toast.LENGTH_LONG).show()
+
+                return
+            }
+
+            ActivityCompat.requestPermissions(requireActivity(), permissions, REQUEST_PERMISSION_CODE)
         }
-
-        ActivityCompat.requestPermissions(requireActivity(), permissions, REQUEST_PERMISSION_CODE)
     }
 
     private fun isPermissionGranted(): Boolean {
-        val readPermission = ContextCompat.checkSelfPermission(
-            requireContext(),
+        val readImagePermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+            Manifest.permission.READ_MEDIA_IMAGES
+        else
             Manifest.permission.READ_EXTERNAL_STORAGE
-        )
-        val writePermission = ContextCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
-        return readPermission == PackageManager.PERMISSION_GRANTED && writePermission == PackageManager.PERMISSION_GRANTED
+
+        return ContextCompat.checkSelfPermission(requireContext(), readImagePermission) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun openGalleryForMainImage() {

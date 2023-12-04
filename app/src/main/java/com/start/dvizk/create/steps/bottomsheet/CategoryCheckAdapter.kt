@@ -17,30 +17,29 @@ class CategoryCheckAdapter(
     private var categories = listOf<Category>()
     private var listener: OnCategoryCheckItemClickListener? = null
 
-    private val CATEGORY_WITH_SUB_CAT = 1
-    private val CATEGORY_WITHOUT_SUB_CAT = 2
+//    private val CATEGORY_WITH_SUB_CAT = 1
+//    private val CATEGORY_WITHOUT_SUB_CAT = 2
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-
-        return when (viewType) {
-            CATEGORY_WITH_SUB_CAT -> {
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.item_category_check, parent, false)
-                ViewHolder1(view, resources)
-            }
-            CATEGORY_WITHOUT_SUB_CAT -> {
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.item_subcategory_check, parent, false)
-                ViewHolder2(view, resources)
-            }
-            else -> throw IllegalArgumentException("Invalid view type")
-        }
+//        return when (viewType) {
+//            CATEGORY_WITH_SUB_CAT -> {
+//                val view = LayoutInflater.from(parent.context).inflate(R.layout.item_category_check, parent, false)
+//                ViewHolder1(view, resources)
+//            }
+//            CATEGORY_WITHOUT_SUB_CAT -> {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_subcategory_check, parent, false)
+        return ViewHolder2(view, resources)
+//            }
+//            else -> throw IllegalArgumentException("Invalid view type")
+//        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = categories[position]
         when (holder) {
-            is ViewHolder1 -> {
-                holder.bind(item)
-            }
+//            is ViewHolder1 -> {
+//                holder.bind(item)
+//            }
             is ViewHolder2 -> {
                 holder.bind(item)
             }
@@ -52,13 +51,13 @@ class CategoryCheckAdapter(
         return categories.size
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return if (categories[position].is_sub) {
-            CATEGORY_WITH_SUB_CAT
-        } else {
-            CATEGORY_WITHOUT_SUB_CAT
-        }
-    }
+//    override fun getItemViewType(position: Int): Int {
+//        return if (categories[position].is_sub) {
+//            CATEGORY_WITH_SUB_CAT
+//        } else {
+//            CATEGORY_WITHOUT_SUB_CAT
+//        }
+//    }
 
     fun setListener(listener: OnCategoryCheckItemClickListener) {
         this.listener = listener
@@ -69,17 +68,17 @@ class CategoryCheckAdapter(
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder1(itemView: View, val resources: Resources) : RecyclerView.ViewHolder(itemView) {
-
-        private var title: TextView = itemView.findViewById(R.id.check_text)
-
-        fun bind(organization: Category) {
-            title.text = organization.name
-            itemView.setOnClickListener {
-                listener?.onItemClick(organization)
-            }
-        }
-    }
+//    inner class ViewHolder1(itemView: View, val resources: Resources) : RecyclerView.ViewHolder(itemView) {
+//
+//        private var title: TextView = itemView.findViewById(R.id.check_text)
+//
+//        fun bind(organization: Category) {
+//            title.text = organization.name
+//            itemView.setOnClickListener {
+//                listener?.onItemClick(organization)
+//            }
+//        }
+//    }
 
     inner class ViewHolder2(itemView: View, val resources: Resources) : RecyclerView.ViewHolder(itemView) {
 

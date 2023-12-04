@@ -21,6 +21,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.start.dvizk.R
 import com.start.dvizk.arch.data.SharedPreferencesRepository
 import com.start.dvizk.create.organization.create.presentation.model.OrganizationCreatingState
+import com.vicmikhailau.maskededittext.MaskedFormatter
+import com.vicmikhailau.maskededittext.MaskedWatcher
 import java.io.File
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -61,6 +63,7 @@ class CreateOrgonizationFragment : Fragment() {
 
         initView(view)
         initObservers()
+        maskPhoneNumber()
     }
 
     override fun onRequestPermissionsResult(
@@ -141,7 +144,12 @@ class CreateOrgonizationFragment : Fragment() {
             requireActivity().supportFragmentManager.popBackStack()
         }
         fragment_create_organization_next.setOnClickListener {
-            createOrganization()
+            if (fragment_create_organization_phone_number_edit_text.length() < 18) {
+                fragment_create_organization_phone_number_edit_text.error = "Заполните поле"
+                return@setOnClickListener
+            } else {
+                createOrganization()
+            }
         }
         fragment_create_organization_avatar.setOnClickListener {
             if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -169,12 +177,27 @@ class CreateOrgonizationFragment : Fragment() {
             token = sharedPreferencesRepository.getUserToken(),
             name = fragment_create_organization_name_edit_text.text.toString(),
             description = fragment_create_organization_edit_text_1.text.toString(),
-            phone_number = fragment_create_organization_phone_number_edit_text.text.toString(),
+            phone_number = unMaskPhoneNumber(),
             instagram = fragment_create_organization_instagram_edit_text.text.toString(),
             whatsapp = fragment_create_organization_whatsapp_edit_text.text.toString(),
             email = fragment_create_organization_email_edit_text.text.toString(),
             image = getMultipart(filePath),
         )
+    }
+
+    private fun maskPhoneNumber() {
+        val formatter = MaskedFormatter("+7 (###) ### ## ##")
+        fragment_create_organization_phone_number_edit_text.addTextChangedListener(
+            MaskedWatcher(
+                formatter,
+                fragment_create_organization_phone_number_edit_text
+            )
+        )
+    }
+
+    private fun unMaskPhoneNumber(): String {
+        val formatter = MaskedFormatter("+7 (###) ### ## ##")
+        return "7${formatter.formatString(fragment_create_organization_phone_number_edit_text.text.toString())?.unMaskedString}"
     }
 
     private fun initObservers() {

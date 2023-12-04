@@ -41,8 +41,19 @@ class BottomSheetSelectCategoryListFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView(view)
-        viewModel.categoriesListState.observe(viewLifecycleOwner, ::categoriesListInit)
         viewModel.getCategories(null)
+        initObservers()
+    }
+
+    private fun initObservers() {
+        viewModel.categoriesListState.observe(viewLifecycleOwner, ::categoriesListInit)
+        viewModel.navigationValueLiveData.observe(viewLifecycleOwner, ::navigateBack)
+    }
+
+    private fun navigateBack(navigation: Navigation?) {
+        if (navigation == Navigation.OnCategoryBack) {
+            dismiss()
+        }
     }
 
     override fun onDismiss(dialog: DialogInterface) {
