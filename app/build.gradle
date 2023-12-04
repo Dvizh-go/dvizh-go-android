@@ -114,6 +114,9 @@ dependencies {
 
     //preference
     implementation 'androidx.preference:preference:1.2.1'
+
+    //MaskedEdittext
+    implementation 'io.github.vicmikhailau:MaskedEditText:5.0.1'
 }
 
 ktlint {

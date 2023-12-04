@@ -24,6 +24,8 @@ import com.start.dvizk.registration.dialog.GenderSelectionDialog
 import com.start.dvizk.registration.dialog.GenderSelectionListener
 import com.start.dvizk.registration.registr.presentation.model.User
 import com.start.dvizk.registration.varification.presentation.VerificationCodeFragment
+import com.vicmikhailau.maskededittext.MaskedFormatter
+import com.vicmikhailau.maskededittext.MaskedWatcher
 import java.util.Calendar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -54,6 +56,22 @@ class RegistrationFragment :
         fragmentRegistrationUserGenderSpinner.setOnClickListener(this@RegistrationFragment)
         fragmentRegistrationUserBirthdayTextView.setOnClickListener(this@RegistrationFragment)
         fragmentRegistrationContinue.setOnClickListener(this@RegistrationFragment)
+        maskPhoneNumber()
+    }
+
+    private fun maskPhoneNumber() = with(binding) {
+        val formatter = MaskedFormatter("+7 (###) ### ## ##")
+        fragmentRegistrationUserPhoneEditText.addTextChangedListener(
+            MaskedWatcher(
+                formatter,
+                fragmentRegistrationUserPhoneEditText
+            )
+        )
+    }
+
+    private fun unMaskPhoneNumber(): String {
+        val formatter = MaskedFormatter("+7 (###) ### ## ##")
+        return "7${formatter.formatString(binding.fragmentRegistrationUserPhoneEditText.text.toString())?.unMaskedString}"
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -114,31 +132,40 @@ class RegistrationFragment :
                 getBirthday()
             }
             fragmentRegistrationContinue.id -> {
-                val user = User(
-                    email = fragmentRegistrationUserEmailEditText.text.toString(),
-                    password = null,
-                    name = fragmentRegistrationUserNameEditText.text.toString(),
-                    nickname = fragmentRegistrationUserNicknameEditText.text.toString(),
-                    phone_number = fragmentRegistrationUserPhoneEditText.text.toString(),
-                    gender = gender,
-                    birthday = birthday,
-                    image = filePath,
-                    token = ""
-                )
+                if (fragmentRegistrationUserPhoneEditText.length() < 18) {
+                    fragmentRegistrationUserPhoneEditText.error = "Заполните поле"
+                    return
+                } else {
+                    val user = User(
+                        email = fragmentRegistrationUserEmailEditText.text.toString(),
+                        password = null,
+                        name = fragmentRegistrationUserNameEditText.text.toString(),
+                        nickname = fragmentRegistrationUserNicknameEditText.text.toString(),
+                        phone_number = unMaskPhoneNumber(),
+                        gender = gender,
+                        birthday = birthday,
+                        image = filePath,
+                        token = ""
+                    )
 
-                val bundle = Bundle().apply {
-                    putParcelable("user_regis", user)
+                    val bundle = Bundle().apply {
+                        putParcelable("user_regis", user)
+                    }
+                    val ft: FragmentTransaction =
+                        requireActivity().supportFragmentManager.beginTransaction()
+                    val fragment = PasswordGenerationFragment()
+                    fragment.arguments = bundle
+                    ft.add(R.id.nav_host_fragment_activity_main, fragment)
+                    ft.addToBackStack(null)
+                    ft.commit()
                 }
-                val ft: FragmentTransaction =
-                    requireActivity().supportFragmentManager.beginTransaction()
-                val fragment = PasswordGenerationFragment()
-                fragment.arguments = bundle
-                ft.add(R.id.nav_host_fragment_activity_main, fragment)
-                ft.addToBackStack(null)
-                ft.commit()
             }
             fragmentRegistrationUserImage.id -> {
-                if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(
+                        requireContext(),
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
                     ActivityCompat.requestPermissions(
                         requireActivity(),
                         arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
@@ -180,7 +207,10 @@ class RegistrationFragment :
             is RegistrationState.Success -> {
                 fragment_registration_loader.visibility = View.GONE
                 val bundle = Bundle().apply {
-                    putString("email", binding.fragmentRegistrationUserEmailEditText.text.toString())
+                    putString(
+                        "email",
+                        binding.fragmentRegistrationUserEmailEditText.text.toString()
+                    )
                 }
                 val ft: FragmentTransaction =
                     requireActivity().supportFragmentManager.beginTransaction()
@@ -202,7 +232,8 @@ class RegistrationFragment :
         val datePickerDialog = DatePickerDialog(
             requireContext(),
             { view, year, month, dayOfMonth ->
-                binding.fragmentRegistrationUserBirthdayTextView.text = "$year-${month + 1}-$dayOfMonth"
+                binding.fragmentRegistrationUserBirthdayTextView.text =
+                    "$year-${month + 1}-$dayOfMonth"
                 birthday = "$year-${month + 1}-$dayOfMonth"
             }, year, month, dayOfMonth
         )

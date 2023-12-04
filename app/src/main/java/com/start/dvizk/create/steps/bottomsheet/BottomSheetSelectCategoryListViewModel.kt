@@ -38,7 +38,7 @@ class BottomSheetSelectCategoryListViewModel(
                             CategoriesListState.Success(response.result)
                     is Response.Error ->
                         categoriesListState.value =
-                            CategoriesListState.Failed(response.error.toString())
+                            CategoriesListState.Failed(response.error)
                 }
             }
         }

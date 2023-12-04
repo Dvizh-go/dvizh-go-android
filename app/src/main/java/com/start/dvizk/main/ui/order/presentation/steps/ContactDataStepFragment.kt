@@ -18,6 +18,8 @@ import com.start.dvizk.create.dialog.SuccessDialog
 import com.start.dvizk.create.steps.data.model.RequestResponseState
 import com.start.dvizk.main.ui.order.data.model.TicketOrder
 import com.start.dvizk.main.ui.order.presentation.router.OrderTicketScreenRouter
+import com.vicmikhailau.maskededittext.MaskedFormatter
+import com.vicmikhailau.maskededittext.MaskedWatcher
 import java.util.Calendar
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -55,7 +57,23 @@ class ContactDataStepFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView(view)
+        maskPhoneNumber()
         viewModel.ticketOwnerDataRequestStateLiveData.observe(viewLifecycleOwner, ::handleState)
+    }
+
+    private fun maskPhoneNumber() {
+        val formatter = MaskedFormatter("+7 (###) ### ## ##")
+        fragment_order_contact_details_step_user_phone_number_edit_text.addTextChangedListener(
+            MaskedWatcher(
+                formatter,
+                fragment_order_contact_details_step_user_phone_number_edit_text
+            )
+        )
+    }
+
+    private fun unMaskPhoneNumber(): String {
+        val formatter = MaskedFormatter("+7 (###) ### ## ##")
+        return "7${formatter.formatString(fragment_order_contact_details_step_user_phone_number_edit_text.text.toString())?.unMaskedString}"
     }
 
     private fun initView(view: View) {
@@ -99,21 +117,26 @@ class ContactDataStepFragment : Fragment() {
         fragment_order_contact_details_step_continue_button =
             view.findViewById(R.id.fragment_order_contact_details_step_continue_button)
         fragment_order_contact_details_step_continue_button.setOnClickListener {
-            name = fragment_order_contact_details_step_user_name_edit_text.text.toString()
-            surname = fragment_order_contact_details_step_user_surname_edit_text.text.toString()
-            birthday = fragment_order_contact_details_step_user_birthday_text_view.text.toString()
-            email = fragment_order_contact_details_step_user_email_edit_text.text.toString()
-            phoneNumber = fragment_order_contact_details_step_user_phone_number_edit_text.text.toString()
+            if (fragment_order_contact_details_step_user_phone_number_edit_text.length() < 18) {
+                fragment_order_contact_details_step_user_phone_number_edit_text.error = "Заполните поле"
+                return@setOnClickListener
+            } else {
+                name = fragment_order_contact_details_step_user_name_edit_text.text.toString()
+                surname = fragment_order_contact_details_step_user_surname_edit_text.text.toString()
+                birthday = fragment_order_contact_details_step_user_birthday_text_view.text.toString()
+                email = fragment_order_contact_details_step_user_email_edit_text.text.toString()
+                phoneNumber = unMaskPhoneNumber()
 
-            viewModel.sendTicketOwnerData(
-                token = sharedPreferencesRepository.getUserToken(),
-                ticketOrderId = arguments?.getInt(TICKET_ORDER_ID) ?: 0,
-                name = name,
-                surname = surname,
-                email = email,
-                birthday = birthday,
-                number = phoneNumber,
-            )
+                viewModel.sendTicketOwnerData(
+                    token = sharedPreferencesRepository.getUserToken(),
+                    ticketOrderId = arguments?.getInt(TICKET_ORDER_ID) ?: 0,
+                    name = name,
+                    surname = surname,
+                    email = email,
+                    birthday = birthday,
+                    number = phoneNumber,
+                )
+            }
         }
     }
 

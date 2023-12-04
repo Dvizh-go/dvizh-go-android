@@ -20,6 +20,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
+import com.google.android.material.snackbar.Snackbar
 import com.start.dvizk.R
 import com.start.dvizk.arch.data.SharedPreferencesRepository
 import com.start.dvizk.create.steps.data.model.RequestResponseState
@@ -161,7 +162,8 @@ class EventDetailsFragment : Fragment(), OnDateTimeClickListener {
             view.findViewById(R.id.fragment_detail_page_rules_of_event_button)
         fragment_detail_page_rules_of_event_button.setOnClickListener {
             val eventID = requireArguments().getInt(EVENT_ID)
-            val ft: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+            val ft: FragmentTransaction =
+                requireActivity().supportFragmentManager.beginTransaction()
             val fragment = EventRulesFragment()
             fragment.arguments = Bundle().apply {
                 putInt(EVENT_ID, eventID)
@@ -175,7 +177,8 @@ class EventDetailsFragment : Fragment(), OnDateTimeClickListener {
             view.findViewById(R.id.fragment_detail_page_cancellation_rules_button)
         fragment_detail_page_cancellation_rules_button.setOnClickListener {
             val eventID = requireArguments().getInt(EVENT_ID)
-            val ft: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+            val ft: FragmentTransaction =
+                requireActivity().supportFragmentManager.beginTransaction()
             val fragment = CancellationRulesFragment()
             fragment.arguments = Bundle().apply {
                 putInt(EVENT_ID, eventID)
@@ -245,8 +248,10 @@ class EventDetailsFragment : Fragment(), OnDateTimeClickListener {
             is RequestResponseState.Loading -> {
             }
             is RequestResponseState.Success -> {
-                val ft: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
-                val fragment = OrderTicketScreenRouter.getTicketOrderStepFragment(state.value as? String ?: "")
+                val ft: FragmentTransaction =
+                    requireActivity().supportFragmentManager.beginTransaction()
+                val fragment =
+                    OrderTicketScreenRouter.getTicketOrderStepFragment(state.value as? String ?: "")
                 fragment.arguments = Bundle().apply {
                     putInt(ORDER_DATE_TIME_ID, 168)
                 }
@@ -346,7 +351,7 @@ class EventDetailsFragment : Fragment(), OnDateTimeClickListener {
                 }
 
                 val requirements = "Минимальный возраст: ${response.requirements?.age}" +
-                    "\nДополнительные требования: ${response.requirements?.additional_requirements}"
+                        "\nДополнительные требования: ${response.requirements?.additional_requirements}"
                 fragment_detail_page_who_can_participate_requirements.text = requirements
 
                 val description = response.description.toString()
@@ -373,7 +378,8 @@ class EventDetailsFragment : Fragment(), OnDateTimeClickListener {
 
                 fragment_detail_page_contacts_phone_number.setOnClickListener {
                     val organizationPhoneNumber = "tel:+7${response.organization?.phone_number}"
-                    val phoneNumberIntent = Intent(Intent.ACTION_DIAL, Uri.parse(organizationPhoneNumber))
+                    val phoneNumberIntent =
+                        Intent(Intent.ACTION_DIAL, Uri.parse(organizationPhoneNumber))
                     startActivity(phoneNumberIntent)
                 }
 
@@ -391,11 +397,17 @@ class EventDetailsFragment : Fragment(), OnDateTimeClickListener {
                 }
 
                 fragment_detail_page_contacts_google.setOnClickListener {
-                    val organizationGmail = response.organization?.email
-                    val googleIntent = Intent(Intent.ACTION_SENDTO)
-                    googleIntent.setDataAndType(Uri.parse("mailto:$organizationGmail"), "message/rfc822")
-                    googleIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(organizationGmail))
-                    startActivity(Intent.createChooser(googleIntent, "Choose email client:"))
+                    val arrayString: Array<String> =
+                        arrayOf(response.organization?.email) as Array<String>
+
+                    val intent = Intent(Intent.ACTION_SENDTO).apply {
+                        data = Uri.parse("mailto:") // Only email apps handle this.
+                        putExtra(Intent.EXTRA_EMAIL, arrayString)
+                        putExtra(Intent.EXTRA_SUBJECT, "Go to school")
+                    }
+                    if (intent.resolveActivity(requireActivity().packageManager) != null) {
+                        startActivity(intent)
+                    }
                 }
                 // Временное решение
                 fragment_detail_page_book_event_button.setOnClickListener {
