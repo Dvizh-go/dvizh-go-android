@@ -15,10 +15,10 @@ interface ManageEventsApi {
         @Query("user_id") userId: Int
     ): Call<OrganizationList>
 
-    @GET("/api/v2/organization/{organizationID}/events/active")
+    @GET("/api/v2/organization/{organizationID}/events")
     fun getActiveAvailableEvents(
         @Path("organizationID") organizationId: Int
-    ): Call<List<AvailableEvents>>
+    ): Call<AvailableEvents>
 
     @GET("/api/v2/event_datetime/{datetimeId}/members")
     fun getAvailableEventUsers(

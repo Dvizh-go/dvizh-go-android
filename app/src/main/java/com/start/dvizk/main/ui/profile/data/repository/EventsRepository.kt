@@ -13,7 +13,7 @@ interface EventsRepository {
 
     fun getActiveAvailableEvents(
         organizationId: Int
-    ): Response<List<AvailableEvents>, String>
+    ): Response<AvailableEvents, String>
 
     fun getAvailableEventUsers(
         datetimeId: Int,

@@ -1,7 +1,6 @@
 package com.start.dvizk.main.ui.home.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -75,7 +74,6 @@ class HomeFragment : Fragment(), OnItemClickListener, OnCategoryItemClickListene
                 "UserId " + sharedPreferencesRepository.getUserId()
         )
 
-        Log.i("responseState1", SharedPreferencesRepository(requireContext()).getUserId().toInt().toString())
         checkPageContents()
     }
 
@@ -208,5 +206,13 @@ class HomeFragment : Fragment(), OnItemClickListener, OnCategoryItemClickListene
 
     override fun onItemClick(data: Category) {
         viewModel.getUpcomingEvents(page = 1, categoryId = data.id.toInt())
+    }
+
+    companion object {
+        fun getInstance(args: Bundle?): HomeFragment {
+            val fragment = HomeFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 }

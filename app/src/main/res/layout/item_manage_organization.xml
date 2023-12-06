@@ -25,7 +25,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
-        android:text="Создайте или выберите организацию, это необходимо чтобы создать ивент. Выбранная организация будет видны для участников."
+        android:text="Создайте или выберите организацию, это необходимо чтобы создать ивент. Выбранная организация будет видна для участников."
         android:textColor="@color/prompt_color"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@id/item_organization_image"

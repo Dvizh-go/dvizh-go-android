@@ -20,14 +20,14 @@ class ManageEventsRepository(val manageEventsApi: ManageEventsApi) : EventsRepos
         return Response.Error(message)
     }
 
-    override fun getActiveAvailableEvents(organizationId: Int): Response<List<AvailableEvents>, String> {
+    override fun getActiveAvailableEvents(organizationId: Int): Response<AvailableEvents, String> {
         val response = manageEventsApi.getActiveAvailableEvents(
             organizationId = organizationId
         ).execute()
 
         if (response.isSuccessful) return Response.Success(response.body()!!)
-        val message = JSONObject(response.errorBody()?.string()!!).getString("message")
-        return Response.Error(message)
+//        val message = JSONObject(response.errorBody().toString()).getString("message")
+        return Response.Error(response.message())
     }
 
     override fun getAvailableEventUsers(datetimeId: Int, page: Int): Response<List<EventUsers>, String> {

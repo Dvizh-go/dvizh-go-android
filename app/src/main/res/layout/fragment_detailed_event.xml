@@ -33,7 +33,7 @@
                 android:layout_marginEnd="?attr/actionBarSize"
                 android:fontFamily="@font/app_font_bd"
                 android:gravity="start"
-                android:text="Мастер класс по приготов"
+                tools:text="Мастер класс по приготовлению пасты"
                 android:textColor="@color/white"
                 android:textSize="24sp" />
 
@@ -49,7 +49,7 @@
                 android:id="@+id/tvDateEvent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="12 января, 2023 года"
+                tools:text="12 января, 2023 года"
                 android:textSize="20sp"
                 android:fontFamily="@font/app_font_bd"
                 android:textColor="@color/white"/>
@@ -72,14 +72,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
-                        android:text="На текущий момент"
+                        tools:text="На текущий момент"
                         android:textAllCaps="true"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:text="355/500" />
+                        tools:text="355/500" />
 
                 </LinearLayout>
 
@@ -111,13 +111,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Всего"
+                            tools:text="Всего"
                             android:textAllCaps="true"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="500"
+                            tools:text="500"
+                            android:layout_gravity="center_horizontal"
                             android:layout_marginTop="5dp"
                             android:textColor="@color/white"
                             android:textStyle="bold"/>
@@ -133,15 +134,16 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Продано"
+                            tools:text="Продано"
                             android:textAllCaps="true"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="355"
+                            tools:text="355"
+                            android:layout_gravity="center_horizontal"
                             android:layout_marginTop="5dp"
-                            android:textColor="#50D212"
+                            android:textColor="@color/light_green"
                             android:textStyle="bold"/>
 
                     </LinearLayout>
@@ -155,13 +157,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Осталось"
+                            tools:text="Осталось"
                             android:textAllCaps="true"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="145"
+                            tools:text="145"
+                            android:layout_gravity="center_horizontal"
                             android:layout_marginTop="5dp"
                             android:textColor="#CCBB25"
                             android:textStyle="bold" />
@@ -176,15 +179,16 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Возврат"
+                            tools:text="Возврат"
                             android:textAllCaps="true"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"
+                            tools:text="0"
+                            android:layout_gravity="center_horizontal"
                             android:layout_marginTop="5dp"
-                            android:textColor="#CD2B31"
+                            android:textColor="@color/red_left"
                             android:textStyle="bold"/>
 
                     </LinearLayout>
@@ -217,7 +221,7 @@
                         android:layout_marginStart="24dp"
                         android:layout_marginEnd="24dp"
                         android:fontFamily="@font/app_font_bd"
-                        android:hint="Список участников"
+                        android:text="Список участников"
                         android:paddingVertical="12dp"
                         android:textColor="@color/white"
                         android:textSize="16sp"
@@ -254,7 +258,7 @@
                         android:layout_marginStart="24dp"
                         android:layout_marginEnd="24dp"
                         android:fontFamily="@font/app_font_bd"
-                        android:hint="Посмотреть мероприятие"
+                        android:text="Посмотреть мероприятие"
                         android:paddingVertical="12dp"
                         android:textColor="@color/white"
                         android:textSize="16sp"
@@ -290,7 +294,7 @@
                         android:layout_marginStart="24dp"
                         android:layout_marginEnd="24dp"
                         android:fontFamily="@font/app_font_bd"
-                        android:hint="Остановить продажу"
+                        android:text="Остановить продажу"
                         android:paddingVertical="12dp"
                         android:textColor="@color/white"
                         android:textSize="16sp"

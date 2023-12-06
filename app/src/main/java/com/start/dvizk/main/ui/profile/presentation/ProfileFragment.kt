@@ -15,9 +15,9 @@ import com.start.dvizk.arch.data.SharedPreferencesRepository
 import com.start.dvizk.create.steps.data.model.RequestResponseState
 import com.start.dvizk.databinding.FragmentProfilePageBinding
 import com.start.dvizk.main.ui.home.presentation.HomeFragment
-import com.start.dvizk.main.ui.profile.data.manageEvents.ManageEventsFragment
 import com.start.dvizk.main.ui.profile.data.model.ProfileDataModel
 import com.start.dvizk.util.ActivityLauncher
+import com.start.dvizk.util.FormName
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -65,11 +65,12 @@ class ProfileFragment : Fragment() {
         }
 
         viewBinding.fragmentProfilePageManagingMyEvents.setOnClickListener {
-            val ft: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
-
-            ft.replace(R.id.nav_host_fragment_activity_main, ManageEventsFragment())
-            ft.addToBackStack(null)
-            ft.commit()
+            ActivityLauncher().startBaseActivity(requireContext(), FormName().MANAGE_ORGANIZATION, Bundle())
+//            val ft: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+//
+//            ft.replace(R.id.nav_host_fragment_activity_main, ManageEventsFragment())
+//            ft.addToBackStack(null)
+//            ft.commit()
         }
     }
 

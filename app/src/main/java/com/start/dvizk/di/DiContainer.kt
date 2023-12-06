@@ -44,6 +44,7 @@ import com.start.dvizk.main.ui.order.presentation.steps.TicketOrderViewModel
 import com.start.dvizk.main.ui.profile.data.api.ManageEventsApi
 import com.start.dvizk.main.ui.profile.data.api.ProfileApi
 import com.start.dvizk.main.ui.profile.data.manageEvents.ManageEventsViewModel
+import com.start.dvizk.main.ui.profile.data.manageEvents.organizations.ManageOrganizationViewModel
 import com.start.dvizk.main.ui.profile.data.repository.ManageEventsRepository
 import com.start.dvizk.main.ui.profile.data.repository.ProfileRepository
 import com.start.dvizk.main.ui.profile.presentation.ProfileViewModel
@@ -248,7 +249,7 @@ object DiContainer {
         }
 
         viewModel {
-            ManageEventsViewModel(
+            ManageOrganizationViewModel(
                 application = androidApplication(),
                 manageEventsRepository = get(),
             )
@@ -419,6 +420,13 @@ object DiContainer {
         viewModel {
             PaymentViewModel(
                 application = androidApplication()
+            )
+        }
+
+        viewModel {
+            ManageEventsViewModel(
+                application = androidApplication(),
+                manageEventsRepository = get(),
             )
         }
     }

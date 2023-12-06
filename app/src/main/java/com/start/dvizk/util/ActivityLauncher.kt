@@ -2,8 +2,10 @@ package com.start.dvizk.util
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import com.start.dvizk.create.CreateActivity
 import com.start.dvizk.main.MainActivity
+import com.start.dvizk.main.ui.base.BaseActivity
 import com.start.dvizk.scanner.QRScannerActivity
 import com.start.dvizk.search.SearchActivity
 
@@ -33,6 +35,13 @@ class ActivityLauncher {
 
     fun startSearchActivity(context: Context) {
         val intent = Intent(context, SearchActivity::class.java)
+        context.startActivity(intent)
+    }
+
+    fun startBaseActivity(context: Context, fragment: String, bundle: Bundle) {
+        val intent = Intent(context, BaseActivity::class.java)
+        intent.putExtra(Constant().FORM_NAME, fragment)
+        intent.putExtra(Constant().FORM_DATA, bundle)
         context.startActivity(intent)
     }
 }

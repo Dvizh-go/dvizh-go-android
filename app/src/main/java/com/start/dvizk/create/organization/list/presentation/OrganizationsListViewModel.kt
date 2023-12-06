@@ -37,7 +37,7 @@ class OrganizationsListViewModel(
                             OrganizationListState.Success(response.result)
                     is Response.Error ->
                         organizationListStateLiveData.value =
-                            OrganizationListState.Failed(response.error.toString())
+                            OrganizationListState.Failed(response.error)
                 }
             }
         }
@@ -56,7 +56,7 @@ class OrganizationsListViewModel(
                             CurrentStepState.Success(response.result)
                     is Response.Error ->
                         currentStepStateLiveData.value =
-                            CurrentStepState.Failed(response.error.toString())
+                            CurrentStepState.Failed(response.error)
                 }
             }
         }

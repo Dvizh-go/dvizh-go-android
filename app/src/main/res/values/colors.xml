@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="app_accent">#584DF4</color>
+    <color name="bg_purple">#21584DF4</color>
 
     <color name="nav_focus_color">#584DF4</color>
     <color name="calendar_selector_color">#2315ED</color>
@@ -40,4 +41,6 @@
     <color name="calendar_date_text_color">#FFFFFFFF</color>
 
     <color name="ticket_subtitle_color">#56585C</color>
+    <color name="light_green">#50D212</color>
+    <color name="red_left">#CD2B31</color>
 </resources>
