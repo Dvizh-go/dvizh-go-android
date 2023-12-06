@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.start.dvizk.main.ui.home.presentation.HomeFragment"
+        android:name="com.start.eventgo.main.ui.home.presentation.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.start.dvizk.main.ui.notifications.NotificationsFragment"
+        android:name="com.start.eventgo.main.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
 
     <fragment
         android:id="@+id/navigation_my_tickets"
-        android:name="com.start.dvizk.main.ui.tickets.mytickets.presentation.MyTicketsFragment"
+        android:name="com.start.eventgo.main.ui.tickets.mytickets.presentation.MyTicketsFragment"
         android:label="navigation_my_tickets"
         tools:layout="@layout/fragment_my_tickets" />
 
