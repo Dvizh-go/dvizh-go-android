@@ -10,12 +10,12 @@ import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.start.eventgo.R
 import com.start.eventgo.arch.data.SharedPreferencesRepository
 import com.start.eventgo.create.steps.data.model.RequestResponseState
 import com.start.eventgo.main.ui.detail.presentation.ORDER_DATE_TIME_ID
 import com.start.eventgo.main.ui.order.data.model.TicketOrder
 import com.start.eventgo.main.ui.order.presentation.router.OrderTicketScreenRouter
-import com.start.eventgo.R
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
