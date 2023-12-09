@@ -53,7 +53,7 @@ class ProfileFragment : Fragment() {
             .into(viewBinding.fragmentProfilePageProfileAvatar)
 
         viewBinding.fragmentProfilePageCreateEvent.setOnClickListener {
-            ActivityLauncher().startCreateActivity(requireContext())
+            ActivityLauncher().startCreateActivity(requireContext(), FormName().ORGANIZATION_LIST, Bundle())
         }
 
         viewBinding.fragmentProfilePageLogout.setOnClickListener {

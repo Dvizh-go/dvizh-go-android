@@ -28,8 +28,22 @@ class ActivityLauncher {
         context.startActivity(intent)
     }
 
-    fun startCreateActivity(context: Context) {
+    fun startCreateActivity(context: Context, formName: String, bundle: Bundle) {
         val intent = Intent(context, CreateActivity::class.java)
+        intent.putExtra(Constant().FORM_NAME, formName)
+        intent.putExtra(Constant().FORM_DATA, bundle)
+        context.startActivity(intent)
+    }
+
+    fun startCreateActivityWithFlags(
+        context: Context,
+        formName: String?,
+        bundle: Bundle?
+    ) {
+        val intent = Intent(context, CreateActivity::class.java)
+        intent.putExtra(Constant().FORM_NAME, formName)
+        intent.putExtra(Constant().FORM_DATA, bundle)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         context.startActivity(intent)
     }
 
@@ -38,9 +52,9 @@ class ActivityLauncher {
         context.startActivity(intent)
     }
 
-    fun startBaseActivity(context: Context, fragment: String, bundle: Bundle) {
+    fun startBaseActivity(context: Context, formName: String, bundle: Bundle) {
         val intent = Intent(context, BaseActivity::class.java)
-        intent.putExtra(Constant().FORM_NAME, fragment)
+        intent.putExtra(Constant().FORM_NAME, formName)
         intent.putExtra(Constant().FORM_DATA, bundle)
         context.startActivity(intent)
     }

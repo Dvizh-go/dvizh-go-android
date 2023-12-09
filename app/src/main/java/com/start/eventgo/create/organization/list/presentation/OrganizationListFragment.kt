@@ -5,16 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.start.eventgo.R
 import com.start.eventgo.arch.EventCreateRouter
 import com.start.eventgo.arch.data.SharedPreferencesRepository
-import com.start.eventgo.create.organization.create.presentation.CreateOrgonizationFragment
+import com.start.eventgo.create.InstructionBottomSheetFragment
+import com.start.eventgo.create.organization.create.presentation.CreateOrganizationFragment
 import com.start.eventgo.create.organization.create.presentation.model.CurrentStepState
 import com.start.eventgo.create.organization.list.presentation.adapter.OrganizationAdapter
 import com.start.eventgo.create.organization.list.presentation.model.OrganizationListState
@@ -34,10 +34,11 @@ class OrganizationListFragment : Fragment() {
     private lateinit var createOrganization: Button
     private lateinit var backButton: Button
     private lateinit var nextButton: Button
-    private lateinit var fragment_create_organization_back_image: ImageView
     private lateinit var upcomingEventsRecyclerView: RecyclerView
 
     private lateinit var defaultEventAdapter: OrganizationAdapter
+
+    private var instructionBottomSheetFragment: InstructionBottomSheetFragment? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,12 +55,23 @@ class OrganizationListFragment : Fragment() {
         viewModel.currentStepStateLiveData.observe(viewLifecycleOwner, ::popularListInit)
 
         viewModel.getOrganizationList(SharedPreferencesRepository(requireContext()).getUserId().toInt())
+
+        checkInstruction()
+    }
+
+    private fun checkInstruction() {
+        if (sharedPreferencesRepository.getFirstLaunchInstruction()) {
+            sharedPreferencesRepository.setFirstLaunchInstruction(false)
+
+            instructionBottomSheetFragment = InstructionBottomSheetFragment.getInstance(arguments).also {
+                it.show(parentFragmentManager, it.tag)
+            }
+        }
     }
 
     private fun initView(view: View) {
 
         createOrganization = view.findViewById(R.id.fragment_create_organization_button)
-        fragment_create_organization_back_image = view.findViewById(R.id.fragment_create_organization_back_image)
         upcomingEventsRecyclerView = view.findViewById(R.id.fragment_create_organization_list)
         backButton = view.findViewById(R.id.fragment_create_organization_back)
         nextButton = view.findViewById(R.id.fragment_create_organization_next)
@@ -70,8 +82,9 @@ class OrganizationListFragment : Fragment() {
         upcomingEventsRecyclerView.adapter = defaultEventAdapter
 
         createOrganization.setOnClickListener {
+//            ActivityLauncher().startCreateActivity(requireContext(), FormName().CREATE_ORGANIZATION, Bundle())
             val ft: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
-            val homeFragment = CreateOrgonizationFragment()
+            val homeFragment = CreateOrganizationFragment()
             ft.add(R.id.fragment_container, homeFragment)
             ft.addToBackStack("OrganizationListFragment")
             ft.commit()
@@ -82,15 +95,12 @@ class OrganizationListFragment : Fragment() {
         backButton.setOnClickListener {
             activity?.finish()
         }
-        fragment_create_organization_back_image.setOnClickListener {
-            activity?.finish()
-        }
     }
 
     private fun popularListInit(state: OrganizationListState) {
         when (state) {
             is OrganizationListState.Failed -> {
-                Toast.makeText(requireContext(), state.message, Toast.LENGTH_LONG).show()
+                Snackbar.make(createOrganization, state.message, Snackbar.LENGTH_LONG).show()
             }
             is OrganizationListState.Loading -> {
             }
@@ -103,7 +113,7 @@ class OrganizationListFragment : Fragment() {
     private fun popularListInit(state: CurrentStepState) {
         when (state) {
             is CurrentStepState.Failed -> {
-                Toast.makeText(requireContext(), state.message, Toast.LENGTH_LONG).show()
+                Snackbar.make(createOrganization, state.message, Snackbar.LENGTH_LONG).show()
             }
             is CurrentStepState.Loading -> {
             }
@@ -118,6 +128,14 @@ class OrganizationListFragment : Fragment() {
                 ft.addToBackStack(null)
                 ft.commit()
             }
+        }
+    }
+
+    companion object {
+        fun getInstance(args: Bundle?): OrganizationListFragment {
+            val fragment = OrganizationListFragment()
+            fragment.arguments = args
+            return fragment
         }
     }
 }

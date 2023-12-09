@@ -6,8 +6,7 @@
     android:clickable="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="24dp"
-    android:paddingHorizontal="24dp"
+    android:paddingHorizontal="16dp"
     android:background="@color/app_background">
 
     <ScrollView
@@ -22,7 +21,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp">
 
             <TextView
                 android:id="@+id/fragment_profile_page_title"
@@ -44,7 +44,8 @@
                 android:src="@drawable/ic_more"
                 app:layout_constraintBottom_toBottomOf="@id/fragment_profile_page_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="gone"/>
 
             <ImageView
                 android:id="@+id/fragment_profile_page_profile_avatar"
@@ -62,10 +63,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/app_font_bd"
-                android:text=""
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="32sp"
+                android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/fragment_profile_page_profile_avatar" />
@@ -344,7 +344,7 @@
                     android:id="@+id/fragment_profile_page_language_language"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginHorizontal="5dp"
                     android:fontFamily="@font/app_font_md"
                     android:text="Русский (RU)"
                     android:textAlignment="textEnd"
@@ -572,7 +572,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:visibility="gone"
                 android:id="@+id/fragment_profile_page_settings"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -616,7 +616,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:visibility="gone"
                 android:id="@+id/fragment_profile_page_offer"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -660,7 +660,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:visibility="gone"
                 android:id="@+id/fragment_profile_page_privacy_policy"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -703,7 +703,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/fragment_profile_page_logout"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -717,7 +717,8 @@
                     android:src="@drawable/ic_logout"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginBottom="40dp"/>
 
                 <TextView
                     android:id="@+id/fragment_profile_page_logout_title"
@@ -731,7 +732,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/fragment_profile_page_logout_goto_button"
                     app:layout_constraintStart_toEndOf="@id/fragment_profile_page_logout_icon"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginBottom="40dp"/>
 
                 <ImageView
                     android:id="@+id/fragment_profile_page_logout_goto_button"
@@ -740,7 +742,8 @@
                     android:src="@drawable/ic_arrow_white_right"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginBottom="40dp"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

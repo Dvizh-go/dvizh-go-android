@@ -1,13 +1,10 @@
 package com.start.eventgo.create.steps.photo
 
-import android.Manifest
 import android.app.Activity
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
@@ -17,14 +14,13 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.start.eventgo.R
 import com.start.eventgo.arch.EventCreateRouter
 import com.start.eventgo.arch.data.SharedPreferencesRepository
@@ -34,6 +30,8 @@ import com.start.eventgo.create.steps.data.model.RequestResponseState
 import com.start.eventgo.create.steps.data.model.StepDataApiResponse
 import com.start.eventgo.create.steps.photo.model.ImageAdapter
 import com.start.eventgo.create.steps.photo.model.PhotoResponse
+import com.start.eventgo.util.OSChecker
+import com.start.eventgo.util.REQUEST_PERMISSION_CODE
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -44,7 +42,6 @@ import okhttp3.RequestBody
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-private const val REQUEST_PERMISSION_CODE = 1
 private const val REQUEST_GALLERY = 2
 private const val PICK_IMAGES_REQUEST_CODE = 3
 
@@ -233,41 +230,12 @@ class PhotoStepFragment : Fragment() {
     }
 
     private fun requestPermissions() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            val permissions = arrayOf(
-                Manifest.permission.READ_MEDIA_IMAGES,
-            )
-
-            if (isPermissionGranted()) {
-                Toast.makeText(requireContext(), "Попробуйте еще раз", Toast.LENGTH_LONG).show()
-
-                return
-            }
-
-            ActivityCompat.requestPermissions(requireActivity(), permissions, REQUEST_PERMISSION_CODE)
-        } else {
-            val permissions = arrayOf(
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            )
-
-            if (isPermissionGranted()) {
-                Toast.makeText(requireContext(), "Попробуйте еще раз", Toast.LENGTH_LONG).show()
-
-                return
-            }
-
-            ActivityCompat.requestPermissions(requireActivity(), permissions, REQUEST_PERMISSION_CODE)
-        }
+        if (OSChecker.requestPermissionBasedOS(requireActivity()))
+            Snackbar.make(next, "Попробуйте еще раз", Snackbar.LENGTH_LONG).show()
     }
 
     private fun isPermissionGranted(): Boolean {
-        val readImagePermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-            Manifest.permission.READ_MEDIA_IMAGES
-        else
-            Manifest.permission.READ_EXTERNAL_STORAGE
-
-        return ContextCompat.checkSelfPermission(requireContext(), readImagePermission) == PackageManager.PERMISSION_GRANTED
+        return OSChecker.checkPermissionBasedOS(requireContext())
     }
 
     private fun openGalleryForMainImage() {

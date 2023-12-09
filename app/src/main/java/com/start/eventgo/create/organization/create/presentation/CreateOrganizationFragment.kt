@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,13 +15,14 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.start.eventgo.R
 import com.start.eventgo.arch.data.SharedPreferencesRepository
 import com.start.eventgo.create.organization.create.presentation.model.OrganizationCreatingState
+import com.start.eventgo.util.OSChecker
+import com.start.eventgo.util.REQUEST_PERMISSION_CODE
 import com.vicmikhailau.maskededittext.MaskedFormatter
 import com.vicmikhailau.maskededittext.MaskedWatcher
 import java.io.File
@@ -33,12 +35,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 private const val PICK_IMAGE_REQUEST = 1
 private const val MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123
 
-class CreateOrgonizationFragment : Fragment() {
+class CreateOrganizationFragment : Fragment() {
 
     private val createOrganizationViewModel: CreateOrganizationViewModel by viewModel()
     private val sharedPreferencesRepository: SharedPreferencesRepository by inject()
 
-    private lateinit var fragment_create_organization_back_image: ImageView
     private lateinit var fragment_create_organization_avatar: ImageView
     private lateinit var fragment_create_organization_name_edit_text: EditText
     private lateinit var fragment_create_organization_edit_text_1: EditText
@@ -114,8 +115,6 @@ class CreateOrgonizationFragment : Fragment() {
     }
 
     private fun initView(view: View) {
-        fragment_create_organization_back_image =
-            view.findViewById(R.id.fragment_create_organization_back_image)
         fragment_create_organization_avatar =
             view.findViewById(R.id.fragment_create_organization_avatar)
         fragment_create_organization_name_edit_text =
@@ -137,9 +136,6 @@ class CreateOrgonizationFragment : Fragment() {
         progress_bar =
             requireActivity().findViewById(R.id.progress_bar)
 
-        fragment_create_organization_back_image.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
-        }
         fragment_create_organization_back.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
@@ -152,15 +148,18 @@ class CreateOrgonizationFragment : Fragment() {
             }
         }
         fragment_create_organization_avatar.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED
-            ) {
-                ActivityCompat.requestPermissions(
-                    requireActivity(),
-                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                    MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE
+            if (!isPermissionGranted()) {
+                val permissions = arrayOf(
+                    Manifest.permission.READ_MEDIA_IMAGES,
                 )
+                ActivityCompat.requestPermissions(requireActivity(), permissions, REQUEST_PERMISSION_CODE)
+//                Log.i("permissiongradnted", OSChecker.requestPermissionBasedOS(requireActivity()).toString())
+//                if (OSChecker.requestPermissionBasedOS(requireActivity())) {
+//                    Snackbar.make(it, "Попробуйте еще раз", Snackbar.LENGTH_LONG).show()
+//                    Log.i("permissiongradnted", "sdvsdfa")
+//                }
             } else {
+                Log.i("permissiongradnted", "sdvsdfa")
                 val intent =
                     Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
                 intent.type = "image/*"
@@ -170,6 +169,10 @@ class CreateOrgonizationFragment : Fragment() {
                 )
             }
         }
+    }
+
+    private fun isPermissionGranted(): Boolean {
+        return OSChecker.checkPermissionBasedOS(requireContext())
     }
 
     private fun createOrganization() {
@@ -236,5 +239,13 @@ class CreateOrgonizationFragment : Fragment() {
         val body = RequestBody.create("image/*".toMediaTypeOrNull(), file)
 
         return MultipartBody.Part.createFormData("image", file.name, body)
+    }
+
+    companion object {
+        fun getInstance(args: Bundle?): CreateOrganizationFragment {
+            val fragment = CreateOrganizationFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 }
