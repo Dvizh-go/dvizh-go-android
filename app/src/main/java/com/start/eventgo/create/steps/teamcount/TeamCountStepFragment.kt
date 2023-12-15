@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -74,11 +73,6 @@ class TeamCountStepFragment : Fragment() {
     }
 
     private fun initView(view: View) {
-        val headerBack: ImageView = view.findViewById(R.id.fragment_create_organization_back_image)
-        headerBack.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
-        }
-
         next = view.findViewById(R.id.fragment_create_organization_next)
         back = view.findViewById(R.id.fragment_create_organization_back)
         fragment_create_organization_edit_text_1 = view.findViewById(R.id.fragment_create_organization_edit_text_1)

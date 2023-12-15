@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +17,7 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.snackbar.Snackbar
 import com.start.eventgo.R
 import com.start.eventgo.arch.data.SharedPreferencesRepository
 import com.start.eventgo.create.organization.create.presentation.model.OrganizationCreatingState
@@ -152,14 +152,13 @@ class CreateOrganizationFragment : Fragment() {
                 val permissions = arrayOf(
                     Manifest.permission.READ_MEDIA_IMAGES,
                 )
+
+                if (OSChecker.requestPermissionBasedOS(requireActivity())) {
+                    Snackbar.make(it, "Попробуйте еще раз", Snackbar.LENGTH_LONG).show()
+                }
+
                 ActivityCompat.requestPermissions(requireActivity(), permissions, REQUEST_PERMISSION_CODE)
-//                Log.i("permissiongradnted", OSChecker.requestPermissionBasedOS(requireActivity()).toString())
-//                if (OSChecker.requestPermissionBasedOS(requireActivity())) {
-//                    Snackbar.make(it, "Попробуйте еще раз", Snackbar.LENGTH_LONG).show()
-//                    Log.i("permissiongradnted", "sdvsdfa")
-//                }
             } else {
-                Log.i("permissiongradnted", "sdvsdfa")
                 val intent =
                     Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
                 intent.type = "image/*"
@@ -211,7 +210,7 @@ class CreateOrganizationFragment : Fragment() {
         when (value) {
             is OrganizationCreatingState.Success -> {
                 progress_bar.visibility = View.GONE
-                Toast.makeText(requireContext(), value.message, Toast.LENGTH_LONG).show()
+                Snackbar.make(fragment_create_organization_next, value.message, Snackbar.LENGTH_LONG).show()
                 requireActivity().supportFragmentManager.popBackStack()
             }
             is OrganizationCreatingState.Failed -> {

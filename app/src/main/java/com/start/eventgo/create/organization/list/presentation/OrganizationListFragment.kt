@@ -82,7 +82,6 @@ class OrganizationListFragment : Fragment() {
         upcomingEventsRecyclerView.adapter = defaultEventAdapter
 
         createOrganization.setOnClickListener {
-//            ActivityLauncher().startCreateActivity(requireContext(), FormName().CREATE_ORGANIZATION, Bundle())
             val ft: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
             val homeFragment = CreateOrganizationFragment()
             ft.add(R.id.fragment_container, homeFragment)
