@@ -150,7 +150,7 @@ class CancelTicketFragment : Fragment(), OnSuccessDialogOk {
                         putString(SUCCESS_DIALOG_TITLE, "Отменено")
                         putString(SUCCESS_DIALOG_SUBTITLE, "Вы успешно отменили мероприятие. 80% средств будут возвращены на ваш счет.")
                     }
-                    dialog.show(requireActivity().supportFragmentManager)
+                    dialog.show(requireActivity().supportFragmentManager, "dialog")
                     Toast.makeText(requireContext(), "Причина отмены: $cancelReason", Toast.LENGTH_LONG).show()
                 }
             }

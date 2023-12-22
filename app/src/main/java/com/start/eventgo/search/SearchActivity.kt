@@ -14,7 +14,7 @@ class SearchActivity : AppCompatActivity() {
 
         window.navigationBarColor = ContextCompat.getColor(this, R.color.nav_bg)
 
-        setContentView(layoutInflater.inflate(R.layout.activity_auth, null, false))
+        setContentView(layoutInflater.inflate(R.layout.activity_search, null, false))
 
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
 

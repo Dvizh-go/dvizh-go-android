@@ -1,5 +1,7 @@
 package com.start.eventgo.create.dialog
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -72,9 +74,5 @@ class SuccessDialog : DialogFragment() {
         val fragmentTransaction = manager.beginTransaction()
         fragmentTransaction.add(this, tag)
         fragmentTransaction.commitAllowingStateLoss()
-    }
-
-    fun show(manager: FragmentManager) {
-        show(manager, null)
     }
 }
