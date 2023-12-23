@@ -2,34 +2,63 @@ package com.start.eventgo.create
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.start.eventgo.R
-import com.start.eventgo.arch.data.SharedPreferencesRepository
-import com.start.eventgo.create.organization.list.presentation.OrganizationListFragment
-import org.koin.android.ext.android.inject
+import com.start.eventgo.create.dialog.OnSuccessDialogOk
+import com.start.eventgo.create.dialog.SUCCESS_DIALOG_SUBTITLE
+import com.start.eventgo.create.dialog.SUCCESS_DIALOG_TITLE
+import com.start.eventgo.create.dialog.SuccessDialog
+import com.start.eventgo.databinding.ActivityAuthBinding
+import com.start.eventgo.util.BaseFormManager
+import com.start.eventgo.util.Constant
 
-class CreateActivity : AppCompatActivity() {
+class CreateActivity : AppCompatActivity(), OnSuccessDialogOk {
 
-    private val sharedPreferencesRepository: SharedPreferencesRepository by inject()
+    private val viewBinding: ActivityAuthBinding by viewBinding()
+    private var formArgs: Bundle? = null
+    private var formName: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(layoutInflater.inflate(R.layout.activity_auth, null, false))
+        setContentView(R.layout.activity_auth)
 
-        if (sharedPreferencesRepository.getFirstLaunchInstructio()) {
-            sharedPreferencesRepository.setFirstLaunchInstructio(false)
+        formArgs = intent.getBundleExtra(Constant().FORM_DATA)
+        formName = intent.getStringExtra(Constant().FORM_NAME)
+        bindFragment(formName!!, formArgs)
+        bindToolbar()
+    }
 
-            val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
+    private fun checkSuccessDialog(fragment: Fragment): Boolean {
+        return fragment == SuccessDialog()
+    }
 
-            ft.replace(R.id.fragment_container, InstructionFragment())
+    private fun bindToolbar() {
+        viewBinding.fragmentRegistrationReturnButton.setNavigationOnClickListener {
+            finish()
+        }
+    }
 
-            ft.commit()
+    private fun bindFragment(formName: String, formArgs: Bundle?) {
+        val ft: FragmentTransaction = this.supportFragmentManager.beginTransaction()
+        val homeFragment = BaseFormManager.getStartFormByName(formName, formArgs = formArgs)
+        if (checkSuccessDialog(homeFragment)) {
+            val dialog = SuccessDialog()
+            dialog.setListener(this)
+            dialog.arguments = Bundle().apply {
+                putString(SUCCESS_DIALOG_TITLE, "Поздравляем!")
+                putString(SUCCESS_DIALOG_SUBTITLE, "Ваша заявка на рассмотрении у модераторов.")
+            }
+            dialog.show(supportFragmentManager, "successDialog")
         } else {
-            val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-
-            ft.replace(R.id.fragment_container, OrganizationListFragment())
-
+            ft.replace(R.id.fragment_container, homeFragment)
+            ft.setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
             ft.commit()
         }
+    }
+
+    override fun onPositiveClickButton() {
+        supportFragmentManager.popBackStack()
     }
 }

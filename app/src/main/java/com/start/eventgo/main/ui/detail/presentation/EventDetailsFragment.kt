@@ -420,7 +420,7 @@ class EventDetailsFragment : Fragment(), OnDateTimeClickListener {
     private fun whatsappOpenLink(organizationWhatsapp: String?) {
         if (organizationWhatsapp != null) {
             val organizationWhatsappUri =
-                "https://wa.me/send?phone=${convertWhatsappPhoneNumber(organizationWhatsapp)}&text=Здраствуйте! Пишу из приложения EventGO."
+                "https://wa.me/${convertWhatsappPhoneNumber(organizationWhatsapp)}?text=Здраствуйте!%20Пишу%20из%20приложения%20EventGO."
             openLink(organizationWhatsappUri)
         }
     }

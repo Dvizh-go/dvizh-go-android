@@ -73,8 +73,4 @@ class SuccessDialog : DialogFragment() {
         fragmentTransaction.add(this, tag)
         fragmentTransaction.commitAllowingStateLoss()
     }
-
-    fun show(manager: FragmentManager) {
-        show(manager, null)
-    }
 }

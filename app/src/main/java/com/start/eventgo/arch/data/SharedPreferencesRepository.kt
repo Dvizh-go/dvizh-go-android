@@ -46,11 +46,11 @@ class SharedPreferencesRepository(context: Context) : SharedPreferencesContract 
         prefs.edit().putString(KEY_USER_TOKEN, name).apply()
     }
 
-    fun setFirstLaunchInstructio(value: Boolean) {
+    fun setFirstLaunchInstruction(value: Boolean) {
         prefs.edit().putBoolean(FIRST_LAUNCH_INSTRUCTIOn, value).apply()
     }
 
-    fun getFirstLaunchInstructio(): Boolean {
+    fun getFirstLaunchInstruction(): Boolean {
         return prefs.getBoolean(FIRST_LAUNCH_INSTRUCTIOn, true)
     }
 

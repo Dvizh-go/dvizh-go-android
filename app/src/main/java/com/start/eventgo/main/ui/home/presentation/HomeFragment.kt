@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.GridLayoutManager
@@ -130,7 +131,9 @@ class HomeFragment : Fragment(), OnItemClickListener, OnCategoryItemClickListene
             ActivityLauncher().startSearchActivity(requireContext())
         }
 
+        title.isVisible = sharedPreferencesRepository.getUserName() != ""
         title.text = sharedPreferencesRepository.getUserName()
+
         Glide.with(this).load(sharedPreferencesRepository.getUserImage()).placeholder(R.mipmap.ic_launcher_round).apply(RequestOptions.circleCropTransform()).into(fragment_home_user_photo)
     }
 

@@ -1,5 +1,6 @@
 package com.start.eventgo.create.organization.list.presentation
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.start.eventgo.arch.CustomMutableLiveData
@@ -64,5 +65,6 @@ class OrganizationsListViewModel(
 
     override fun onItemClick(data: Organization) {
         organizationId = data.id
+        Log.i("userToken", organizationId.toString())
     }
 }

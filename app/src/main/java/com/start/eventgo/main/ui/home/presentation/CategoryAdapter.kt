@@ -4,11 +4,9 @@ import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.start.eventgo.R
 import com.start.eventgo.main.ui.home.presentation.model.Category
 
@@ -42,19 +40,19 @@ class CategoryAdapter(private val resources: Resources) : RecyclerView.Adapter<C
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private var image: ImageView = itemView.findViewById(R.id.item_category_icon)
+//        private var image: ImageView = itemView.findViewById(R.id.item_category_icon)
         private var name: TextView = itemView.findViewById(R.id.item_category_title)
 
         fun bind(categorie: Category, listener: OnCategoryItemClickListener?) {
             name.text = categorie.name
-            var imageUrl = ""
-            if (categorie.name != "Все") {
-                imageUrl = "http://157.230.117.5/" + categorie.image
-            }
-            Glide.with(itemView)
-                .load(imageUrl)
-                .error(R.drawable.ic_logo)
-                .into(image)
+//            var imageUrl = ""
+//            if (categorie.name != "Все") {
+//                imageUrl = "http://157.230.117.5/" + categorie.image
+//            }
+//            Glide.with(itemView)
+//                .load(imageUrl)
+//                .error(R.drawable.ic_logo)
+//                .into(image)
             if (categorie.isSelected) {
                 itemView.background = ResourcesCompat.getDrawable(resources, R.drawable.bg_purple_rounded_corners_fill, itemView.context.theme)
                 name.setTextColor(resources.getColor(R.color.white))

@@ -40,9 +40,6 @@ class CategoryStepFragment : Fragment(R.layout.fragment_category_step), OnSelect
     }
 
     private fun initView() = with(binding) {
-        fragmentCreateOrganizationBackImage.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
-        }
 
         fragmentCategoryStepList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         defaultEventAdapter = CreateEventCategoryListAdapter(resources)
