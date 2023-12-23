@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.start.eventgo.R
+import com.start.eventgo.main.ui.home.presentation.OnItemClickListener
 import com.start.eventgo.main.ui.home.presentation.model.Event
 import com.start.eventgo.main.ui.home.presentation.model.EventDateTime
 import com.start.eventgo.main.ui.home.presentation.model.EventLocation
@@ -22,6 +24,8 @@ import java.time.Month
 import java.time.format.DateTimeFormatter
 
 class SearchEventAdapter(private val list: List<Event>, val resources: Resources) : RecyclerView.Adapter<SearchEventAdapter.ViewHolder>() {
+
+    private var listener: OnItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -37,19 +41,23 @@ class SearchEventAdapter(private val list: List<Event>, val resources: Resources
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val event = list[position]
-        holder.bind(event)
+        holder.bind(event, listener)
+    }
+
+    fun setListener(listener: OnItemClickListener) {
+        this.listener = listener
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
+        private var layout: ConstraintLayout = view.findViewById(R.id.constraint)
         private var image: ImageView = view.findViewById(R.id.item_favorite_event_image)
         private var title: TextView = view.findViewById(R.id.item_favorite_event_title)
         private var date: TextView = view.findViewById(R.id.item_favorite_event_date)
         private var location: TextView = view.findViewById(R.id.item_favorite_event_location)
         private var isFavorite: ImageView = view.findViewById(R.id.item_favorite_event_is_favorite_icon)
 
-        fun bind(event: Event) {
-
+        fun bind(event: Event, listener: OnItemClickListener?) {
             Glide.with(itemView)
                 .load(event.main_image)
                 .transform(MultiTransformation(CenterCrop(), RoundedCorners(resources.getDimensionPixelSize(R.dimen.big_event_default_image_radius))))
@@ -67,6 +75,10 @@ class SearchEventAdapter(private val list: List<Event>, val resources: Resources
             isFavorite.setOnClickListener {
                 event.is_favorite = !event.is_favorite
                 notifyDataSetChanged()
+            }
+
+            layout.setOnClickListener {
+                listener?.onItemClick(event)
             }
         }
 

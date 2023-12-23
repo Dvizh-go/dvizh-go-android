@@ -4,10 +4,10 @@
     android:id="@+id/notification"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingVertical="12dp"
-    tools:background="@color/app_background">
+    android:paddingVertical="12dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="14dp"
