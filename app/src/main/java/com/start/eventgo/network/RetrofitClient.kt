@@ -10,7 +10,7 @@ class RetrofitClient {
 
         val client = OkHttpClient().newBuilder().build()
         return Retrofit.Builder()
-            .baseUrl("http://157.230.117.5")
+            .baseUrl("http://eventgo.kz/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

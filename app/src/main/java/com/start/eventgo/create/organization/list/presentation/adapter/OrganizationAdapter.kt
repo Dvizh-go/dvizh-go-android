@@ -58,7 +58,7 @@ class OrganizationAdapter(
             title.text = organization.name
             description.text = organization.description
             Glide.with(itemView)
-                .load("http://157.230.117.5/" + organization.image)
+                .load("http://eventgo.kz/" + organization.image)
                 .apply(RequestOptions.circleCropTransform())
                 .into(image)
             itemView.setOnClickListener {

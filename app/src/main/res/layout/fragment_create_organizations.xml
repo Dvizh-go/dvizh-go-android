@@ -240,7 +240,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_gradient_dark_grey_button"
                 android:drawablePadding="16dp"
-                android:hint="https://wa.me/77064130699"
+                android:hint="https://wa.me/77777777777"
                 android:padding="20dp"
                 android:paddingBottom="40dp"
                 android:textColor="@color/white"

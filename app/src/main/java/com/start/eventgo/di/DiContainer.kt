@@ -192,7 +192,7 @@ object DiContainer {
 
     fun getRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://157.230.117.5")
+            .baseUrl("http://eventgo.kz")
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
