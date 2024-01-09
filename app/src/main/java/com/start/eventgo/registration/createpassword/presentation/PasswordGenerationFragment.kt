@@ -1,5 +1,7 @@
 package com.start.eventgo.registration.createpassword.presentation
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.View.OnClickListener
@@ -34,6 +36,7 @@ class PasswordGenerationFragment :
         initObservers()
         fragment_registration_loader = requireActivity().findViewById(R.id.progress_bar)
         binding.fragmentPasswordGenerationContinueButton.setOnClickListener(this)
+        binding.fragmentPasswordGenerationPolicy.setOnClickListener(this)
         binding.fragmentPasswordGenerationReturnButton.setNavigationOnClickListener { activity?.onBackPressed() }
     }
 
@@ -76,6 +79,11 @@ class PasswordGenerationFragment :
                         ).show()
                     }
                 }
+            }
+            fragmentPasswordGenerationPolicy.id -> {
+                Toast.makeText(requireContext(), "Toast", Toast.LENGTH_LONG).show()
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://eventgo.kz/policy"))
+                startActivity(browserIntent)
             }
         }
     }

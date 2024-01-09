@@ -31,4 +31,5 @@
     <string name="qr" translatable="false">
         QR
     </string>
+    <string name="politics">Нажимая кнопку Продолжить, <u>вы соглашаетесь с политикой конфеденциальности и правилами пользования.</u></string>
 </resources>

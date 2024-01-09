@@ -30,4 +30,5 @@
     <string name="log_in_phone_mail_edit">Phone number, username, or email address</string>
     <string name="password_login">Password</string>
     <string name="remember_me_login">Remember me</string>
+    <string name="politics">Нажимая кнопку Продолжить, <u>вы соглашаетесь с политикой конфеденциальности и правилами пользования.</u></string>
 </resources>
