@@ -37,7 +37,7 @@
             android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Каждая идея опыта проверяется небольшой командой в Dvizh. Если ваша идея соответствует стандартам качества, вы сможете добавить даты и начать размещение."
+            android:text="Каждая идея опыта проверяется небольшой командой в EventGo. Если ваша идея соответствует стандартам качества, вы сможете добавить даты и начать размещение."
             android:textAlignment="center"
             android:textSize="16sp"
             android:layout_below="@+id/title"
