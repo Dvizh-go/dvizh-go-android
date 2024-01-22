@@ -15,3 +15,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "dvizh"
 include ':app'
+include ':data'
+include ':domain'
