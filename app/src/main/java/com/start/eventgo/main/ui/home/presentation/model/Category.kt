@@ -16,4 +16,5 @@ data class Category(
     @JsonProperty("is_sub")
     val is_sub: Boolean,
     var isSelected: Boolean = false,
+    val isEmpty: Boolean = false,
 )

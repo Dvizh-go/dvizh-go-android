@@ -185,9 +185,13 @@ class HomeFragment : Fragment(), OnItemClickListener, OnCategoryItemClickListene
             is CategoriesListState.Loading -> {
             }
             is CategoriesListState.Success -> {
-                categoryAdapter.setData(state.categories)
+                checkEmptiness(state.categories)
             }
         }
+    }
+
+    private fun checkEmptiness(categories: List<Category>) {
+        categoryAdapter.setData(categories.filter { !it.isEmpty })
     }
 
     private fun upcomingListInit(state: UpcomingEventsState) {
