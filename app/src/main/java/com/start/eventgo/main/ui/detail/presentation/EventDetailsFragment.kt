@@ -410,8 +410,13 @@ class EventDetailsFragment : Fragment(), OnDateTimeClickListener {
                 }
                 // Временное решение
                 fragment_detail_page_book_event_button.setOnClickListener {
-                    val organizationWhatsapp = response.organization?.whatsapp
-                    whatsappOpenLink(organizationWhatsapp)
+                    if (response.id == 319) {
+                        val googleFormUrl = "https://forms.gle/Kewpdfi132hgeFya9"
+                        openLink(googleFormUrl)
+                    } else {
+                        val organizationWhatsapp = response.organization?.whatsapp
+                        whatsappOpenLink(organizationWhatsapp)
+                    }
                 }
             }
         }
@@ -420,7 +425,7 @@ class EventDetailsFragment : Fragment(), OnDateTimeClickListener {
     private fun whatsappOpenLink(organizationWhatsapp: String?) {
         if (organizationWhatsapp != null) {
             val organizationWhatsappUri =
-                "https://wa.me/${convertWhatsappPhoneNumber(organizationWhatsapp)}?text=Здраствуйте!%20Пишу%20из%20приложения%20EventGO."
+                "https://wa.me/${convertWhatsappPhoneNumber(organizationWhatsapp)}?text=Пишу%20из%20приложения%20Event%20Go,%20можете%20ли%20рассказать%20про%20мероприятие%20подробнее?"
             openLink(organizationWhatsappUri)
         }
     }
