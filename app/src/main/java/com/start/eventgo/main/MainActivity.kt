@@ -1,18 +1,10 @@
 package com.start.eventgo.main
 
-import android.Manifest
-import android.content.Intent
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.start.eventgo.R
 import com.start.eventgo.arch.data.SharedPreferencesRepository
 import com.start.eventgo.auth.main.MainAuthFragment

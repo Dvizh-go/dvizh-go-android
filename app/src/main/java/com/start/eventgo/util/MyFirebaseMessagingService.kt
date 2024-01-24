@@ -1,6 +1,5 @@
 package com.start.eventgo.util
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -10,7 +9,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.widget.RemoteViews
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -23,25 +21,25 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
         if (message.notification != null) {
-            if (Build.VERSION.SDK_INT >= 33) {
-                notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-            }
+//            if (Build.VERSION.SDK_INT >= 33) {
+//                notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+//            }
             generateNotification(message.notification!!.title!!, message.notification!!.body!!)
         }
     }
 
-    private val notificationPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (!isGranted) {
-                if (Build.VERSION.SDK_INT >= 33) {
-                    if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
-                        showNotificationPermissionRationale()
-                    } else {
-                        showSettingDialog()
-                    }
-                }
-            }
-        }
+//    private val notificationPermissionLauncher =
+//        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+//            if (!isGranted) {
+//                if (Build.VERSION.SDK_INT >= 33) {
+//                    if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
+//                        showNotificationPermissionRationale()
+//                    } else {
+//                        showSettingDialog()
+//                    }
+//                }
+//            }
+//        }
 
     @SuppressLint("RemoteViewLayout")
     fun getRemoteView(title: String, message: String): RemoteViews {
