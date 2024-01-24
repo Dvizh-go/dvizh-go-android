@@ -43,4 +43,6 @@
     <color name="ticket_subtitle_color">#56585C</color>
     <color name="light_green">#50D212</color>
     <color name="red_left">#CD2B31</color>
+
+    <color name="logo_bkg_color">#140C74</color>
 </resources>
