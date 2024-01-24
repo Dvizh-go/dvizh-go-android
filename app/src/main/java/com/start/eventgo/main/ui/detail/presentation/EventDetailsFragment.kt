@@ -410,9 +410,8 @@ class EventDetailsFragment : Fragment(), OnDateTimeClickListener {
                 }
                 // Временное решение
                 fragment_detail_page_book_event_button.setOnClickListener {
-                    if (response.id == 319) {
-                        val googleFormUrl = "https://forms.gle/Kewpdfi132hgeFya9"
-                        openLink(googleFormUrl)
+                    if (response.link != null) {
+                        openLink(response.link)
                     } else {
                         val organizationWhatsapp = response.organization?.whatsapp
                         whatsappOpenLink(organizationWhatsapp)

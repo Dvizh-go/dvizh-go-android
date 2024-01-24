@@ -2,6 +2,7 @@ package com.start.eventgo.main.ui.detail.data.model
 
 data class EventDetailDataModel(
     val id: Int,
+    val link: String,
     val images: List<String?>?,
     val name: String?,
     val datetimes: List<DateTime>?,
