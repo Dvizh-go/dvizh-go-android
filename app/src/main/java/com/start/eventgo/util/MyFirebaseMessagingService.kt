@@ -21,25 +21,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
         if (message.notification != null) {
-//            if (Build.VERSION.SDK_INT >= 33) {
-//                notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-//            }
             generateNotification(message.notification!!.title!!, message.notification!!.body!!)
         }
     }
-
-//    private val notificationPermissionLauncher =
-//        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-//            if (!isGranted) {
-//                if (Build.VERSION.SDK_INT >= 33) {
-//                    if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
-//                        showNotificationPermissionRationale()
-//                    } else {
-//                        showSettingDialog()
-//                    }
-//                }
-//            }
-//        }
 
     @SuppressLint("RemoteViewLayout")
     fun getRemoteView(title: String, message: String): RemoteViews {

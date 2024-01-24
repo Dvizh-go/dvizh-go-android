@@ -1,6 +1,13 @@
 package com.start.eventgo.main
 
+import android.Manifest
+import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentTransaction
@@ -82,41 +89,52 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        if (Build.VERSION.SDK_INT >= 33) {
+            notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        }
     }
 
+    private val notificationPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (!isGranted) {
+                if (Build.VERSION.SDK_INT >= 33) {
+                    if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
+                        showNotificationPermissionRationale()
+                    } else {
+                        showSettingDialog()
+                    }
+                }
+            }
+        }
 
+    private fun showSettingDialog() {
+        AlertDialog.Builder(
+            this,
+        )
+            .setTitle("Разрешение на уведомление")
+            .setMessage("Требуется разрешение на уведомление, пожалуйста, разрешите разрешение на уведомление в настройках")
+            .setPositiveButton("ОК") { _, _ ->
+                val intent = Intent(ACTION_APPLICATION_DETAILS_SETTINGS)
+                intent.data = Uri.parse("package:$packageName")
+                startActivity(intent)
+            }
+            .setNegativeButton("Отменить", null)
+            .show()
+    }
 
-//    private fun showSettingDialog() {
-//        MaterialAlertDialogBuilder(
-//            this,
-//            com.google.android.material.R.style.MaterialAlertDialog_Material3
-//        )
-//            .setTitle("Разрешение на уведомление")
-//            .setMessage("Требуется разрешение на уведомление, пожалуйста, разрешите разрешение на уведомление в настройках")
-//            .setPositiveButton("ОК") { _, _ ->
-//                val intent = Intent(ACTION_APPLICATION_DETAILS_SETTINGS)
-//                intent.data = Uri.parse("package:$packageName")
-//                startActivity(intent)
-//            }
-//            .setNegativeButton("Отменить", null)
-//            .show()
-//    }
-//
-//    private fun showNotificationPermissionRationale() {
-//        MaterialAlertDialogBuilder(
-//            this,
-//            com.google.android.material.R.style.MaterialAlertDialog_Material3
-//        )
-//            .setTitle("Тревога")
-//            .setMessage("Для отображения уведомления требуется разрешение на уведомление")
-//            .setPositiveButton("ОК") { _, _ ->
-//                if (Build.VERSION.SDK_INT >= 33) {
-//                    notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-//                }
-//            }
-//            .setNegativeButton("Отменить", null)
-//            .show()
-//    }
-//
-//    var hasNotificationPermissionGranted = false
+    private fun showNotificationPermissionRationale() {
+        AlertDialog.Builder(
+            this,
+        )
+            .setTitle("Тревога")
+            .setMessage("Для отображения уведомления требуется разрешение на уведомление")
+            .setPositiveButton("ОК") { _, _ ->
+                if (Build.VERSION.SDK_INT >= 33) {
+                    notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                }
+            }
+            .setNegativeButton("Отменить", null)
+            .show()
+    }
 }
