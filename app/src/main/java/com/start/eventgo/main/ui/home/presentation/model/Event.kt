@@ -20,7 +20,8 @@ data class EventDateTime(
     val duration: String,
     val event_id: Long,
     val created_at: String,
-    val updated_at: String
+    val updated_at: String,
+    val price: Int,
 )
 
 data class EventLocation(

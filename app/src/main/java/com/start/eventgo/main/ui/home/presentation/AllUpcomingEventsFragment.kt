@@ -85,7 +85,7 @@ class AllUpcomingEventsFragment : Fragment(), OnItemClickListener, OnCategoryIte
 
         fragment_upcoming_events_page_event_recycler_view.layoutManager =
             GridLayoutManager(requireContext(), 2, LinearLayoutManager.VERTICAL, false)
-        defaultEventAdapter = DefaultEventAdapter(resources)
+        defaultEventAdapter = DefaultEventAdapter(requireContext(), resources)
         defaultEventAdapter.setListener(this)
         fragment_upcoming_events_page_event_recycler_view.adapter = defaultEventAdapter
     }

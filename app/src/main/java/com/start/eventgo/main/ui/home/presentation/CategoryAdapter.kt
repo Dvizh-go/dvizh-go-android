@@ -39,20 +39,10 @@ class CategoryAdapter(private val resources: Resources) : RecyclerView.Adapter<C
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-//        private var image: ImageView = itemView.findViewById(R.id.item_category_icon)
         private var name: TextView = itemView.findViewById(R.id.item_category_title)
 
         fun bind(categorie: Category, listener: OnCategoryItemClickListener?) {
             name.text = categorie.name
-//            var imageUrl = ""
-//            if (categorie.name != "Все") {
-//                imageUrl = "http://157.230.117.5/" + categorie.image
-//            }
-//            Glide.with(itemView)
-//                .load(imageUrl)
-//                .error(R.drawable.ic_logo)
-//                .into(image)
             if (categorie.isSelected) {
                 itemView.background = ResourcesCompat.getDrawable(resources, R.drawable.bg_purple_rounded_corners_fill, itemView.context.theme)
                 name.setTextColor(resources.getColor(R.color.white))

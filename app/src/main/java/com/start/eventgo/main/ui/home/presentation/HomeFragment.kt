@@ -4,18 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.start.eventgo.R
 import com.start.eventgo.arch.data.SharedPreferencesRepository
 import com.start.eventgo.main.ui.detail.presentation.EventDetailsFragment
@@ -25,8 +20,6 @@ import com.start.eventgo.main.ui.home.presentation.model.Event
 import com.start.eventgo.main.ui.home.presentation.model.FirstItemMarginDecoration
 import com.start.eventgo.main.ui.home.presentation.model.PopularEventsState
 import com.start.eventgo.main.ui.home.presentation.model.UpcomingEventsState
-import com.start.eventgo.main.ui.notifications.NotificationsFragment
-import com.start.eventgo.util.ActivityLauncher
 import com.start.eventgo.util.CacheUtil
 import com.start.eventgo.util.Constant
 import org.koin.android.ext.android.inject
@@ -42,12 +35,9 @@ class HomeFragment : Fragment(), OnItemClickListener, OnCategoryItemClickListene
     private lateinit var popularRecyclerView: RecyclerView
     private lateinit var categoryRecyclerView: RecyclerView
     private lateinit var upcomingEventsRecyclerView: RecyclerView
-    private lateinit var fragment_home_user_photo: ImageView
     private lateinit var fragment_home_upcoming_events_progress_bar: ProgressBar
-    private lateinit var title: TextView
     private lateinit var fragment_home_upcoming_title_show: TextView
-    private lateinit var notificationIcon: ImageView
-    private lateinit var searchView: View
+    private lateinit var fragment_home_popular_title_show: TextView
 
     private lateinit var popularAdapter: BigEventAdapter
     private lateinit var categoryAdapter: CategoryAdapter
@@ -101,23 +91,12 @@ class HomeFragment : Fragment(), OnItemClickListener, OnCategoryItemClickListene
     }
 
     private fun initView(view: View) {
-        title = view.findViewById(R.id.fragment_home_user_nickname)
         fragment_home_upcoming_title_show = view.findViewById(R.id.fragment_home_upcoming_title_show)
+        fragment_home_popular_title_show = view.findViewById(R.id.fragment_home_popular_title_show)
         popularRecyclerView = view.findViewById(R.id.fragment_home_popular)
         categoryRecyclerView = view.findViewById(R.id.fragment_home_category_recycler_view)
         upcomingEventsRecyclerView = view.findViewById(R.id.fragment_home_upcoming_events_recycler_view)
-        fragment_home_user_photo = view.findViewById(R.id.fragment_home_user_photo)
         fragment_home_upcoming_events_progress_bar = view.findViewById(R.id.fragment_home_upcoming_events_progress_bar)
-        notificationIcon = view.findViewById(R.id.fragment_home_notification)
-        searchView = view.findViewById(R.id.fragment_home_search_edit_text)
-
-        notificationIcon.setOnClickListener {
-            val ft: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
-
-            ft.add(R.id.nav_host_fragment_activity_main, NotificationsFragment())
-            ft.addToBackStack("")
-            ft.commit()
-        }
 
         fragment_home_upcoming_title_show.setOnClickListener {
             val ft: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
@@ -127,19 +106,17 @@ class HomeFragment : Fragment(), OnItemClickListener, OnCategoryItemClickListene
             ft.commit()
         }
 
-        searchView.setOnClickListener {
-            ActivityLauncher().startSearchActivity(requireContext())
+        fragment_home_popular_title_show.setOnClickListener {
+            val ft: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+            ft.add(R.id.nav_host_fragment_activity_main, AllUpcomingEventsFragment())
+            ft.addToBackStack("")
+            ft.commit()
         }
-
-        title.isVisible = sharedPreferencesRepository.getUserName() != ""
-        title.text = sharedPreferencesRepository.getUserName()
-
-        Glide.with(this).load(sharedPreferencesRepository.getUserImage()).placeholder(R.mipmap.ic_launcher_round).apply(RequestOptions.circleCropTransform()).into(fragment_home_user_photo)
     }
 
     private fun initPopularList() {
         popularRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        popularAdapter = BigEventAdapter(resources)
+        popularAdapter = BigEventAdapter(requireContext(), resources)
         popularAdapter.setListener(this)
         popularRecyclerView.adapter = popularAdapter
 
@@ -147,13 +124,13 @@ class HomeFragment : Fragment(), OnItemClickListener, OnCategoryItemClickListene
         categoryAdapter = CategoryAdapter(resources)
         categoryAdapter.setListener(this)
         categoryRecyclerView.adapter = categoryAdapter
-        val firstItemOffset = resources.getDimensionPixelSize(R.dimen.first_item_offset)
+        val firstItemOffset = resources.getDimensionPixelSize(R.dimen.first_item_offset_main_event)
         val subsequentItemOffset = resources.getDimensionPixelSize(R.dimen.subsequent_item_offset)
         val itemDecoration = FirstItemMarginDecoration(firstItemOffset, subsequentItemOffset)
         categoryRecyclerView.addItemDecoration(itemDecoration)
 
-        upcomingEventsRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2, LinearLayoutManager.VERTICAL, false)
-        defaultEventAdapter = DefaultEventAdapter(resources)
+        upcomingEventsRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        defaultEventAdapter = DefaultEventAdapter(requireContext(), resources)
         defaultEventAdapter.setListener(this)
         upcomingEventsRecyclerView.adapter = defaultEventAdapter
     }
@@ -204,7 +181,6 @@ class HomeFragment : Fragment(), OnItemClickListener, OnCategoryItemClickListene
                 fragment_home_upcoming_events_progress_bar.visibility = View.VISIBLE
             }
             is UpcomingEventsState.Success -> {
-
                 fragment_home_upcoming_events_progress_bar.visibility = View.GONE
                 defaultEventAdapter.setData(state.events)
             }
