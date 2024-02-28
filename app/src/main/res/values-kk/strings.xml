@@ -13,6 +13,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <string name="title_main">Главная</string>
     <string name="title_search">Поиск</string>
     <string name="title_favorites">Избранное</string>
     <string name="title_qr">Dvizh QR</string>
@@ -31,4 +32,8 @@
     <string name="password_login">Пароль</string>
     <string name="remember_me_login">Запомнить меня</string>
     <string name="politics">Нажимая кнопку Продолжить, <u>вы соглашаетесь с политикой конфеденциальности и правилами пользования.</u></string>
+    <string name="soon_home_page">Скоро</string>
+    <string name="see_all_home_page">Все</string>
+    <string name="interesting_now_home_page">Интересно сейчас</string>
+    <string name="event_price_from">от %s ₸</string>
 </resources>
