@@ -5,8 +5,8 @@
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 
     <string-array name="gender">
-        <item>Муж</item>
-        <item>Жен</item>
+        <item>Мужчина</item>
+        <item>Женщина</item>
     </string-array>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Home</string>
@@ -32,6 +32,9 @@
     <string name="password_login">Пароль</string>
     <string name="remember_me_login">Запомнить меня</string>
     <string name="politics">Нажимая кнопку Продолжить, <u>вы соглашаетесь с политикой конфеденциальности и правилами пользования.</u></string>
+    <string name="choose_sex_type">Выберите пол</string>
+    <string name="type_man">Еркек</string>
+    <string name="type_woman">Әйел</string>
     <string name="soon_home_page">Скоро</string>
     <string name="see_all_home_page">Все</string>
     <string name="interesting_now_home_page">Интересно сейчас</string>
