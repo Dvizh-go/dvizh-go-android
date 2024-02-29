@@ -34,4 +34,9 @@
     <string name="choose_sex_type">Choose sex</string>
     <string name="type_man">Man</string>
     <string name="type_woman">Woman</string>
+    <string name="soon_home_page">Soon</string>
+    <string name="see_all_home_page">All</string>
+    <string name="interesting_now_home_page">Interesting now</string>
+    <string name="title_main">Main</string>
+    <string name="event_price_from">from %s ₸</string>
 </resources>

@@ -18,6 +18,7 @@ import com.start.eventgo.auth.main.MainAuthFragment
 import com.start.eventgo.main.ui.home.presentation.HomeFragment
 import com.start.eventgo.main.ui.profile.presentation.ProfileFragment
 import com.start.eventgo.main.ui.tickets.mytickets.presentation.MyTicketsFragment
+import com.start.eventgo.search.search.presentation.SearchFragment
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
@@ -42,6 +43,14 @@ class MainActivity : AppCompatActivity() {
                     val ft: FragmentTransaction = this.supportFragmentManager.beginTransaction()
                     val homeFragment = HomeFragment()
                     ft.replace(R.id.nav_host_fragment_activity_main, homeFragment)
+                    ft.commit()
+
+                    true
+                }
+                R.id.navigation_search -> {
+                    val ft: FragmentTransaction = this.supportFragmentManager.beginTransaction()
+                    val searchFragment = SearchFragment()
+                    ft.replace(R.id.nav_host_fragment_activity_main, searchFragment)
                     ft.commit()
 
                     true

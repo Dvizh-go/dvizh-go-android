@@ -1,5 +1,7 @@
 package com.start.eventgo.main.ui.home.presentation
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
@@ -9,12 +11,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.MultiTransformation
-import com.bumptech.glide.load.resource.bitmap.FitCenter
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.start.eventgo.R
 import com.start.eventgo.main.ui.home.presentation.model.Event
 import com.start.eventgo.main.ui.home.presentation.model.EventDateTime
-import com.start.eventgo.main.ui.home.presentation.model.EventLocation
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
@@ -22,6 +23,7 @@ import java.time.Month
 import java.time.format.DateTimeFormatter
 
 class BigEventAdapter(
+    private val context: Context,
     private val resources: Resources
 ) : RecyclerView.Adapter<BigEventAdapter.ViewHolder>() {
 
@@ -35,7 +37,7 @@ class BigEventAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = events[position]
-        holder.bind(item, listener)
+        holder.bind(item, listener, context)
     }
 
     override fun getItemCount(): Int {
@@ -52,21 +54,21 @@ class BigEventAdapter(
     }
 
     class ViewHolder(itemView: View, val resources: Resources) : RecyclerView.ViewHolder(itemView) {
-
         private var image: ImageView = itemView.findViewById(R.id.item_event_image)
         private var title: TextView = itemView.findViewById(R.id.item_event_title_text_view)
         private var data: TextView = itemView.findViewById(R.id.item_event_subtitle_text_view)
-        private var address: TextView = itemView.findViewById(R.id.item_event_address_text_view)
+        private var price: TextView = itemView.findViewById(R.id.item_event_price_text_view)
 
-        fun bind(event: Event, listener: OnItemClickListener?) {
+        @SuppressLint("StringFormatMatches")
+        fun bind(event: Event, listener: OnItemClickListener?, context: Context) {
 
             Glide.with(itemView)
                 .load(event.main_image)
-                .transform(MultiTransformation(FitCenter(), RoundedCorners(resources.getDimensionPixelSize(R.dimen.big_event_default_image_radius))))
+                .transform(MultiTransformation(CenterCrop(), RoundedCorners(resources.getDimensionPixelSize(R.dimen.big_event_default_image_radius))))
                 .into(image)
             title.text = event.name
             data.text = getDate(event.datetime)
-            address.text = getLocation(event.location)
+            price.text = context.getString(R.string.event_price_from, event.datetime.price)
 
             itemView.setOnClickListener {
                 listener?.onItemClick(event)
@@ -117,12 +119,6 @@ class BigEventAdapter(
             val formattedEndTime = endTime.format(timeFormatter)
 
             return "$formattedDayOfWeek, $dayOfMonth $formattedMonth · $formattedStartTime - $formattedEndTime"
-        }
-
-        private fun getLocation(location: EventLocation): String {
-            val address = location.apartment
-            val city = location.city.name
-            return "$address, $city"
         }
     }
 }

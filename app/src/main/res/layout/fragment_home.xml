@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/nav_bg">
@@ -11,112 +10,29 @@
         android:layout_height="wrap_content"
         android:paddingBottom="44dp">
 
-        <ImageView
-            android:id="@+id/fragment_home_user_photo"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/bg_item_event_image_corners"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher_round"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <LinearLayout
-            android:id="@+id/linearLayoutName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:gravity="center_vertical"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/fragment_home_search_edit_text"
-            app:layout_constraintEnd_toStartOf="@+id/fragment_home_notification"
-            app:layout_constraintStart_toEndOf="@+id/fragment_home_user_photo"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/fragment_home_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ловите момент 🤟"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/fragment_home_user_nickname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/fragment_home_notification"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_notification_home"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/fragment_home_search_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/bg_gradient_dark_grey_button"
-            android:drawableLeft="@drawable/ic_search"
-            android:drawablePadding="16dp"
-            android:hint="Какое событие вы ищете..."
-            android:inputType="textPassword"
-            android:padding="12dp"
-            android:textColor="@color/white"
-            android:textColorHint="#9D9E9E"
-            android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@id/fragment_home_user_photo" />
-
-        <ImageView
-            android:id="@+id/fragment_home_filter"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="20dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_filter"
-            app:layout_constraintBottom_toBottomOf="@id/fragment_home_search_edit_text"
-            app:layout_constraintEnd_toEndOf="@id/fragment_home_search_edit_text"
-            app:layout_constraintTop_toTopOf="@id/fragment_home_search_edit_text" />
-
         <TextView
             android:id="@+id/fragment_home_popular_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:text="Популярные"
+            android:text="@string/interesting_now_home_page"
             android:textColor="@color/white"
             android:textSize="20sp"
+            android:layout_marginTop="24dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragment_home_search_edit_text" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/fragment_home_popular_title_show"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="Посмотреть все"
+            android:text="@string/see_all_home_page"
             android:textColor="@color/nav_focus_color"
             android:textSize="20sp"
-            android:visibility="invisible"
+            android:layout_marginTop="24dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragment_home_search_edit_text" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_home_popular"
@@ -133,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            android:text="Предстоящие 🔥"
+            android:text="@string/soon_home_page"
             android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -145,10 +61,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="Посмотреть все"
+            android:text="@string/see_all_home_page"
             android:textColor="@color/nav_focus_color"
             android:textSize="20sp"
-            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fragment_home_popular" />
 
@@ -163,7 +78,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_home_upcoming_events_recycler_view"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             app:layout_constraintEnd_toEndOf="parent"

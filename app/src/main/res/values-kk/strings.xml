@@ -13,6 +13,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <string name="title_main">Главная</string>
     <string name="title_search">Поиск</string>
     <string name="title_favorites">Избранное</string>
     <string name="title_qr">Dvizh QR</string>
@@ -34,4 +35,8 @@
     <string name="choose_sex_type">Выберите пол</string>
     <string name="type_man">Еркек</string>
     <string name="type_woman">Әйел</string>
+    <string name="soon_home_page">Скоро</string>
+    <string name="see_all_home_page">Все</string>
+    <string name="interesting_now_home_page">Интересно сейчас</string>
+    <string name="event_price_from">от %s ₸</string>
 </resources>

@@ -28,11 +28,15 @@
     <string name="log_in_phone_mail_edit">Телефон, имя пользователя или эл. а</string>
     <string name="password_login">Пароль</string>
     <string name="remember_me_login">Запомнить меня</string>
-    <string name="qr" translatable="false">
-        QR
-    </string>
+    <string name="qr" translatable="false">QR</string>
     <string name="politics">Нажимая кнопку Продолжить, <u>вы соглашаетесь с политикой конфеденциальности и правилами пользования.</u></string>
     <string name="choose_sex_type">Выберите пол</string>
     <string name="type_man">Мужчина</string>
     <string name="type_woman">Женщина</string>
+    <string name="soon_home_page">Скоро</string>
+    <string name="see_all_home_page">Все</string>
+    <string name="interesting_now_home_page">Интересно сейчас</string>
+    <string name="title_main">Главная</string>
+
+    <string name="event_price_from">от %s ₸</string>
 </resources>

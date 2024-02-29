@@ -2,6 +2,7 @@
 <resources>
 
     <dimen name="first_item_offset">24dp</dimen>
+    <dimen name="first_item_offset_main_event">18dp</dimen>
     <dimen name="subsequent_item_offset">2dp</dimen>
 
     <dimen name="big_event_image_radius">40dp</dimen>
