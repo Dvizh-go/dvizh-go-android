@@ -67,8 +67,11 @@ class BigEventAdapter(
                 .transform(MultiTransformation(CenterCrop(), RoundedCorners(resources.getDimensionPixelSize(R.dimen.big_event_default_image_radius))))
                 .into(image)
             title.text = event.name
-            data.text = getDate(event.datetime)
-            price.text = context.getString(R.string.event_price_from, event.datetime.price)
+            data.text = event.datetime_range
+            if (event.datetime.price != 0)
+                price.text = context.getString(R.string.event_price_from, event.datetime.price)
+            else
+                price.text = context.getString(R.string.free)
 
             itemView.setOnClickListener {
                 listener?.onItemClick(event)

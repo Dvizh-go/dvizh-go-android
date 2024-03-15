@@ -39,4 +39,5 @@
     <string name="interesting_now_home_page">Interesting now</string>
     <string name="title_main">Main</string>
     <string name="event_price_from">from %s ₸</string>
+    <string name="free">Free</string>
 </resources>

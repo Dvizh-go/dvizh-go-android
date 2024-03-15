@@ -11,7 +11,8 @@ data class Event(
     val datetime: @RawValue EventDateTime,
     val location: @RawValue EventLocation,
     val main_image: String,
-    var is_favorite: Boolean
+    var is_favorite: Boolean,
+    val datetime_range: String,
 ) : Parcelable
 
 data class EventDateTime(

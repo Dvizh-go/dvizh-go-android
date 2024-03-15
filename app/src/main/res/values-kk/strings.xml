@@ -39,4 +39,5 @@
     <string name="see_all_home_page">Все</string>
     <string name="interesting_now_home_page">Интересно сейчас</string>
     <string name="event_price_from">от %s ₸</string>
+    <string name="free">Тегін</string>
 </resources>
