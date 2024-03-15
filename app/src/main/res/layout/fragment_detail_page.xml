@@ -26,8 +26,8 @@
                 android:layout_width="0dp"
                 android:layout_height="455dp"
                 app:iss_auto_cycle="false"
-                app:iss_placeholder="@drawable/ic_logo"
-                app:iss_error_image="@drawable/ic_logo"
+                app:iss_placeholder="@drawable/logo_event"
+                app:iss_error_image="@drawable/logo_event"
                 app:iss_selected_dot="@drawable/ic_dot_selected"
                 app:iss_unselected_dot="@drawable/ic_dot_unselected"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -370,7 +370,6 @@
                         android:fontFamily="@font/app_font_bd"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/fragment_detail_page_follow_button"
                         app:layout_constraintBottom_toTopOf="@id/fragment_detail_page_organizer_status" />
 
                     <TextView
@@ -385,22 +384,22 @@
                         app:layout_constraintEnd_toEndOf="@id/fragment_detail_page_organizer_name"
                         app:layout_constraintBottom_toBottomOf="parent" />
 
-                    <Button
-                        android:id="@+id/fragment_detail_page_follow_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="36dp"
-                        android:paddingHorizontal="15dp"
-                        android:layout_marginStart="10dp"
-                        android:background="@drawable/bg_purple_button"
-                        android:text="Подписаться"
-                        android:textSize="14sp"
-                        android:textColor="@color/white"
-                        android:textAllCaps="false"
-                        android:fontFamily="@font/app_font_bd"
-                        app:layout_constraintTop_toTopOf="@id/fragment_detail_page_organizer_name"
-                        app:layout_constraintStart_toEndOf="@id/fragment_detail_page_organizer_name"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toBottomOf="@id/fragment_detail_page_organizer_status"/>
+<!--                    <Button-->
+<!--                        android:id="@+id/fragment_detail_page_follow_button"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="36dp"-->
+<!--                        android:paddingHorizontal="15dp"-->
+<!--                        android:layout_marginStart="10dp"-->
+<!--                        android:background="@drawable/bg_purple_button"-->
+<!--                        android:text="Подписаться"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textAllCaps="false"-->
+<!--                        android:fontFamily="@font/app_font_bd"-->
+<!--                        app:layout_constraintTop_toTopOf="@id/fragment_detail_page_organizer_name"-->
+<!--                        app:layout_constraintStart_toEndOf="@id/fragment_detail_page_organizer_name"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintBottom_toBottomOf="@id/fragment_detail_page_organizer_status"/>-->
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

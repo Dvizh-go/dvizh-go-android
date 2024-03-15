@@ -133,7 +133,7 @@
                 android:id="@+id/bottom_sheet_fragment_filter_price_range_max_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_grey_rounded_corners"
+                android:background="@drawable/bg_light_grey_rounded_corners"
                 android:paddingVertical="6dp"
                 android:paddingStart="16dp"
                 android:paddingEnd="82dp"

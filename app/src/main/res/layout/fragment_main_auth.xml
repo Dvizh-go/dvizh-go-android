@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#181a20">
+    android:background="@color/nav_bg"
+    android:scrollbars="none">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -31,117 +32,118 @@
             android:textSize="32sp"
             app:layout_constraintTop_toBottomOf="@id/image1" />
 
-        <LinearLayout
-            android:id="@+id/auth_facebook"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="25dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/bg_gradient_dark_grey_button"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/welcome">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/auth_facebook"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginHorizontal="16dp"-->
+<!--            android:layout_marginTop="40dp"-->
+<!--            android:background="@drawable/bg_gradient_dark_grey_button"-->
+<!--            android:gravity="center"-->
+<!--            android:orientation="horizontal"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/welcome">-->
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_2" />
+<!--            <ImageView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:src="@drawable/ic_2" />-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:paddingVertical="18dp"
-                android:text="@string/continue_register_facebook"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-        </LinearLayout>
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="12dp"-->
+<!--                android:paddingVertical="18dp"-->
+<!--                android:text="@string/continue_register_facebook"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="16sp" />-->
+<!--        </LinearLayout>-->
 
-        <LinearLayout
-            android:id="@+id/auth_google"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="25dp"
-            android:layout_marginTop="18dp"
-            android:background="@drawable/bg_gradient_dark_grey_button"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/auth_facebook">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/auth_google"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginHorizontal="16dp"-->
+<!--            android:layout_marginTop="18dp"-->
+<!--            android:background="@drawable/bg_gradient_dark_grey_button"-->
+<!--            android:gravity="center"-->
+<!--            android:orientation="horizontal"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/auth_facebook">-->
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_google" />
+<!--            <ImageView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:src="@drawable/ic_google" />-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:paddingVertical="18dp"
-                android:text="@string/continue_register_google"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-        </LinearLayout>
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="12dp"-->
+<!--                android:paddingVertical="18dp"-->
+<!--                android:text="@string/continue_register_google"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="16sp" />-->
+<!--        </LinearLayout>-->
 
-        <View
-            android:id="@+id/view1"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="12dp"
-            android:background="#35383F"
-            android:paddingTop="8dp"
-            app:layout_constraintEnd_toStartOf="@id/text1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/auth_google" />
+<!--        <View-->
+<!--            android:id="@+id/view1"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:layout_marginStart="24dp"-->
+<!--            android:layout_marginTop="28dp"-->
+<!--            android:layout_marginEnd="12dp"-->
+<!--            android:background="#35383F"-->
+<!--            android:paddingTop="8dp"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/text1"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/welcome" />-->
 
-        <View
-            android:id="@+id/view2"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="32dp"
-            android:background="#35383F"
-            android:paddingTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/text1"
-            app:layout_constraintTop_toBottomOf="@id/auth_google" />
+<!--        <View-->
+<!--            android:id="@+id/view2"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:layout_marginStart="12dp"-->
+<!--            android:layout_marginTop="28dp"-->
+<!--            android:layout_marginEnd="24dp"-->
+<!--            android:background="#35383F"-->
+<!--            android:paddingTop="8dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@id/text1"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/welcome" />-->
 
-        <TextView
-            android:id="@+id/text1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/or"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@id/view1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/view1" />
+<!--        <TextView-->
+<!--            android:id="@+id/text1"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            android:text="@string/or"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="16sp"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/view1"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="@id/view1" />-->
 
         <Button
             android:id="@+id/button1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="25dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="150dp"
             android:background="@drawable/bg_purple_button"
             android:text="@string/sign_in_with_password"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/text1" />
+            app:layout_constraintTop_toBottomOf="@id/welcome" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:paddingTop="15dp"
             android:orientation="horizontal"
+            android:paddingTop="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button1">
