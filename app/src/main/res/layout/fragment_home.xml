@@ -1,131 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#181A20"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/nav_bg">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="44dp">
 
-        <ImageView
-            android:id="@+id/fragment_home_user_photo"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            android:src="@mipmap/ic_launcher_round"
-            android:scaleType="centerCrop"
-            android:background="@drawable/bg_item_event_image_corners"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/fragment_home_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="Ловите момент 🤟"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@id/fragment_home_user_photo"
-            app:layout_constraintTop_toTopOf="@id/fragment_home_user_photo" />
-
-        <TextView
-            android:id="@+id/fragment_home_user_nickname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@id/fragment_home_title"
-            app:layout_constraintTop_toBottomOf="@id/fragment_home_title" />
-
-        <ImageView
-            android:id="@+id/fragment_home_notification"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            android:src="@drawable/ic_notification_home"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/fragment_home_search_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="25dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/bg_gradient_dark_grey_button"
-            android:drawableLeft="@drawable/ic_search"
-            android:drawablePadding="16dp"
-            android:hint="Какое событие вы ищете..."
-            android:inputType="textPassword"
-            android:padding="12dp"
-            android:textColor="@color/white"
-            android:textColorHint="#9D9E9E"
-            android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@id/fragment_home_user_nickname" />
-
-        <ImageView
-            android:id="@+id/fragment_home_filter"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="20dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_filter"
-            app:layout_constraintBottom_toBottomOf="@id/fragment_home_search_edit_text"
-            app:layout_constraintEnd_toEndOf="@id/fragment_home_search_edit_text"
-            app:layout_constraintTop_toTopOf="@id/fragment_home_search_edit_text" />
-
         <TextView
             android:id="@+id/fragment_home_popular_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:text="Популярные"
+            android:layout_marginStart="16dp"
+            android:text="@string/interesting_now_home_page"
             android:textColor="@color/white"
             android:textSize="20sp"
+            android:layout_marginTop="24dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragment_home_search_edit_text" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/fragment_home_popular_title_show"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:layout_marginTop="24dp"
-            android:text="Посмотреть все"
-            android:visibility="invisible"
+            android:layout_marginEnd="16dp"
+            android:text="@string/see_all_home_page"
             android:textColor="@color/nav_focus_color"
             android:textSize="20sp"
+            android:layout_marginTop="24dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragment_home_search_edit_text" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_home_popular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fragment_home_popular_title" />
 
         <TextView
             android:id="@+id/fragment_home_upcoming_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            android:text="Предстоящие 🔥"
+            android:text="@string/soon_home_page"
             android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -135,10 +59,9 @@
             android:id="@+id/fragment_home_upcoming_title_show"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
             android:layout_marginTop="24dp"
-            android:text="Посмотреть все"
-            android:visibility="invisible"
+            android:layout_marginEnd="16dp"
+            android:text="@string/see_all_home_page"
             android:textColor="@color/nav_focus_color"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -149,29 +72,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fragment_home_upcoming_title" />
-
-        <ProgressBar
-            android:id="@+id/fragment_home_upcoming_events_progress_bar"
-            android:layout_width="0dp"
-            android:visibility="gone"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragment_home_category_recycler_view" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_home_upcoming_events_recycler_view"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:layout_marginStart="6dp"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragment_home_category_recycler_view" />
+
+        <ProgressBar
+            android:id="@+id/fragment_home_upcoming_events_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fragment_home_category_recycler_view" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

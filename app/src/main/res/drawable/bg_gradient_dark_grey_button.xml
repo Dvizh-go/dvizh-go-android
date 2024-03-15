@@ -9,8 +9,8 @@
         />
     <gradient
         android:angle="270"
-        android:startColor="#1F222A"
-        android:endColor="#1F222A"
+        android:startColor="@color/card_bg"
+        android:endColor="@color/card_bg"
         />
     <corners android:radius="16dp" />
 </shape>

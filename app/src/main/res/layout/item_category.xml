@@ -3,35 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/bg_purple_rounded_corners"
-    android:paddingHorizontal="20dp"
+    android:paddingHorizontal="12dp"
     android:paddingTop="8dp"
     android:layout_marginEnd="12dp"
-    android:paddingBottom="12dp">
-
-    <ImageView
-        android:id="@+id/item_category_icon"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_marginTop="4dp"
-        android:foregroundGravity="center_vertical"
-        android:src="@drawable/ic_logo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:paddingBottom="8dp">
 
     <TextView
         android:id="@+id/item_category_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
         android:gravity="center"
-        android:textSize="16sp"
+        tools:text="Музыка"
         android:textColor="@color/white"
-        android:text="Музыка"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/item_category_icon"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
